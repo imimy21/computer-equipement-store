@@ -46,7 +46,7 @@ function HomePage() {
             <img
               src="/laptop.png"
               alt="PCs Portables"
-              className="w-20 h-20 md:w-24 md:h-24 object-contain mb-2"
+              className="w-30 h-30 md:w-24 md:h-24 object-contain mb-2"
             />
             <p className="text-sm md:text-base font-medium text-gray-700">
               PCs Portables
@@ -58,7 +58,7 @@ function HomePage() {
             <img
               src="/components.png"
               alt="Composants Pc"
-              className="w-20 h-20 md:w-24 md:h-24 object-contain mb-2"
+              className="w-28 h-28 md:w-24 md:h-24 object-contain mb-2"
             />
             <p className="text-sm md:text-base font-medium text-gray-700">
               Composants Pc
@@ -70,7 +70,7 @@ function HomePage() {
             <img
               src="/accessory.png"
               alt="Périphériques & accessoires"
-              className="w-20 h-20 md:w-24 md:h-24 object-contain mb-2"
+              className="w-30 h-30 md:w-26 md:h-26 object-contain mb-2"
             />
             <p className="text-sm md:text-base font-medium text-gray-700 text-center">
               Périphériques & accessoires
@@ -82,10 +82,54 @@ function HomePage() {
             <img
               src="/printer.png"
               alt="Les imprimantes"
-              className="w-20 h-20 md:w-24 md:h-24 object-contain mb-2"
+              className="w-28 h-28 md:w-26 md:h-26 object-contain mb-2"
             />
             <p className="text-sm md:text-base font-medium text-gray-700">
               Les imprimantes
+            </p>
+          </div>
+          {/* Card 5 */}
+          <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105">
+            <img
+              src="/monitor.png"
+              alt="computer monitors"
+              className="w-28 h-28 md:w-24 md:h-24 object-contain mb-2"
+            />
+            <p className="text-sm md:text-base font-medium text-gray-700 text-center">
+              Computer Monitors
+            </p>
+          </div>
+            {/* Card 6 */}
+               <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105">
+            <img
+              src="/cases.png"
+              alt="computer Cases"
+              className="w-28 h-28 md:w-24 md:h-24 object-contain mb-2"
+            />
+            <p className="text-sm md:text-base font-medium text-gray-700 text-center">
+              Computer Cases
+            </p>
+          </div>
+             {/* Card 7 */}
+                <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105">
+            <img
+              src="/cables.png"
+              alt="Cables & adapters"
+             className="w-28 h-28 md:w-24 md:h-24 object-contain mb-2"
+            />
+            <p className="text-sm md:text-base font-medium text-gray-700 text-center">
+              Cables & adapters
+            </p>
+          </div>
+          {/* Card 8 */}
+            <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105">
+            <img
+              src="/gaming.png"
+              alt="Gaming Zone"
+              className="w-30 h-30 md:w-28 md:h-28 object-contain mb-2"
+            />
+            <p className="text-sm md:text-base font-medium text-gray-700 text-center">
+              Gaming Zone
             </p>
           </div>
         </div>
