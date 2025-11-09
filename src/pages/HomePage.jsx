@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 import { Menu, User } from "lucide-react";
 
 function HomePage() {
@@ -37,7 +39,7 @@ function HomePage() {
       {/* Categories */}
       <section className="mt-10 px-6 text-center">
         <h2 className="text-xl md:text-2xl font-medium mb-6 text-gray-900">
-          Achetez Par Catégorie
+          Our categories
         </h2>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
@@ -49,21 +51,24 @@ function HomePage() {
               className="w-30 h-30 md:w-24 md:h-24 object-contain mb-2"
             />
             <p className="text-sm md:text-base font-medium text-gray-700">
-              PCs Portables
+              Laptop
             </p>
           </div>
 
           {/* Card 2 */}
-          <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105">
-            <img
-              src="/components.png"
-              alt="Composants Pc"
-              className="w-28 h-28 md:w-24 md:h-24 object-contain mb-2"
-            />
-            <p className="text-sm md:text-base font-medium text-gray-700">
-              Composants Pc
-            </p>
-          </div>
+<Link to="/composants">
+  <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105 cursor-pointer">
+    <img
+      src="/components.png"
+      alt="Composants Pc"
+      className="w-28 h-28 md:w-24 md:h-24 object-contain mb-2"
+    />
+    <p className="text-sm md:text-base font-medium text-gray-700">
+      Components
+    </p>
+  </div>
+</Link>
+
 
           {/* Card 3 */}
           <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105">
@@ -73,7 +78,7 @@ function HomePage() {
               className="w-30 h-30 md:w-26 md:h-26 object-contain mb-2"
             />
             <p className="text-sm md:text-base font-medium text-gray-700 text-center">
-              Périphériques & accessoires
+              Peripherals & accessories
             </p>
           </div>
 
@@ -85,7 +90,7 @@ function HomePage() {
               className="w-28 h-28 md:w-26 md:h-26 object-contain mb-2"
             />
             <p className="text-sm md:text-base font-medium text-gray-700">
-              Les imprimantes
+              printer
             </p>
           </div>
           {/* Card 5 */}
