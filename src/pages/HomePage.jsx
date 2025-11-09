@@ -1,5 +1,6 @@
 import React from "react";
 import { Menu, User } from "lucide-react";
+import { Link } from "react-router-dom";
 
 function HomePage() {
   return (
@@ -65,17 +66,19 @@ function HomePage() {
             </p>
           </div>
 
-          {/* Card 3 */}
-          <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105">
-            <img
-              src="/accessory.png"
-              alt="Périphériques & accessoires"
-              className="w-30 h-30 md:w-26 md:h-26 object-contain mb-2"
-            />
-            <p className="text-sm md:text-base font-medium text-gray-700 text-center">
-              Périphériques & accessoires
-            </p>
-          </div>
+          {/* Card 3 - Périphériques & accessoires (قابل للنقر) */}
+          <Link to="/peripheriques">
+            <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105 cursor-pointer">
+              <img
+                src="/accessory.png"
+                alt="Périphériques & accessoires"
+                className="w-30 h-30 md:w-26 md:h-26 object-contain mb-2"
+              />
+              <p className="text-sm md:text-base font-medium text-gray-700 text-center">
+                Périphériques & accessoires
+              </p>
+            </div>
+          </Link>
 
           {/* Card 4 */}
           <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105">
@@ -88,6 +91,7 @@ function HomePage() {
               Les imprimantes
             </p>
           </div>
+
           {/* Card 5 */}
           <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105">
             <img
@@ -99,8 +103,9 @@ function HomePage() {
               Computer Monitors
             </p>
           </div>
-            {/* Card 6 */}
-               <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105">
+
+          {/* Card 6 */}
+          <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105">
             <img
               src="/cases.png"
               alt="computer Cases"
@@ -110,19 +115,21 @@ function HomePage() {
               Computer Cases
             </p>
           </div>
-             {/* Card 7 */}
-                <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105">
+
+          {/* Card 7 */}
+          <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105">
             <img
               src="/cables.png"
               alt="Cables & adapters"
-             className="w-28 h-28 md:w-24 md:h-24 object-contain mb-2"
+              className="w-28 h-28 md:w-24 md:h-24 object-contain mb-2"
             />
             <p className="text-sm md:text-base font-medium text-gray-700 text-center">
               Cables & adapters
             </p>
           </div>
+
           {/* Card 8 */}
-            <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105">
+          <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105">
             <img
               src="/gaming.png"
               alt="Gaming Zone"
