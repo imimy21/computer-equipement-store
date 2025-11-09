@@ -1,8 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
 import { Menu, User } from "lucide-react";
-import { Link } from "react-router-dom";
 
 function HomePage() {
   return (
@@ -57,22 +55,20 @@ function HomePage() {
           </div>
 
           {/* Card 2 */}
-<Link to="/composants">
-  <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105 cursor-pointer">
-    <img
-      src="/components.png"
-      alt="Composants Pc"
-      className="w-28 h-28 md:w-24 md:h-24 object-contain mb-2"
-    />
-    <p className="text-sm md:text-base font-medium text-gray-700">
-      Components
-    </p>
-  </div>
-</Link>
+          <Link to="/composants">
+            <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105 cursor-pointer">
+              <img
+                src="/components.png"
+                alt="Composants Pc"
+                className="w-28 h-28 md:w-24 md:h-24 object-contain mb-2"
+              />
+              <p className="text-sm md:text-base font-medium text-gray-700">
+                Components
+              </p>
+            </div>
+          </Link>
 
-
-<<<<<<< HEAD
-          {/* Card 3 - Périphériques & accessoires (قابل للنقر) */}
+          {/* Card 3 - Périphériques & accessoires */}
           <Link to="/peripheriques">
             <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105 cursor-pointer">
               <img
@@ -85,19 +81,6 @@ function HomePage() {
               </p>
             </div>
           </Link>
-=======
-          {/* Card 3 */}
-          <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105">
-            <img
-              src="/accessory.png"
-              alt="Périphériques & accessoires"
-              className="w-30 h-30 md:w-26 md:h-26 object-contain mb-2"
-            />
-            <p className="text-sm md:text-base font-medium text-gray-700 text-center">
-              Peripherals & accessories
-            </p>
-          </div>
->>>>>>> 9f86a54265ee33baac7c25d0b828856f5c571807
 
           {/* Card 4 */}
           <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105">
