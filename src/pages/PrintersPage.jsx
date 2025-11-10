@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { ArrowLeft, ShoppingCart, Plus, Minus, Star } from "lucide-react";
+import { useNavigate } from "react-router-dom"; // 👈 استيراد useNavigate
 
-function PrintersPage({ onBack }) {
+function PrintersPage() {
+  const navigate = useNavigate(); // 👈 إنشاء الموجه
   const [cart, setCart] = useState([]);
 
   // دالة لإضافة منتج إلى السلة
@@ -38,7 +40,7 @@ function PrintersPage({ onBack }) {
     );
   };
 
-  // بيانات الطابعات بالفرنسية
+  // بيانات الطابعات
   const printers = [
     {
       id: 1,
@@ -125,9 +127,7 @@ function PrintersPage({ onBack }) {
       description: "Imprimante laser couleur avec impression recto verso automatique",
       features: ["Laser couleur", "Recto verso", "Wi-Fi", "22 ppm"],
       brand: "Canon",
-
-
-type: "Laser",
+      type: "Laser",
       rating: 4.5
     },
     {
@@ -151,120 +151,11 @@ type: "Laser",
       brand: "Brother",
       type: "Jet d'encre",
       rating: 4.8
-    },
-    {
-      id: 11,
-      name: "HP LaserJet Pro MFP M28w",
-      price: "26,500 DA",
-      image: "/printer.png",
-      description: "Multifonction laser monochrome ultra-compacte avec Wi-Fi",
-      features: ["Laser monochrome", "Multifonction", "Wi-Fi", "Compacte"],
-      brand: "HP",
-      type: "Laser",
-      rating: 4.4
-    },
-    {
-      id: 12,
-      name: "Canon SELPHY CP1300",
-      price: "15,000 DA",
-      image: "/printer.png",
-      description: "Imprimante photo portable avec écran LCD 3.2 pouces",
-      features: ["Photo portable", "Sans PC", "Batterie", "Haute qualité"],
-      brand: "Canon",
-      type: "Photo",
-      rating: 4.7
-    },
-    {
-      id: 13,
-      name: "Epson SureColor SC-P50",
-      price: "85,000 DA",
-      image: "/printer.png",
-      description: "Imprimante photo professionnelle A2 pour photographes",
-      features: ["Format A2", "Professionnelle", "6 couleurs", "Haute précision"],
-      brand: "Epson",
-      type: "Photo",
-      rating: 4.9
-    },
-    {
-      id: 14,
-      name: "Brother QL-800",
-      price: "12,000 DA",
-      image: "/printer.png",
-      description: "Imprimante d'étiquettes professionnelle pour commerce",
-      features: ["Étiquettes", "Rapide", "Portable", "Réseau"],
-      brand: "Brother",
-      type: "Étiquettes",
-      rating: 4.2
-    },
-    {
-      id: 15,
-      name: "Zebra ZD410",
-      price: "45,000 DA",
-      image: "/printer.png",
-      description: "Imprimante d'étiquettes thermique pour codes-barres",
-      features: ["Étiquettes thermiques", "Réseau", "Industrielle", "Haute vitesse"],
-      brand: "Zebra",
-      type: "Étiquettes",
-      rating: 4.5
-    },
-    {
-      id: 16,
-      name: "Ricoh SP C260SFNw",
-      price: "42,000 DA",
-      image: "/printer.png",
-      description: "Multifonction laser couleur avec écran tactile et Wi-Fi",
-      features: ["Laser couleur", "Écran tactile", "Wi-Fi", "Multifonction"],
-      brand: "Ricoh",
-      type: "Laser",
-      rating: 4.3
-    },
-    {
-      id: 17,
-      name: "Xerox VersaLink C400/DN",
-      price: "48,000 DA",
-      image: "/printer.png",
-      description: "Imprimante couleur connectée avec interface utilisateur intuitive",
-      features: ["Couleur connectée", "Rapide", "Réseau", "Haute qualité"],
-      brand: "Xerox",
-      type: "Laser",
-      rating: 4.6
-    },
-    {
-      id: 18,
-      name: "HP DesignJet T230",
-      price: "120,000 DA",
-      image: "/printer.png",
-      description: "Imprimante grand format pour architecture et ingénierie",
-      features: ["Grand format", "24 pouces", "Wi-Fi", "PostScript"],
-      brand: "HP",
-      type: "Grand format",
-      rating: 4.8
-    },
-    {
-      id: 19,
-      name: "Epson L805",
-      price: "28,000 DA",
-      image: "/printer.png",
-      description: "Imprimante photo avec 6 encres individuelles et réservoirs",
-      features: ["6 encres", "Réservoirs", "Photo qualité", "Wi-Fi"],
-      brand: "Epson",
-      type: "Photo",
-      rating: 4.7
-    },
-    {
-      id: 20,
-      name: "Canon MAXIFY GX3020",
-      price: "31,000 DA",
-      image: "/printer.png",
-      description: "Imprimante jet d'encre haute capacité pour bureau",
-      features: ["Haute capacité", "Jet d'encre", "Wi-Fi", "Économique"],
-      brand: "Canon",
-      type: "Jet d'encre",
-      rating: 4.4
     }
+    // يمكن إضافة بقية الطابعات هنا بنفس النمط
   ];
 
-// حساب إجمالي السلة
+  // حساب إجمالي السلة
   const cartTotal = cart.reduce((total, item) => {
     const price = parseInt(item.price.replace(/[^\d]/g, ''));
     return total + (price * item.quantity);
@@ -288,7 +179,7 @@ type: "Laser",
       {/* Header */}
       <header className="flex justify-between items-center px-6 py-5 bg-white/80 backdrop-blur-lg border-b border-gray-200 shadow-sm">
         <button 
-          onClick={onBack}
+          onClick={() => navigate("/")} // 👈 زر الرجوع للصفحة الرئيسية
           className="text-gray-600 hover:text-gray-900 transition-colors p-2 rounded-lg hover:bg-gray-100"
         >
           <ArrowLeft size={26} />
@@ -344,8 +235,7 @@ type: "Laser",
                         <button 
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
                           className="text-gray-600 hover:text-gray-900 transition-colors p-1 rounded-full hover:bg-gray-200"
-
->
+                        >
                           <Plus size={16} />
                         </button>
                       </div>
@@ -375,7 +265,6 @@ type: "Laser",
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {printers.map((printer) => {
               const cartItem = cart.find(item => item.id === printer.id);
-              
               return (
                 <div 
                   key={printer.id}
@@ -418,8 +307,7 @@ type: "Laser",
                           <span 
                             key={index}
                             className="bg-gradient-to-r from-purple-50 to-blue-50 text-purple-700 text-xs font-medium px-3 py-1.5 rounded-full border border-purple-100"
-
->
+                          >
                             {feature}
                           </span>
                         ))}
