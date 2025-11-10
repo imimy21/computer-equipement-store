@@ -1,7 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Menu, User } from "lucide-react";
 
-function HomePage({ onNavigateToPrinters }) {
+function HomePage() {
   return (
     <div className="bg-[#f8f5f9] min-h-screen font-sans">
       {/* Header */}
@@ -37,7 +38,7 @@ function HomePage({ onNavigateToPrinters }) {
       {/* Categories */}
       <section className="mt-10 px-6 text-center">
         <h2 className="text-xl md:text-2xl font-medium mb-6 text-gray-900">
-          Achetez Par Catégorie
+          Our categories
         </h2>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
@@ -46,49 +47,100 @@ function HomePage({ onNavigateToPrinters }) {
             <img
               src="/laptop.png"
               alt="PCs Portables"
-              className="w-20 h-20 md:w-24 md:h-24 object-contain mb-2"
+              className="w-30 h-30 md:w-24 md:h-24 object-contain mb-2"
             />
             <p className="text-sm md:text-base font-medium text-gray-700">
-              PCs Portables
+              Laptop
             </p>
           </div>
 
           {/* Card 2 */}
-          <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105">
-            <img
-              src="/components.png"
-              alt="Composants Pc"
-              className="w-20 h-20 md:w-24 md:h-24 object-contain mb-2"
-            />
-            <p className="text-sm md:text-base font-medium text-gray-700">
-              Composants Pc
-            </p>
-          </div>
+          <Link to="/composants">
+            <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105 cursor-pointer">
+              <img
+                src="/components.png"
+                alt="Composants Pc"
+                className="w-28 h-28 md:w-24 md:h-24 object-contain mb-2"
+              />
+              <p className="text-sm md:text-base font-medium text-gray-700">
+                Components
+              </p>
+            </div>
+          </Link>
 
           {/* Card 3 */}
+          <Link to="/peripheriques">
+            <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105 cursor-pointer">
+              <img
+                src="/accessory.png"
+                alt="Périphériques & accessoires"
+                className="w-30 h-30 md:w-26 md:h-26 object-contain mb-2"
+              />
+              <p className="text-sm md:text-base font-medium text-gray-700 text-center">
+                Périphériques & accessoires
+              </p>
+            </div>
+          </Link>
+
+          {/* Card 4 - Printer with Link */}
+          <Link to="/printers">
+            <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105 cursor-pointer">
+              <img
+                src="/printer.png"
+                alt="Les imprimantes"
+                className="w-28 h-28 md:w-26 md:h-26 object-contain mb-2"
+              />
+              <p className="text-sm md:text-base font-medium text-gray-700">
+                Printer
+              </p>
+            </div>
+          </Link>
+
+          {/* Card 5 */}
           <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105">
             <img
-              src="/accessory.png"
-              alt="Périphériques & accessoires"
-              className="w-20 h-20 md:w-24 md:h-24 object-contain mb-2"
+              src="/monitor.png"
+              alt="Computer monitors"
+              className="w-28 h-28 md:w-24 md:h-24 object-contain mb-2"
             />
             <p className="text-sm md:text-base font-medium text-gray-700 text-center">
-              Périphériques & accessoires
+              Computer Monitors
             </p>
           </div>
 
-          {/* Card 4 - الطابعات */}
-          <div 
-            className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105 cursor-pointer"
-            onClick={onNavigateToPrinters}
-          >
+          {/* Card 6 */}
+          <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105">
             <img
-              src="/printer.png"
-              alt="Les imprimantes"
-              className="w-20 h-20 md:w-24 md:h-24 object-contain mb-2"
+              src="/cases.png"
+              alt="Computer Cases"
+              className="w-28 h-28 md:w-24 md:h-24 object-contain mb-2"
             />
-            <p className="text-sm md:text-base font-medium text-gray-700">
-              Les imprimantes
+            <p className="text-sm md:text-base font-medium text-gray-700 text-center">
+              Computer Cases
+            </p>
+          </div>
+
+          {/* Card 7 */}
+          <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105">
+            <img
+              src="/cables.png"
+              alt="Cables & adapters"
+              className="w-28 h-28 md:w-24 md:h-24 object-contain mb-2"
+            />
+            <p className="text-sm md:text-base font-medium text-gray-700 text-center">
+              Cables & Adapters
+            </p>
+          </div>
+
+          {/* Card 8 */}
+          <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105">
+            <img
+              src="/gaming.png"
+              alt="Gaming Zone"
+              className="w-30 h-30 md:w-28 md:h-28 object-contain mb-2"
+            />
+            <p className="text-sm md:text-base font-medium text-gray-700 text-center">
+              Gaming Zone
             </p>
           </div>
         </div>
