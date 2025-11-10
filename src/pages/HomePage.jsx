@@ -43,6 +43,7 @@ function HomePage() {
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
           {/* Card 1 */}
+          <Link to="/PCStore">
           <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105">
             <img
               src="/laptop.png"
@@ -53,7 +54,7 @@ function HomePage() {
               Laptop
             </p>
           </div>
-
+          </Link>
           {/* Card 2 */}
           <Link to="/composants">
             <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105 cursor-pointer">

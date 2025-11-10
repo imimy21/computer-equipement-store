@@ -4,6 +4,7 @@ import HomePage from "./pages/HomePage";
 import Peripheriques from "./pages/Peripheriques";
 import Composants from "./pages/Composants";
 import PrintersPage from "./pages/PrintersPage";
+import PCStore from "./pages/PCStore";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/peripheriques" element={<Peripheriques />} />
         <Route path="/composants" element={<Composants />} />
         <Route path="/printers" element={<PrintersPage />} />
+        <Route path="/PCStore" element={<PCStore />} />
 
         {/* إعادة التوجيه لأي صفحة غير موجودة */}
         <Route path="*" element={<Navigate to="/" />} />
