@@ -1,15 +1,21 @@
-import React, { useState } from "react";
+
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import PrintersPage from "./pages/PrintersPage";
+import Peripheriques from "./pages/Peripheriques";
+import Composants from "./pages/composants";
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('home');
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/peripheriques" element={<Peripheriques />} />
+        <Route path="/composants" element={<Composants />} />
+      </Routes>
+    </Router>
+  );
 
-  if (currentPage === 'printers') {
-    return <PrintersPage onBack={() => setCurrentPage('home')} />;
-  }
-
-  return <HomePage onNavigateToPrinters={() => setCurrentPage('printers')} />;
 }
 
 export default App;
