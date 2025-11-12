@@ -5,14 +5,24 @@ function PeripheralsCategories() {
   const navigate = useNavigate();
 
   const categories = [
-    { name: "Keyboard", image: "/clavier.png", path: "/peripheriques/clavier" },
-    { name: "Mouse", image: "/souris.png", path: "/peripheriques/souris" },
+    { name: "Keyboard", image: "/clavier.png", path: "/peripheriques/keyboard" },
+    { name: "Mouse", image: "/souris.png", path: "/peripheriques/mouse" }, // هنا رابط صفحة الماوس
     { name: "Headset", image: "/casque.png", path: "/peripheriques/casque" },
     { name: "Webcam", image: "/webcam.png", path: "/peripheriques/webcam" },
     { name: "Mouse Pad", image: "/tapis.png", path: "/peripheriques/tapis" },
     { name: "USB Drive", image: "/usb.png", path: "/peripheriques/usb" },
     { name: "Microphone", image: "/micro.png", path: "/peripheriques/micro" },
   ];
+
+  const handleCategoryClick = (cat) => {
+    if (cat.name === "Keyboard") {
+      navigate("/peripheriques/keyboard"); // صفحة الكيبورد
+    } else if (cat.name === "Mouse") {
+      navigate("/peripheriques/mouse"); // صفحة PeripheMouse
+    } else {
+      navigate(cat.path);
+    }
+  };
 
   return (
     <div className="bg-[#f8f5f9] min-h-screen font-sans flex flex-col">
@@ -36,7 +46,7 @@ function PeripheralsCategories() {
           {categories.map((cat) => (
             <div
               key={cat.name}
-              onClick={() => navigate(cat.path)}
+              onClick={() => handleCategoryClick(cat)}
               className="bg-white rounded-2xl shadow-md overflow-hidden cursor-pointer hover:shadow-xl hover:-translate-y-1 transition transform duration-300 flex flex-col items-center"
             >
               <div className="w-full flex justify-center items-center p-4">
