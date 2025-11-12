@@ -1,4 +1,4 @@
-import React from "react";
+ import React from "react";
 
 const parts = [
   { title: "Processor", image: "/CPU.png" },
@@ -56,3 +56,4 @@ export default function Composants() {
     </div>
   );
 }
+

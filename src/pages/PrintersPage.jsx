@@ -359,7 +359,7 @@ function PrintersPage() {
       {/* Footer */}
       <footer className="text-center text-gray-500 text-sm py-12 mt-16 border-t border-gray-200/50">
         <div className="max-w-7xl mx-auto">
-          <p className="text-gray-600 font-medium">© 2025 CompDZ — Tous droits réservés.</p>
+          <p className="text-gray-600 font-medium"> © 2025 CompDZ — All Rights Reserved.</p>
           <p className="text-gray-500 text-xs mt-2">Votre partenaire de confiance pour toutes vos impressions</p>
         </div>
       </footer>
