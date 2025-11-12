@@ -6,7 +6,7 @@ function PeripheralsCategories() {
 
   const categories = [
     { name: "Keyboard", image: "/clavier.png", path: "/peripheriques/keyboard" },
-    { name: "Mouse", image: "/souris.png", path: "/peripheriques/souris" },
+    { name: "Mouse", image: "/souris.png", path: "/peripheriques/mouse" }, // هنا رابط صفحة الماوس
     { name: "Headset", image: "/casque.png", path: "/peripheriques/casque" },
     { name: "Webcam", image: "/webcam.png", path: "/peripheriques/webcam" },
     { name: "Mouse Pad", image: "/tapis.png", path: "/peripheriques/tapis" },
@@ -16,7 +16,9 @@ function PeripheralsCategories() {
 
   const handleCategoryClick = (cat) => {
     if (cat.name === "Keyboard") {
-      navigate("/peripheriques/keyboard"); // الرابط الخاص بصفحة PeripheKeyboard.jsx
+      navigate("/peripheriques/keyboard"); // صفحة الكيبورد
+    } else if (cat.name === "Mouse") {
+      navigate("/peripheriques/mouse"); // صفحة PeripheMouse
     } else {
       navigate(cat.path);
     }

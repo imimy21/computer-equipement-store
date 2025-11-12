@@ -5,7 +5,8 @@ import Peripheriques from "./pages/Peripheriques";
 import Composants from "./pages/Composants";
 import PrintersPage from "./pages/PrintersPage";
 import PCStore from "./pages/PCStore";
-import PeripheKeyboard from "./pages/periphekeyboard"; // استيراد الصفحة الجديدة
+import PeripheKeyboard from "./pages/periphekeyboard"; // صفحة الكيبورد
+import PeripheMouse from "./pages/PeripheMouse";       // صفحة الماوس
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
         {/* الصفحات الرئيسية */}
         <Route path="/" element={<HomePage />} />
         <Route path="/peripheriques" element={<Peripheriques />} />
-        <Route path="/peripheriques/keyboard" element={<PeripheKeyboard />} /> {/* هنا ربطنا المسار */}
+        <Route path="/peripheriques/keyboard" element={<PeripheKeyboard />} />
+        <Route path="/peripheriques/mouse" element={<PeripheMouse />} /> {/* ربط صفحة الماوس */}
         <Route path="/composants" element={<Composants />} />
         <Route path="/printers" element={<PrintersPage />} />
         <Route path="/PCStore" element={<PCStore />} />
