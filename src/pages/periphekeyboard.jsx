@@ -94,34 +94,16 @@ function PeripheKeyboard() {
                       <p>{item.price} DA</p>
                     </div>
                     <div className="flex items-center gap-2">
-                      <button
-                        onClick={() => updateQuantityPanier(item.id, -1)}
-                        className="bg-gray-200 px-2 rounded"
-                      >
-                        -
-                      </button>
+                      <button onClick={() => updateQuantityPanier(item.id, -1)} className="bg-gray-200 px-2 rounded">-</button>
                       <span>{item.quantity}</span>
-                      <button
-                        onClick={() => updateQuantityPanier(item.id, 1)}
-                        className="bg-gray-200 px-2 rounded"
-                      >
-                        +
-                      </button>
-                      <button
-                        onClick={() => removeFromPanier(item.id)}
-                        className="bg-red-400 text-white px-2 rounded ml-2"
-                      >
-                        X
-                      </button>
+                      <button onClick={() => updateQuantityPanier(item.id, 1)} className="bg-gray-200 px-2 rounded">+</button>
+                      <button onClick={() => removeFromPanier(item.id)} className="bg-red-400 text-white px-2 rounded ml-2">X</button>
                     </div>
                   </li>
                 ))}
               </ul>
             )}
-            <button
-              onClick={() => setShowPanier(false)}
-              className="mt-4 bg-[#e9e0eb] px-4 py-2 rounded-xl hover:bg-[#d6c4de] transition w-full"
-            >
+            <button onClick={() => setShowPanier(false)} className="mt-4 bg-[#e9e0eb] px-4 py-2 rounded-xl hover:bg-[#d6c4de] transition w-full">
               Fermer
             </button>
           </div>
@@ -134,15 +116,11 @@ function PeripheKeyboard() {
           {clavierProducts.map((product) => (
             <div
               key={product.id}
-              className="bg-white rounded-2xl shadow-md overflow-hidden flex flex-col items-center p-4 w-full"
+              className="bg-white rounded-2xl shadow-md overflow-hidden flex flex-col items-center p-4 w-full cursor-pointer hover:shadow-xl hover:-translate-y-1 transition transform duration-300"
             >
               {/* الصورة */}
               <div className="w-full flex justify-center items-center p-2 min-h-[120px]">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="max-h-32 sm:max-h-40 md:max-h-44 w-auto object-contain"
-                />
+                <img src={product.image} alt={product.name} className="max-h-32 sm:max-h-40 md:max-h-44 w-auto object-contain" />
               </div>
               {/* النصوص */}
               <div className="text-center mt-2 flex-1 flex flex-col justify-between min-h-[120px]">
@@ -155,24 +133,11 @@ function PeripheKeyboard() {
               {/* Counter + Ajouter au panier */}
               <div className="flex flex-col gap-2 mt-3 items-center w-full">
                 <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => updateQuantityLocal(product.id, -1)}
-                    className="bg-gray-200 px-2 rounded"
-                  >
-                    -
-                  </button>
+                  <button onClick={() => updateQuantityLocal(product.id, -1)} className="bg-gray-200 px-2 rounded">-</button>
                   <span>{quantities[product.id] || 1}</span>
-                  <button
-                    onClick={() => updateQuantityLocal(product.id, 1)}
-                    className="bg-gray-200 px-2 rounded"
-                  >
-                    +
-                  </button>
+                  <button onClick={() => updateQuantityLocal(product.id, 1)} className="bg-gray-200 px-2 rounded">+</button>
                 </div>
-                <button
-                  onClick={() => addToPanier(product)}
-                  className="px-4 py-2 rounded-xl transition w-full bg-white text-black border border-gray-400 hover:bg-gray-100"
-                >
+                <button onClick={() => addToPanier(product)} className="px-4 py-2 rounded-xl transition w-full bg-white text-black border border-gray-400 hover:bg-gray-100">
                   Ajouter au panier
                 </button>
               </div>
