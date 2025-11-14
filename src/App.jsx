@@ -16,6 +16,9 @@ import PeripheHeadset from './pages/PeripheHeadset';
 import PeripheMicrophone from './pages/PeripheMicrophone';
 import PeripheMousePad from './pages/PeripheMousePad';
 import PeripheCable from './pages/PeripheCable';
+import ComputerCasesPage from './pages/ComputerCasesPage'; 
+import GamingZonePage from './pages/GamingZonePage';
+
 function App() {
   return (
     <CartProvider> {/* ✅ يجب أن يكون في أعلى مستوى */}
@@ -38,6 +41,9 @@ function App() {
          <Route path="/peripheriques/Mouse Pad" element={<PeripheMousePad/>} />
         <Route path="/cables" element={<PeripheCable />} /> 
 
+
+         <Route path="/computer-cases" element={<ComputerCasesPage />} />
+         <Route path="/gaming-zone" element={<GamingZonePage />} />
           {/* إعادة التوجيه لأي صفحة غير موجودة */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>

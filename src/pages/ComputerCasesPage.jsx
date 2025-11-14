@@ -4,7 +4,7 @@ import Cart from "./cart";
 import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 
-const PrintersPage = () => {
+const ComputerCasesPage = () => {
   const navigate = useNavigate();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [showPanier, setShowPanier] = useState(false);
@@ -15,165 +15,165 @@ const PrintersPage = () => {
   // ✅ Using global cart from Context
   const { panier, addToPanier, updateQuantity, removeFromPanier, total } = useCart();
 
-  // Printers data
-  const printers = [
+  // Computer Cases data
+  const computerCases = [
     {
       id: 1,
-      name: "HP LaserJet Pro M15w",
-      type: "Laser",
-      price: 25000,
-      image: "/printer.png",
-      description: "Compact monochrome laser printer, Wi-Fi, ideal for office use",
-      features: ["Monochrome laser", "Wi-Fi", "15 ppm", "A4 Format"],
+      name: "NZXT H510 Elite",
+      type: "Mid-Tower",
+      price: 14500,
+      image: "https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=400&h=300&fit=crop",
+      description: "Premium mid-tower case with tempered glass and RGB lighting",
+      features: ["Tempered Glass", "RGB Lighting", "USB-C", "Cable Management"],
       specs: {
-        technology: "Monochrome laser",
-        connectivity: "Wi-Fi",
-        speed: "15 ppm",
-        format: "A4"
+        formFactor: "Mid-Tower ATX",
+        material: "Steel & Tempered Glass",
+        fans: "2x 120mm RGB",
+        expansion: "7 Slots"
+      },
+      rating: 4.6
+    },
+    {
+      id: 2,
+      name: "Corsair 4000D Airflow",
+      type: "Mid-Tower",
+      price: 12500,
+      image: "https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=400&h=300&fit=crop",
+      description: "High-airflow mid-tower case with modern design and excellent cooling",
+      features: ["High Airflow", "Dust Filters", "Cable Management", "Tool-free"],
+      specs: {
+        formFactor: "Mid-Tower ATX",
+        material: "Steel & Mesh",
+        fans: "2x 120mm",
+        expansion: "7 Slots"
       },
       rating: 4.5
     },
     {
-      id: 2,
-      name: "Canon PIXMA TS3450",
-      type: "Inkjet",
-      price: 18000,
-      image: "/printer.png",
-      description: "Multifunction inkjet printer, Wi-Fi, color printing",
-      features: ["Color inkjet", "Multifunction", "Wi-Fi", "Scanner"],
-      specs: {
-        technology: "Color inkjet",
-        function: "Multifunction",
-        connectivity: "Wi-Fi",
-        scanner: "Integrated"
-      },
-      rating: 4.2
-    },
-    {
       id: 3,
-      name: "Epson EcoTank L3210",
-      type: "Inkjet",
-      price: 35000,
-      image: "/printer.png",
-      description: "Integrated ink tank system, economical long-term",
-      features: ["Ink tanks", "Economical", "Multifunction", "Wi-Fi"],
+      name: "Lian Li O11 Dynamic",
+      type: "Full-Tower",
+      price: 18500,
+      image: "https://images.unsplash.com/photo-1562408590-e32931084e23?w=400&h=300&fit=crop",
+      description: "Dual-chamber full-tower case with exceptional water cooling support",
+      features: ["Dual Chamber", "Water Cooling", "Tempered Glass", "Modular"],
       specs: {
-        system: "Ink tanks",
-        function: "Multifunction",
-        connectivity: "Wi-Fi",
-        economical: "Yes"
+        formFactor: "Full-Tower",
+        material: "Aluminum & Glass",
+        fans: "Support 9x 120mm",
+        expansion: "8 Slots"
       },
-      rating: 4.7
+      rating: 4.8
     },
     {
       id: 4,
-      name: "Brother HL-L2350DW",
-      type: "Laser",
-      price: 28000,
-      image: "/printer.png",
-      description: "Wi-Fi network laser printer, automatic duplex printing",
-      features: ["Monochrome laser", "Wi-Fi", "Duplex", "30 ppm"],
+      name: "Fractal Design Meshify C",
+      type: "Compact",
+      price: 11500,
+      image: "https://images.unsplash.com/photo-1587202372634-32705e3bf49c?w=400&h=300&fit=crop",
+      description: "Compact mid-tower with mesh front panel for optimal airflow",
+      features: ["Mesh Front", "Compact Design", "Dust Filters", "Sound Dampening"],
       specs: {
-        technology: "Monochrome laser",
-        connectivity: "Wi-Fi",
-        duplex: "Automatic",
-        speed: "30 ppm"
+        formFactor: "Compact Mid-Tower",
+        material: "Steel & Mesh",
+        fans: "2x 120mm",
+        expansion: "7 Slots"
       },
       rating: 4.4
     },
     {
       id: 5,
-      name: "Samsung Xpress M2070W",
-      type: "Laser",
-      price: 22000,
-      image: "/printer.png",
-      description: "Compact multifunction laser printer with Wi-Fi",
-      features: ["Multifunction laser", "Wi-Fi", "Compact", "20 ppm"],
+      name: "Cooler Master MasterBox Q300L",
+      type: "Mini-Tower",
+      price: 8500,
+      image: "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=400&h=300&fit=crop",
+      description: "Versatile mini-tower case with customizable magnetic design",
+      features: ["Magnetic Design", "Customizable", "Compact", "Tool-free"],
       specs: {
-        function: "Multifunction",
-        connectivity: "Wi-Fi",
-        size: "Compact",
-        speed: "20 ppm"
+        formFactor: "Mini-Tower mATX",
+        material: "Acrylic & Steel",
+        fans: "1x 120mm",
+        expansion: "4 Slots"
       },
-      rating: 4.1
+      rating: 4.2
     },
     {
       id: 6,
-      name: "Lexmark MC3224dwe",
-      type: "Laser",
-      price: 32000,
-      image: "/printer.png",
-      description: "Color laser multifunction printer for small offices",
-      features: ["Color laser", "Multifunction", "Wi-Fi", "24 ppm"],
+      name: "Phanteks Eclipse P400A",
+      type: "Mid-Tower",
+      price: 13500,
+      image: "https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=400&h=300&fit=crop",
+      description: "High-performance mid-tower with mesh front panel and RGB",
+      features: ["Mesh Front", "RGB Ready", "Great Airflow", "Cable Management"],
       specs: {
-        technology: "Color laser",
-        function: "Multifunction",
-        connectivity: "Wi-Fi",
-        speed: "24 ppm"
+        formFactor: "Mid-Tower ATX",
+        material: "Steel & Mesh",
+        fans: "3x 120mm RGB",
+        expansion: "7 Slots"
+      },
+      rating: 4.7
+    },
+    {
+      id: 7,
+      name: "Thermaltake Core P3",
+      type: "Open Frame",
+      price: 16500,
+      image: "https://images.unsplash.com/photo-1562408590-e32931084e23?w=400&h=300&fit=crop",
+      description: "Open frame chassis for showcase builds and maximum customization",
+      features: ["Open Frame", "Wall Mountable", "Showcase Build", "Modular"],
+      specs: {
+        formFactor: "Open Frame ATX",
+        material: "Tempered Glass & Steel",
+        fans: "Support 4x 120mm",
+        expansion: "7 Slots"
       },
       rating: 4.3
     },
     {
-      id: 7,
-      name: "HP OfficeJet Pro 9015e",
-      type: "Inkjet",
-      price: 27500,
-      image: "/printer.png",
-      description: "Smart rechargeable printer with HP+ subscription",
-      features: ["Inkjet", "Rechargeable", "Wi-Fi", "Mobile printing"],
+      id: 8,
+      name: "be quiet! Pure Base 500DX",
+      type: "Mid-Tower",
+      price: 14200,
+      image: "https://images.unsplash.com/photo-1587202372634-32705e3bf49c?w=400&h=300&fit=crop",
+      description: "Silent optimized case with RGB lighting and excellent airflow",
+      features: ["Silent Optimized", "RGB Lighting", "Good Airflow", "Sound Dampening"],
       specs: {
-        technology: "Inkjet",
-        recharge: "Rechargeable",
-        connectivity: "Wi-Fi",
-        mobile: "Yes"
+        formFactor: "Mid-Tower ATX",
+        material: "Steel & Mesh",
+        fans: "3x 120mm",
+        expansion: "7 Slots"
       },
       rating: 4.6
     },
     {
-      id: 8,
-      name: "Canon imageCLASS MF644Cdw",
-      type: "Laser",
-      price: 38000,
-      image: "/printer.png",
-      description: "Color laser printer with automatic duplex printing",
-      features: ["Color laser", "Duplex", "Wi-Fi", "22 ppm"],
-      specs: {
-        technology: "Color laser",
-        duplex: "Automatic",
-        connectivity: "Wi-Fi",
-        speed: "22 ppm"
-      },
-      rating: 4.5
-    },
-    {
       id: 9,
-      name: "Epson WorkForce WF-2860",
-      type: "Inkjet",
-      price: 19500,
-      image: "/printer.png",
-      description: "Compact multifunction with automatic document feeder",
-      features: ["Inkjet", "ADF", "Wi-Fi", "Compact"],
+      name: "NZXT H210i",
+      type: "Mini-ITX",
+      price: 12800,
+      image: "https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=400&h=300&fit=crop",
+      description: "Compact Mini-ITX case with smart device and clean aesthetics",
+      features: ["Mini-ITX", "Smart Device", "Cable Management", "Tempered Glass"],
       specs: {
-        technology: "Inkjet",
-        function: "Multifunction ADF",
-        connectivity: "Wi-Fi",
-        size: "Compact"
+        formFactor: "Mini-ITX",
+        material: "Steel & Tempered Glass",
+        fans: "2x 120mm",
+        expansion: "3 Slots"
       },
-      rating: 4.0
+      rating: 4.4
     },
     {
       id: 10,
-      name: "Brother DCP-T420W",
-      type: "Inkjet",
-      price: 33000,
-      image: "/printer.png",
-      description: "Multifunction printer with high capacity ink tanks",
-      features: ["Ink tanks", "Multifunction", "Wi-Fi", "Economical"],
+      name: "Corsair iCUE 5000X RGB",
+      type: "Full-Tower",
+      price: 22500,
+      image: "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=400&h=300&fit=crop",
+      description: "Premium full-tower with tempered glass and extensive RGB lighting",
+      features: ["Tempered Glass", "RGB Lighting", "Spacious", "Cable Management"],
       specs: {
-        system: "Ink tanks",
-        function: "Multifunction",
-        connectivity: "Wi-Fi",
-        economical: "High capacity"
+        formFactor: "Full-Tower ATX",
+        material: "Steel & Tempered Glass",
+        fans: "3x 120mm RGB",
+        expansion: "8 Slots"
       },
       rating: 4.8
     }
@@ -189,27 +189,28 @@ const PrintersPage = () => {
 
   const getTypeColor = (type) => {
     const colors = {
-      "Laser": "#3498db",
-      "Inkjet": "#e74c3c",
-      "Multifunction": "#9b59b6",
-      "Tank": "#27ae60",
-      "Compact": "#f39c12"
+      "Mid-Tower": "#3498db",
+      "Full-Tower": "#e74c3c",
+      "Mini-Tower": "#9b59b6",
+      "Compact": "#27ae60",
+      "Mini-ITX": "#f39c12",
+      "Open Frame": "#1abc9c"
     };
     return colors[type] || "#7f8c8d";
   };
 
-  const handleBuyNow = (printer) => {
+  const handleBuyNow = (caseItem) => {
     if (!user) {
-      setSelectedProduct(printer);
+      setSelectedProduct(caseItem);
       setIsLoginModalOpen(true);
     } else {
-      addToCart(printer);
+      addToCart(caseItem);
     }
   };
 
   // ✅ Using function from Context
-  const addToCart = (printer) => {
-    addToPanier(printer);
+  const addToCart = (caseItem) => {
+    addToPanier(caseItem);
     setCartAnimation(true);
     setTimeout(() => setCartAnimation(false), 300);
   };
@@ -273,7 +274,7 @@ const PrintersPage = () => {
           fontWeight: "700",
           margin: 0
         }}>
-          Printers
+          Computer Cases
         </h1>
         
         <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
@@ -375,7 +376,7 @@ const PrintersPage = () => {
           marginBottom: "10px",
           fontWeight: "300"
         }}>
-          All Types of Printers
+          Premium Computer Cases
         </h2>
         <p style={{
           textAlign: "center",
@@ -383,20 +384,20 @@ const PrintersPage = () => {
           fontSize: "1.1rem",
           marginBottom: "40px"
         }}>
-          {printers.length} models available
+          {computerCases.length} models available
           {!user && " - Login to make purchases"}
         </p>
 
-        {/* Display Printers */}
+        {/* Display Computer Cases */}
         <div style={{
           display: "flex",
           gap: "25px",
           justifyContent: "center",
           flexWrap: "wrap"
         }}>
-          {printers.map((printer) => (
+          {computerCases.map((caseItem) => (
             <div 
-              key={printer.id}
+              key={caseItem.id}
               style={{
                 backgroundColor: "white",
                 borderRadius: "20px",
@@ -425,38 +426,38 @@ const PrintersPage = () => {
                 position: "absolute",
                 top: "20px",
                 right: "20px",
-                backgroundColor: getTypeColor(printer.type),
+                backgroundColor: getTypeColor(caseItem.type),
                 color: "white",
                 padding: "6px 12px",
                 borderRadius: "20px",
                 fontSize: "0.8rem",
                 fontWeight: "600"
               }}>
-                {printer.type}
+                {caseItem.type}
               </div>
 
-              {/* Printer Image */}
+              {/* Case Image */}
               <div style={{
                 textAlign: "center",
                 marginBottom: "20px",
                 flex: "0 0 auto"
               }}>
                 <img 
-                  src={printer.image} 
-                  alt={printer.name}
+                  src={caseItem.image} 
+                  alt={caseItem.name}
                   style={{
                     width: "100%",
                     height: "160px",
-                    objectFit: "contain",
+                    objectFit: "cover",
                     borderRadius: "12px"
                   }}
                   onError={(e) => {
-                    e.target.src = `https://via.placeholder.com/250x160/f8f9fa/666666?text=${encodeURIComponent(printer.name)}`;
+                    e.target.src = `https://via.placeholder.com/250x160/f8f9fa/666666?text=${encodeURIComponent(caseItem.name)}`;
                   }}
                 />
               </div>
 
-              {/* Printer Info */}
+              {/* Case Info */}
               <div style={{
                 flex: "1",
                 display: "flex",
@@ -470,7 +471,7 @@ const PrintersPage = () => {
                   fontWeight: "600",
                   lineHeight: "1.3"
                 }}>
-                  {printer.name}
+                  {caseItem.name}
                 </h3>
 
                 <div style={{
@@ -478,7 +479,7 @@ const PrintersPage = () => {
                   color: "#e74c3c",
                   fontWeight: "700"
                 }}>
-                  {printer.price.toLocaleString()} DA
+                  {caseItem.price.toLocaleString()} DA
                 </div>
 
                 <p style={{
@@ -487,7 +488,7 @@ const PrintersPage = () => {
                   margin: "0",
                   lineHeight: "1.4"
                 }}>
-                  {printer.description}
+                  {caseItem.description}
                 </p>
 
                 {/* Features */}
@@ -497,7 +498,7 @@ const PrintersPage = () => {
                   gap: "6px",
                   marginBottom: "12px"
                 }}>
-                  {printer.features.slice(0, 3).map((feature, idx) => (
+                  {caseItem.features.slice(0, 3).map((feature, idx) => (
                     <span 
                       key={idx}
                       style={{
@@ -512,7 +513,7 @@ const PrintersPage = () => {
                       {feature}
                     </span>
                   ))}
-                  {printer.features.length > 3 && (
+                  {caseItem.features.length > 3 && (
                     <span style={{
                       backgroundColor: "#bdc3c7",
                       color: "white",
@@ -521,7 +522,7 @@ const PrintersPage = () => {
                       fontSize: "0.7rem",
                       fontWeight: "500"
                     }}>
-                      +{printer.features.length - 3}
+                      +{caseItem.features.length - 3}
                     </span>
                   )}
                 </div>
@@ -533,7 +534,7 @@ const PrintersPage = () => {
                   flexDirection: "column",
                   gap: "6px"
                 }}>
-                  {Object.entries(printer.specs).slice(0, 3).map(([key, value]) => (
+                  {Object.entries(caseItem.specs).slice(0, 3).map(([key, value]) => (
                     <div 
                       key={key}
                       style={{
@@ -583,7 +584,7 @@ const PrintersPage = () => {
                     color: "#7f8c8d",
                     fontWeight: "500"
                   }}>
-                    {printer.rating}/5
+                    {caseItem.rating}/5
                   </span>
                 </div>
 
@@ -594,7 +595,7 @@ const PrintersPage = () => {
                   marginTop: "auto"
                 }}>
                   <button 
-                    onClick={() => addToCart(printer)}
+                    onClick={() => addToCart(caseItem)}
                     style={{
                       flex: 1,
                       padding: "10px",
@@ -617,7 +618,7 @@ const PrintersPage = () => {
                     Add to Cart
                   </button>
                   <button 
-                    onClick={() => handleBuyNow(printer)}
+                    onClick={() => handleBuyNow(caseItem)}
                     style={{
                       flex: 1,
                       padding: "10px",
@@ -672,7 +673,7 @@ const PrintersPage = () => {
           © 2025 CompDZ — All Rights Reserved
         </p>
         <p style={{ margin: "10px 0 0 0", fontSize: "0.9rem", color: "#bdc3c7" }}>
-          Your trusted partner for all your printing needs
+          Your trusted partner for premium computer components
           {user ? ` - Logged in as: ${user.email}` : " - Login to make purchases"}
         </p>
       </footer>
@@ -680,4 +681,4 @@ const PrintersPage = () => {
   );
 };
 
-export default PrintersPage;
+export default ComputerCasesPage;
