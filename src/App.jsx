@@ -10,6 +10,8 @@ import PeripheMouse from "./pages/PeripheMouse";
 import ModalLogin from "./pages/ModalLogin";
 import { CartProvider } from './context/CartContext';
 import MonitorPage from "./pages/Monitor";
+import PeripheProcessor from "./pages/PeripheProcessor";
+
 function App() {
   return (
     <CartProvider> {/* ✅ يجب أن يكون في أعلى مستوى */}
@@ -25,7 +27,7 @@ function App() {
           <Route path="/PCStore" element={<PCStore />} />
           <Route path="/ModalLogin" element={<ModalLogin />} />
           <Route path="/Monitor" element={<MonitorPage />} />
-          
+          <Route path="/PeripheProcessor" element={<PeripheProcessor />} />
          
        
 

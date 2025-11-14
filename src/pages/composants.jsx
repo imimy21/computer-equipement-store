@@ -1,21 +1,28 @@
- import React from "react";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const parts = [
-  { title: "Processor", image: "/CPU.png" },
-  { title: "Motherboard", image: "/motherboard.png" },
-  { title: "RAM", image: "/Ram.png" },
-  { title: "Graphics Card", image: "/gpu.png" },
-  { title: "SSD", image: "/SSD.png" },
-  { title: "Hard Drive", image: "/Hard-drive.png" },
+  { title: "Processor", image: "/CPU.png", path: "/PeripheProcessor" },
+  { title: "Motherboard", image: "/motherboard.png", path: "/motherboards" },
+  { title: "RAM", image: "/Ram.png", path: "/ram" },
+  { title: "Graphics Card", image: "/gpu.png", path: "/gpu" },
+  { title: "SSD", image: "/SSD.png", path: "/ssd" },
+  { title: "Hard Drive", image: "/Hard-drive.png", path: "/hard-drive" },
 ];
 
 export default function Composants() {
+  const navigate = useNavigate();
+
+  const handlePartClick = (path) => {
+    navigate(path);
+  };
+
   return (
     <div className="bg-[#f8f5f9] min-h-screen font-sans flex flex-col">
       {/* Header with emoji and frame */}
       <header className="flex justify-center items-center px-6 py-6 bg-[#e9e0eb] rounded-b-3xl shadow-sm">
         <h1 className="text-2xl md:text-3xl font-semibold text-gray-800 text-center">
-           PC Components
+          🖥️ PC Components
         </h1>
       </header>
 
@@ -32,6 +39,7 @@ export default function Composants() {
           {parts.map((part, index) => (
             <div
               key={index}
+              onClick={() => handlePartClick(part.path)}
               className="bg-white rounded-2xl shadow-md p-4 sm:p-6 flex flex-col items-center hover:shadow-xl hover:-translate-y-1 transition transform duration-300 cursor-pointer"
             >
               <div className="w-full flex justify-center items-center p-2 sm:p-4">
@@ -56,4 +64,3 @@ export default function Composants() {
     </div>
   );
 }
-
