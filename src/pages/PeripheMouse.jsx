@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useCart } from "../context/CartContext";
+import Cart from "./cart";
+import ModalLogin from "./ModalLogin";
 
 const sourisProducts = [
   { id: 1, name: "Logitech M185", image: "/mouse1.png", price: 2500, description: "Compact and reliable wireless mouse, perfect for everyday use." },
@@ -9,37 +12,60 @@ const sourisProducts = [
 ];
 
 function PeripheMouse() {
-  const [panier, setPanier] = useState([]);
   const [showPanier, setShowPanier] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [cartAnimation, setCartAnimation] = useState(false);
 
-  const addToPanier = (product) => {
-    setPanier((prev) => {
-      const exist = prev.find((p) => p.id === product.id);
-      if (exist) {
-        return prev.map((p) =>
-          p.id === product.id ? { ...p, quantity: p.quantity + 1 } : p
-        );
-      } else {
-        return [...prev, { ...product, quantity: 1 }];
-      }
-    });
+  // ✅ استخدام Context للسلة بدلاً من useState محلي
+  const { panier, addToPanier } = useCart();
+
+  // ✅ فحص إذا كان المستخدم مسجل الدخول
+  useEffect(() => {
+    const savedUser = localStorage.getItem('user');
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
+  }, []);
+
+  // ✅ استخدام addToPanier من Context
+  const addToCart = (product) => {
+    addToPanier(product);
+    setCartAnimation(true);
+    setTimeout(() => setCartAnimation(false), 300);
   };
 
-  const updateQuantity = (id, delta) => {
-    setPanier((prev) =>
-      prev.map((p) =>
-        p.id === id
-          ? { ...p, quantity: Math.max(1, p.quantity + delta) }
-          : p
-      )
-    );
+  // ✅ نفس منطق Buy Now من Keyboard
+  const handleBuyNow = (product) => {
+    if (!user) {
+      setSelectedProduct(product);
+      setIsLoginModalOpen(true);
+    } else {
+      addToCart(product);
+      console.log("عملية شراء مباشرة:", product);
+    }
   };
 
-  const removeFromPanier = (id) => {
-    setPanier((prev) => prev.filter((p) => p.id !== id));
+  const handleLoginSuccess = () => {
+    setIsLoginModalOpen(false);
+    const mockUser = { displayName: "User", email: "user@example.com" };
+    setUser(mockUser);
+    localStorage.setItem('user', JSON.stringify(mockUser));
+    
+    if (selectedProduct) {
+      addToCart(selectedProduct);
+      setSelectedProduct(null);
+    }
   };
 
-  const total = panier.reduce((acc, p) => acc + p.price * p.quantity, 0);
+  const handleLogout = () => {
+    setUser(null);
+    localStorage.removeItem('user');
+  };
+
+  // ✅ استخدام panier من Context
+  const cartCount = panier.reduce((acc, p) => acc + p.quantity, 0);
 
   return (
     <div className="bg-[#f8f5f9] min-h-screen flex flex-col relative">
@@ -48,15 +74,47 @@ function PeripheMouse() {
         <h1 className="text-2xl font-semibold text-gray-800 text-center w-full">
           🖱️ Mouse
         </h1>
-        <button
-          onClick={() => setShowPanier(true)}
-          className="relative bg-[#e9e0eb] px-4 py-2 rounded-xl font-semibold flex items-center gap-2"
-        >
-          🛒
-          <span className="absolute -top-1 -right-2 bg-red-500 text-white rounded-full text-xs px-2">
-            {panier.reduce((acc, p) => acc + p.quantity, 0)}
-          </span>
-        </button>
+        
+        <div className="flex items-center gap-4">
+          {/* معلومات المستخدم */}
+          {user && (
+            <div className="flex items-center gap-2">
+              <span className="text-gray-700 text-sm">
+                Welcome, {user.displayName || user.email}!
+              </span>
+              <button 
+                onClick={handleLogout}
+                className="bg-red-500 text-white px-3 py-1 rounded-md text-sm hover:bg-red-600 transition"
+              >
+                Logout
+              </button>
+            </div>
+          )}
+
+          {/* زر تسجيل الدخول */}
+          {!user && (
+            <button 
+              onClick={() => setIsLoginModalOpen(true)}
+              style={{
+                      backgroundColor: "#3498db",
+                    }}
+              className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600 transition font-semibold"
+            >
+              Login
+            </button>
+          )}
+
+          {/* زر السلة */}
+          <button
+            onClick={() => setShowPanier(true)}
+            className="relative bg-[#e9e0eb] px-4 py-2 rounded-xl font-semibold flex items-center gap-2"
+          >
+            🛒
+            <span className="absolute -top-1 -right-2 bg-red-500 text-white rounded-full text-xs px-2">
+              {cartCount}
+            </span>
+          </button>
+        </div>
       </header>
 
       {/* Description */}
@@ -64,7 +122,7 @@ function PeripheMouse() {
         Discover our collection of comfortable and high-performance mice.
       </p>
 
-      {/* Products */}
+      {/* Products - نفس العرض بدون تغيير */}
       <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 p-6 items-stretch">
         {sourisProducts.map((product) => (
           <div
@@ -85,13 +143,25 @@ function PeripheMouse() {
             <p className="text-gray-900 font-bold mt-2">{product.price} DA</p>
             <div className="flex gap-2 mt-3 w-full">
               <button
-                onClick={() => addToPanier(product)}
-                className="flex-1 bg-blue-600 text-black py-2 rounded-md hover:bg-blue-700 transition text-sm font-semibold"
+                onClick={() => addToCart(product)}
+                style={{
+                      flex: 1,
+                      padding: "10px",
+                      backgroundColor: "#3498db",
+                      color: "white",
+                      border: "none",
+                      borderRadius: "8px",
+                      fontSize: "0.9rem",
+                      fontWeight: "600",
+                      cursor: "pointer",
+                      transition: "all 0.3s ease"
+                    }}
+                className="flex-1 bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition text-sm font-semibold"
               >
-                Add to card
+                Add to Cart
               </button>
               <button
-                onClick={() => {}}
+                onClick={() => handleBuyNow(product)}
                 className="flex-1 bg-green-500 text-black py-2 rounded-md hover:bg-green-600 transition text-sm font-semibold"
               >
                 Buy Now
@@ -101,79 +171,22 @@ function PeripheMouse() {
         ))}
       </section>
 
-      {/* Panier Side Panel */}
-      {showPanier && (
-        <div className="fixed inset-y-0 right-0 z-50 flex">
-          <div className="bg-white w-full sm:w-[400px] h-full p-6 flex flex-col shadow-2xl">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-semibold">🛍️ Shopping Cart</h2>
-              <button
-                onClick={() => setShowPanier(false)}
-                className="text-gray-500 text-xl font-bold"
-              >
-                ✕
-              </button>
-            </div>
-            {panier.length === 0 ? (
-              <p className="text-gray-500">Votre panier est vide.</p>
-            ) : (
-              <>
-                <ul className="flex-1 overflow-y-auto space-y-4">
-                  {panier.map((item) => (
-                    <li
-                      key={item.id}
-                      className="flex items-center justify-between border-b pb-2"
-                    >
-                      <img
-                        src={item.image}
-                        alt={item.name}
-                        className="w-16 h-16 object-contain"
-                      />
-                      <div className="flex-1 ml-3">
-                        <h3 className="font-semibold text-gray-800">
-                          {item.name}
-                        </h3>
-                        <p className="text-gray-500 text-sm">{item.price} DA</p>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <button
-                          onClick={() => updateQuantity(item.id, -1)}
-                          className="w-6 h-6 flex items-center justify-center bg-gray-200 rounded-full font-bold"
-                        >
-                          −
-                        </button>
-                        <span>{item.quantity}</span>
-                        <button
-                          onClick={() => updateQuantity(item.id, 1)}
-                          className="w-6 h-6 flex items-center justify-center bg-gray-200 rounded-full font-bold"
-                        >
-                          +
-                        </button>
-                      </div>
-                      <button
-                        onClick={() => removeFromPanier(item.id)}
-                        className="text-red-500 font-bold ml-2"
-                      >
-                        ✕
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-4 border-t pt-4">
-                  <p className="text-right font-semibold text-gray-800">
-                    Total: {total} DA
-                  </p>
-                  <button
-                    onClick={() => {}}
-                    className="w-full mt-3 bg-green-500 text-black py-2 rounded-lg hover:bg-green-600 transition font-semibold"
-                  >
-                    Login to Checkout
-                  </button>
-                </div>
-              </>
-            )}
-          </div>
-        </div>
+      {/* ✅ استخدام مكون Cart الموحد بدلاً من السلة المحلية */}
+      <Cart
+        showPanier={showPanier}
+        setShowPanier={setShowPanier}
+      />
+
+      {/* ✅ ModalLogin */}
+      {isLoginModalOpen && (
+        <ModalLogin 
+          isOpen={isLoginModalOpen}
+          onRequestClose={() => {
+            setIsLoginModalOpen(false);
+            setSelectedProduct(null);
+          }}
+          onLoginSuccess={handleLoginSuccess}
+        />
       )}
 
       <footer className="text-center text-gray-500 text-sm py-6 mt-10">

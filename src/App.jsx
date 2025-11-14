@@ -1,32 +1,39 @@
-import React from "react";
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import Peripheriques from "./pages/Peripheriques";
 import Composants from "./pages/Composants";
 import PrintersPage from "./pages/PrintersPage";
 import PCStore from "./pages/PCStore";
-import PeripheKeyboard from "./pages/periphekeyboard"; // صفحة الكيبورد
-import PeripheMouse from "./pages/PeripheMouse";       // صفحة الماوس
+import PeripheKeyboard from "./pages/periphekeyboard";
+import PeripheMouse from "./pages/PeripheMouse";
+import ModalLogin from "./pages/ModalLogin";
+import { CartProvider } from './context/CartContext';
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        {/* الصفحات الرئيسية */}
-        <Route path="/" element={<HomePage />} />
-        <Route path="/peripheriques" element={<Peripheriques />} />
-        <Route path="/peripheriques/keyboard" element={<PeripheKeyboard />} />
-        <Route path="/peripheriques/mouse" element={<PeripheMouse />} /> {/* ربط صفحة الماوس */}
-        <Route path="/composants" element={<Composants />} />
-        <Route path="/printers" element={<PrintersPage />} />
-        <Route path="/PCStore" element={<PCStore />} />
+    <CartProvider> {/* ✅ يجب أن يكون في أعلى مستوى */}
+      <Router>
+        <Routes>
+          {/* الصفحات الرئيسية */}
+          <Route path="/" element={<HomePage />} />
+          <Route path="/peripheriques" element={<Peripheriques />} />
+          <Route path="/peripheriques/keyboard" element={<PeripheKeyboard />} />
+          <Route path="/peripheriques/mouse" element={<PeripheMouse />} />
+          <Route path="/composants" element={<Composants />} />
+          <Route path="/printers" element={<PrintersPage />} />
+          <Route path="/PCStore" element={<PCStore />} />
+          <Route path="/ModalLogin" element={<ModalLogin />} />
+          
+         
+       
 
-        {/* إعادة التوجيه لأي صفحة غير موجودة */}
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
-    </Router>
+          {/* إعادة التوجيه لأي صفحة غير موجودة */}
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </Router>
+    </CartProvider>
   );
 }
 
 export default App;
-

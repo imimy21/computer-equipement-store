@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, User } from "lucide-react";
+import ModalLogin from "./ModalLogin";
+
 
 function HomePage() {
+  const [showAuth, setShowAuth] = useState(false);
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("userData")) || null
+  );
   return (
     <div className="bg-[#f8f5f9] min-h-screen font-sans">
       {/* Header */}
@@ -13,10 +19,11 @@ function HomePage() {
         <h1 className="text-xl md:text-2xl font-semibold text-gray-800">
           CompDZ
         </h1>
-        <button className="text-gray-700">
+       <button onClick={() => setShowAuth(true)} className="text-gray-700">
           <User size={28} />
         </button>
       </header>
+ <ModalLogin isOpen={showAuth} onRequestClose={() => setShowAuth(false)} />
 
       {/* Hero video section */}
       <section className="mt-4">
