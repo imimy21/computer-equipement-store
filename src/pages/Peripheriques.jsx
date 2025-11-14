@@ -19,6 +19,16 @@ function PeripheralsCategories() {
       navigate("/peripheriques/keyboard"); // صفحة الكيبورد
     } else if (cat.name === "Mouse") {
       navigate("/peripheriques/mouse"); // صفحة PeripheMouse
+     } else if (cat.name === "USB Drive") {
+      navigate("/peripheriques/usb drive");
+       } else if (cat.name === "Webcam") {
+      navigate("/peripheriques/Webcam");
+       } else if (cat.name === "Headset") {
+      navigate("/peripheriques/Headset");
+        } else if (cat.name === "Microphone") {
+      navigate("/peripheriques/Microphone");
+      } else if (cat.name === "Mouse Pad") {
+      navigate("/peripheriques/Mouse Pad");
     } else {
       navigate(cat.path);
     }

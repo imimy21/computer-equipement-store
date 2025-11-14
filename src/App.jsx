@@ -10,6 +10,11 @@ import PeripheMouse from "./pages/PeripheMouse";
 import ModalLogin from "./pages/ModalLogin";
 import { CartProvider } from './context/CartContext';
 import MonitorPage from "./pages/Monitor";
+import PeripheUSB from "./pages/PeripheUSB";
+import PeripheWebcam from './pages/PeripheWebcam';
+import PeripheHeadset from './pages/PeripheHeadset';
+import PeripheMicrophone from './pages/PeripheMicrophone';
+import PeripheMousePad from './pages/PeripheMousePad';
 function App() {
   return (
     <CartProvider> {/* ✅ يجب أن يكون في أعلى مستوى */}
@@ -25,9 +30,11 @@ function App() {
           <Route path="/PCStore" element={<PCStore />} />
           <Route path="/ModalLogin" element={<ModalLogin />} />
           <Route path="/Monitor" element={<MonitorPage />} />
-          
-         
-       
+          <Route path="/peripheriques/USB Drive" element={<PeripheUSB />} />
+         <Route path="/peripheriques/Webcam" element={<PeripheWebcam/>} />
+         <Route path="/peripheriques/Headset" element={<PeripheHeadset/>} />
+         <Route path="/peripheriques/Microphone" element={<PeripheMicrophone/>} />
+         <Route path="/peripheriques/Mouse Pad" element={<PeripheMousePad/>} />
 
           {/* إعادة التوجيه لأي صفحة غير موجودة */}
           <Route path="*" element={<Navigate to="/" />} />
