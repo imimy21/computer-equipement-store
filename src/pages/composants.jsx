@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 
 const parts = [
   { title: "Processor", image: "/CPU.png", path: "/PeripheProcessor" },
-  { title: "Motherboard", image: "/motherboard.png", path: "/motherboards" },
-  { title: "RAM", image: "/Ram.png", path: "/ram" },
-  { title: "Graphics Card", image: "/gpu.png", path: "/gpu" },
-  { title: "SSD", image: "/SSD.png", path: "/ssd" },
-  { title: "Hard Drive", image: "/Hard-drive.png", path: "/hard-drive" },
+  { title: "Motherboard", image: "/motherboard.png", path: "/PeripheMotherboard" },
+  { title: "RAM", image: "/Ram.png", path: "/PeripheRAM" },
+  { title: "Graphics Card", image: "/gpu.png", path: "/PeripheGPU" },
+  { title: "SSD", image: "/SSD.png", path: "/PeripheSSD" },
+  { title: "Hard Drive", image: "/Hard-drive.png", path: "/PeripheHardDrive" },
 ];
 
 export default function Composants() {
@@ -35,7 +35,7 @@ export default function Composants() {
 
       {/* Components Grid */}
       <section className="mt-8 px-4 sm:px-6 flex-1">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6">
           {parts.map((part, index) => (
             <div
               key={index}

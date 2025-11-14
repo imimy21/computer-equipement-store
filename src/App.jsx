@@ -12,12 +12,24 @@ import { CartProvider } from './context/CartContext';
 import MonitorPage from "./pages/Monitor";
 import PeripheProcessor from "./pages/PeripheProcessor";
 
+import PeripheUSB from "./pages/PeripheUSB";
+import PeripheWebcam from './pages/PeripheWebcam';
+import PeripheHeadset from './pages/PeripheHeadset';
+import PeripheMicrophone from './pages/PeripheMicrophone';
+import PeripheMousePad from './pages/PeripheMousePad';
+import PeripheMotherboard from './pages/PeripheMotherboard';
+import PeripheRAM from "./pages/PeripheRAM";
+import PeripheGPU from "./pages/PeripheGPU";
+import PeripheSSD from "./pages/PeripheSSD";
+import PeripheHardDrive from "./pages/PeripheHardDrive";
+
 function App() {
   return (
-    <CartProvider> {/* ✅ يجب أن يكون في أعلى مستوى */}
+    <CartProvider>
       <Router>
         <Routes>
-          {/* الصفحات الرئيسية */}
+
+          {/* Main pages */}
           <Route path="/" element={<HomePage />} />
           <Route path="/peripheriques" element={<Peripheriques />} />
           <Route path="/peripheriques/keyboard" element={<PeripheKeyboard />} />
@@ -27,12 +39,25 @@ function App() {
           <Route path="/PCStore" element={<PCStore />} />
           <Route path="/ModalLogin" element={<ModalLogin />} />
           <Route path="/Monitor" element={<MonitorPage />} />
-          <Route path="/PeripheProcessor" element={<PeripheProcessor />} />
-         
-       
 
-          {/* إعادة التوجيه لأي صفحة غير موجودة */}
+          {/* Your added pages */}
+          <Route path="/PeripheProcessor" element={<PeripheProcessor />} />
+           <Route path="/PeripheMotherboard" element={<PeripheMotherboard />} />
+           <Route path="/PeripheRAM" element={<PeripheRAM />} />
+           <Route path="/PeripheGPU" element={<PeripheGPU />} />
+           <Route path="/PeripheSSD" element={<PeripheSSD />} />
+           <Route path="/PeripheHardDrive" element={<PeripheHardDrive />} />
+
+          {/* Other peripherals */}
+          <Route path="/peripheriques/USB Drive" element={<PeripheUSB />} />
+          <Route path="/peripheriques/Webcam" element={<PeripheWebcam />} />
+          <Route path="/peripheriques/Headset" element={<PeripheHeadset />} />
+          <Route path="/peripheriques/Microphone" element={<PeripheMicrophone />} />
+          <Route path="/peripheriques/Mouse Pad" element={<PeripheMousePad />} />
+
+          {/* Redirect unknown routes */}
           <Route path="*" element={<Navigate to="/" />} />
+
         </Routes>
       </Router>
     </CartProvider>

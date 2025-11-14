@@ -55,19 +55,12 @@ const processorProducts = [
   { 
     id: 7, 
     name: "Intel Core i3-13100", 
-    image: "/processor7.png", 
+    image: "https://m.media-amazon.com/images/I/61j5B6XvfFL.jpg",
     price: 15000, 
     description: "4-core processor ideal for office use and entry-level gaming.",
     specs: "4 Cores / 8 Threads / 4.5 GHz"
   },
-  { 
-    id: 8, 
-    name: "AMD Ryzen 9 7900X", 
-    image: "/processor8.png", 
-    price: 48000, 
-    description: "12-core processor with excellent multi-core performance for professionals.",
-    specs: "12 Cores / 24 Threads / 5.6 GHz"
-  }
+  
 ];
 
 function PeripheProcessor() {
@@ -147,6 +140,10 @@ function PeripheProcessor() {
           {!user && (
             <button 
               onClick={() => setIsLoginModalOpen(true)}
+               style={{
+                backgroundColor: "#3498db",
+              }}
+
               className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600 transition font-semibold"
             >
               Login
@@ -171,7 +168,7 @@ function PeripheProcessor() {
       </p>
 
       {/* Products Grid */}
-      <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6 items-stretch">
+      <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 p-6 items-stretch">
         {processorProducts.map((product) => (
           <div
             key={product.id}
@@ -202,6 +199,18 @@ function PeripheProcessor() {
             <div className="flex gap-2 mt-4 w-full">
               <button
                 onClick={() => addToCart(product)}
+              style={{
+                      flex: 1,
+                      padding: "10px",
+                      backgroundColor: "#3498db",
+                      color: "white",
+                      border: "none",
+                      borderRadius: "8px",
+                      fontSize: "0.9rem",
+                      fontWeight: "600",
+                      cursor: "pointer",
+                      transition: "all 0.3s ease"
+                    }}
                 className="flex-1 bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition text-sm font-semibold"
               >
                 Add to Cart
