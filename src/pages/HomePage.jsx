@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Menu, User } from "lucide-react";
 import ModalLogin from "./ModalLogin";
 
-
 function HomePage() {
   const [showAuth, setShowAuth] = useState(false);
   const [user, setUser] = useState(
@@ -130,17 +129,19 @@ function HomePage() {
             </p>
           </div>
 
-          {/* Card 7 */}
-          <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105">
-            <img
-              src="/cables.png"
-              alt="Cables & adapters"
-              className="w-28 h-28 md:w-24 md:h-24 object-contain mb-2"
-            />
-            <p className="text-sm md:text-base font-medium text-gray-700 text-center">
-              Cables & Adapters
-            </p>
-          </div>
+          {/* Card 7 - Cables with Link */}
+          <Link to="/cables">
+            <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105 cursor-pointer">
+              <img
+                src="/cables.png"
+                alt="Cables & adapters"
+                className="w-28 h-28 md:w-24 md:h-24 object-contain mb-2"
+              />
+              <p className="text-sm md:text-base font-medium text-gray-700 text-center">
+                Cables & Adapters
+              </p>
+            </div>
+          </Link>
 
           {/* Card 8 */}
           <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105">
