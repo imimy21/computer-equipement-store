@@ -9,7 +9,7 @@ import PeripheKeyboard from "./pages/periphekeyboard";
 import PeripheMouse from "./pages/PeripheMouse";
 import ModalLogin from "./pages/ModalLogin";
 import { CartProvider } from './context/CartContext';
-
+import MonitorPage from "./pages/Monitor";
 function App() {
   return (
     <CartProvider> {/* ✅ يجب أن يكون في أعلى مستوى */}
@@ -24,6 +24,7 @@ function App() {
           <Route path="/printers" element={<PrintersPage />} />
           <Route path="/PCStore" element={<PCStore />} />
           <Route path="/ModalLogin" element={<ModalLogin />} />
+          <Route path="/Monitor" element={<MonitorPage />} />
           
          
        

@@ -19,7 +19,7 @@ const PCStore = () => {
       id: 1,
       name: "MacBook Pro 16-inch",
       type: "Apple",
-      price: 2799.00,
+      price: 376500,
       image: "https://webstar-electro.com/documents/document_service_21038_698_5_1473342992.jpg",
       features: ["M3 Pro Chip", "18GB RAM", "512GB SSD", "Liquid Retina XDR"],
       specs: {
@@ -33,7 +33,7 @@ const PCStore = () => {
       id: 2,
       name: "Dell XPS 15",
       type: "Windows",
-      price: 1999.00,
+      price: 268900,
       image: "https://www.acomputerservice.com.pe/5148/notebook-dell-latitude-14-3420-14-hd-i5-1135g7-24ghz-8gb-ddr4-3200mhz-512gb-ssd-kw11n.jpg",
       features: ["Intel i9", "32GB RAM", "1TB SSD", "OLED Display"],
       specs: {
@@ -47,7 +47,7 @@ const PCStore = () => {
       id: 3,
       name: "HP Spectre x360",
       type: "2-in-1",
-      price: 1499.00,
+      price: 201600,
       image: "https://www.elasslihitech.com/wp-content/uploads/2023/11/LD0005638889_2.jpg",
       features: ["Intel i7", "16GB RAM", "512GB SSD", "Touchscreen"],
       specs: {
@@ -61,7 +61,7 @@ const PCStore = () => {
       id: 4,
       name: "Lenovo ThinkPad X1",
       type: "Business",
-      price: 1699.00,
+      price: 228500,
       image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJnYpGL794F6wpnWEm1-eWaR2NqqfkUytjESFzxgFaU8jxVcc4Pe8F3MdtrViqt9Qq7lg&usqp=CAU",
       features: ["Intel i7", "16GB RAM", "1TB SSD", "Military Grade"],
       specs: {
@@ -74,7 +74,7 @@ const PCStore = () => {
     {
       id: 5,
       name: "ASUS ROG Zephyrus",
-      price: 2199.00,
+      price:  295700,
       image: "https://dlcdnwebimgs.asus.com/gain/DBB47F70-325D-4510-9E3E-0548FEF67FB1",
       type: "Gaming",
       features: ["RTX 4070", "32GB RAM", "1TB SSD", "165Hz Display"],
@@ -89,7 +89,7 @@ const PCStore = () => {
     {
       id: 6,
       name: "Microsoft Surface Laptop 5",
-      price: 1299.00,
+      price:  174700,
       image: "https://myshop.pk/pub/media/catalog/product/cache/26f8091d81cea4b38d820a1d1a4f62be/p/l/platinum2-myshop-pk-16_1.jpg",
       type: "Windows",
       features: ["Intel i5", "8GB RAM", "512GB SSD", "Touchscreen"],
@@ -403,12 +403,12 @@ const PCStore = () => {
                 </h3>
 
                 <div style={{
-                  fontSize: "1.4rem",
-                  color: "#e74c3c",
-                  fontWeight: "700"
-                }}>
-                  ${laptop.price.toLocaleString('en-US', { minimumFractionDigits: 2 })}
-                </div>
+  fontSize: "1.4rem",
+  color: "#e74c3c",
+  fontWeight: "700"
+}}>
+  {laptop.price} DA
+</div>
 
                 {/* Features */}
                 <div style={{

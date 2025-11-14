@@ -105,6 +105,7 @@ function HomePage() {
           </Link>
 
           {/* Card 5 */}
+           <Link to="/Monitor">
           <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105">
             <img
               src="/monitor.png"
@@ -115,6 +116,7 @@ function HomePage() {
               Computer Monitors
             </p>
           </div>
+          </Link>
 
           {/* Card 6 */}
           <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105">
