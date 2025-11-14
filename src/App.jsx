@@ -22,6 +22,10 @@ import PeripheRAM from "./pages/PeripheRAM";
 import PeripheGPU from "./pages/PeripheGPU";
 import PeripheSSD from "./pages/PeripheSSD";
 import PeripheHardDrive from "./pages/PeripheHardDrive";
+import PeripheCable from './pages/PeripheCable';
+import ComputerCasesPage from './pages/ComputerCasesPage'; 
+import GamingZonePage from './pages/GamingZonePage';
+
 
 function App() {
   return (
@@ -40,6 +44,7 @@ function App() {
           <Route path="/ModalLogin" element={<ModalLogin />} />
           <Route path="/Monitor" element={<MonitorPage />} />
 
+
           {/* Your added pages */}
           <Route path="/PeripheProcessor" element={<PeripheProcessor />} />
            <Route path="/PeripheMotherboard" element={<PeripheMotherboard />} />
@@ -56,6 +61,19 @@ function App() {
           <Route path="/peripheriques/Mouse Pad" element={<PeripheMousePad />} />
 
           {/* Redirect unknown routes */}
+=======
+          <Route path="/peripheriques/USB Drive" element={<PeripheUSB />} />
+         <Route path="/peripheriques/Webcam" element={<PeripheWebcam/>} />
+         <Route path="/peripheriques/Headset" element={<PeripheHeadset/>} />
+         <Route path="/peripheriques/Microphone" element={<PeripheMicrophone/>} />
+         <Route path="/peripheriques/Mouse Pad" element={<PeripheMousePad/>} />
+        <Route path="/cables" element={<PeripheCable />} /> 
+
+
+         <Route path="/computer-cases" element={<ComputerCasesPage />} />
+         <Route path="/gaming-zone" element={<GamingZonePage />} />
+          {/* إعادة التوجيه لأي صفحة غير موجودة */}
+
           <Route path="*" element={<Navigate to="/" />} />
 
         </Routes>

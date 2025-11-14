@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import { Menu, User } from "lucide-react";
 import ModalLogin from "./ModalLogin";
 
-
 function HomePage() {
   const [showAuth, setShowAuth] = useState(false);
   const [user, setUser] = useState(
     JSON.parse(localStorage.getItem("userData")) || null
   );
+
   return (
     <div className="bg-[#f8f5f9] min-h-screen font-sans">
       {/* Header */}
@@ -19,11 +19,12 @@ function HomePage() {
         <h1 className="text-xl md:text-2xl font-semibold text-gray-800">
           CompDZ
         </h1>
-       <button onClick={() => setShowAuth(true)} className="text-gray-700">
+        <button onClick={() => setShowAuth(true)} className="text-gray-700">
           <User size={28} />
         </button>
       </header>
- <ModalLogin isOpen={showAuth} onRequestClose={() => setShowAuth(false)} />
+
+      <ModalLogin isOpen={showAuth} onRequestClose={() => setShowAuth(false)} />
 
       {/* Hero video section */}
       <section className="mt-4">
@@ -37,7 +38,7 @@ function HomePage() {
             className="w-full h-full object-cover"
           ></video>
           <div className="absolute bottom-0 w-full bg-black bg-opacity-40 text-white text-center text-sm md:text-base py-2">
-            ComDZ Where quality meets technology
+            CompDZ Where quality meets technology
           </div>
         </div>
       </section>
@@ -49,25 +50,26 @@ function HomePage() {
         </h2>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
-          {/* Card 1 */}
+          {/* Laptop */}
           <Link to="/PCStore">
-          <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105">
-            <img
-              src="/laptop.png"
-              alt="PCs Portables"
-              className="w-30 h-30 md:w-24 md:h-24 object-contain mb-2"
-            />
-            <p className="text-sm md:text-base font-medium text-gray-700">
-              Laptop
-            </p>
-          </div>
+            <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105 cursor-pointer">
+              <img
+                src="/laptop.png"
+                alt="Laptops"
+                className="w-30 h-30 md:w-24 md:h-24 object-contain mb-2"
+              />
+              <p className="text-sm md:text-base font-medium text-gray-700">
+                Laptop
+              </p>
+            </div>
           </Link>
-          {/* Card 2 */}
+
+          {/* Components */}
           <Link to="/composants">
             <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105 cursor-pointer">
               <img
                 src="/components.png"
-                alt="Composants Pc"
+                alt="PC Components"
                 className="w-28 h-28 md:w-24 md:h-24 object-contain mb-2"
               />
               <p className="text-sm md:text-base font-medium text-gray-700">
@@ -76,26 +78,26 @@ function HomePage() {
             </div>
           </Link>
 
-          {/* Card 3 */}
+          {/* Peripherals & Accessories */}
           <Link to="/peripheriques">
             <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105 cursor-pointer">
               <img
                 src="/accessory.png"
-                alt="Périphériques & accessoires"
+                alt="Peripherals & Accessories"
                 className="w-30 h-30 md:w-26 md:h-26 object-contain mb-2"
               />
               <p className="text-sm md:text-base font-medium text-gray-700 text-center">
-                Périphériques & accessoires
+                Peripherals & Accessories
               </p>
             </div>
           </Link>
 
-          {/* Card 4 - Printer with Link */}
+          {/* Printer */}
           <Link to="/printers">
             <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105 cursor-pointer">
               <img
                 src="/printer.png"
-                alt="Les imprimantes"
+                alt="Printers"
                 className="w-28 h-28 md:w-26 md:h-26 object-contain mb-2"
               />
               <p className="text-sm md:text-base font-medium text-gray-700">
@@ -104,61 +106,67 @@ function HomePage() {
             </div>
           </Link>
 
-          {/* Card 5 */}
-           <Link to="/Monitor">
-          <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105">
-            <img
-              src="/monitor.png"
-              alt="Computer monitors"
-              className="w-28 h-28 md:w-24 md:h-24 object-contain mb-2"
-            />
-            <p className="text-sm md:text-base font-medium text-gray-700 text-center">
-              Computer Monitors
-            </p>
-          </div>
+          {/* Computer Monitors */}
+          <Link to="/Monitor">
+            <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105 cursor-pointer">
+              <img
+                src="/monitor.png"
+                alt="Computer Monitors"
+                className="w-28 h-28 md:w-24 md:h-24 object-contain mb-2"
+              />
+              <p className="text-sm md:text-base font-medium text-gray-700 text-center">
+                Computer Monitors
+              </p>
+            </div>
           </Link>
 
-          {/* Card 6 */}
-          <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105">
-            <img
-              src="/cases.png"
-              alt="Computer Cases"
-              className="w-28 h-28 md:w-24 md:h-24 object-contain mb-2"
-            />
-            <p className="text-sm md:text-base font-medium text-gray-700 text-center">
-              Computer Cases
-            </p>
-          </div>
+          {/* Computer Cases */}
+          <Link to="/computer-cases">
+            <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105 cursor-pointer">
+              <img
+                src="/cases.png"
+                alt="Computer Cases"
+                className="w-28 h-28 md:w-24 md:h-24 object-contain mb-2"
+              />
+              <p className="text-sm md:text-base font-medium text-gray-700 text-center">
+                Computer Cases
+              </p>
+            </div>
+          </Link>
 
-          {/* Card 7 */}
-          <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105">
-            <img
-              src="/cables.png"
-              alt="Cables & adapters"
-              className="w-28 h-28 md:w-24 md:h-24 object-contain mb-2"
-            />
-            <p className="text-sm md:text-base font-medium text-gray-700 text-center">
-              Cables & Adapters
-            </p>
-          </div>
+          {/* Cables & Adapters */}
+          <Link to="/cables">
+            <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105 cursor-pointer">
+              <img
+                src="/cables.png"
+                alt="Cables & Adapters"
+                className="w-28 h-28 md:w-24 md:h-24 object-contain mb-2"
+              />
+              <p className="text-sm md:text-base font-medium text-gray-700 text-center">
+                Cables & Adapters
+              </p>
+            </div>
+          </Link>
 
-          {/* Card 8 */}
-          <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105">
-            <img
-              src="/gaming.png"
-              alt="Gaming Zone"
-              className="w-30 h-30 md:w-28 md:h-28 object-contain mb-2"
-            />
-            <p className="text-sm md:text-base font-medium text-gray-700 text-center">
-              Gaming Zone
-            </p>
-          </div>
+          {/* Gaming Zone */}
+          <Link to="/gaming-zone">
+            <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105 cursor-pointer">
+              <img
+                src="/gaming.png"
+                alt="Gaming Zone"
+                className="w-30 h-30 md:w-28 md:h-28 object-contain mb-2"
+              />
+              <p className="text-sm md:text-base font-medium text-gray-700 text-center">
+                Gaming Zone
+              </p>
+            </div>
+          </Link>
         </div>
       </section>
 
       {/* Footer */}
       <footer className="text-center text-gray-500 text-sm py-6 mt-10">
-        © 2025 CompDZ — Tous droits réservés.
+        © 2025 CompDZ — All rights reserved.
       </footer>
     </div>
   );
