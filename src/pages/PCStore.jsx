@@ -75,7 +75,7 @@ const PCStore = () => {
       id: 5,
       name: "ASUS ROG Zephyrus",
       price:  295700,
-      image: "https://dlcdnwebimgs.asus.com/gain/DBB47F70-325D-4510-9E3E-0548FEF67FB1",
+      image: "https://media.ldlc.com/r1600/ld/products/00/06/17/23/LD0006172322.jpg",
       type: "Gaming",
       features: ["RTX 4070", "32GB RAM", "1TB SSD", "165Hz Display"],
       specs: {
