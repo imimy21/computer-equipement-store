@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, User } from "lucide-react";
 import ModalLogin from "./ModalLogin";
+import SidebarMenu from "./SidebarMenu";
 
 function HomePage() {
+
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showAuth, setShowAuth] = useState(false);
   const [user, setUser] = useState(
     JSON.parse(localStorage.getItem("userData")) || null
@@ -14,6 +17,10 @@ function HomePage() {
       {/* Header */}
       <header className="flex justify-between items-center px-6 py-4 bg-[#e9e0eb] rounded-b-3xl shadow-sm">
         <button className="text-gray-700">
+           <button 
+          className="text-gray-700"
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+        ></button>
           <Menu size={28} />
         </button>
         <h1 className="text-xl md:text-2xl font-semibold text-gray-800">
@@ -92,7 +99,8 @@ function HomePage() {
             </div>
           </Link>
 
-          {/* Printer */}
+
+{/* Printer */}
           <Link to="/printers">
             <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105 cursor-pointer">
               <img

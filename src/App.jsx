@@ -17,6 +17,7 @@ import PeripheWebcam from './pages/PeripheWebcam';
 import PeripheHeadset from './pages/PeripheHeadset';
 import PeripheMicrophone from './pages/PeripheMicrophone';
 import PeripheMousePad from './pages/PeripheMousePad';
+<<<<<<< Updated upstream
 import PeripheMotherboard from './pages/PeripheMotherboard';
 import PeripheRAM from "./pages/PeripheRAM";
 import PeripheGPU from "./pages/PeripheGPU";
@@ -25,6 +26,9 @@ import PeripheHardDrive from "./pages/PeripheHardDrive";
 import PeripheCable from './pages/PeripheCable';
 import ComputerCasesPage from './pages/ComputerCasesPage'; 
 import GamingZonePage from './pages/GamingZonePage';
+=======
+import SidebarMenu from './pages/SidebarMenu';
+>>>>>>> Stashed changes
 
 
 function App() {
@@ -67,7 +71,12 @@ function App() {
          <Route path="/peripheriques/Headset" element={<PeripheHeadset/>} />
          <Route path="/peripheriques/Microphone" element={<PeripheMicrophone/>} />
          <Route path="/peripheriques/Mouse Pad" element={<PeripheMousePad/>} />
+<<<<<<< Updated upstream
         <Route path="/cables" element={<PeripheCable />} /> 
+=======
+          
+         
+>>>>>>> Stashed changes
 
 
          <Route path="/computer-cases" element={<ComputerCasesPage />} />
