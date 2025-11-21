@@ -26,15 +26,22 @@ import PeripheHardDrive from "./pages/PeripheHardDrive";
 import PeripheCable from './pages/PeripheCable';
 import ComputerCasesPage from './pages/ComputerCasesPage'; 
 import GamingZonePage from './pages/GamingZonePage';
+<<<<<<< HEAD
 =======
 import SidebarMenu from './pages/SidebarMenu';
 >>>>>>> Stashed changes
+=======
+import About from './pages/About';
+import Contact from './pages/Contact';
+
+>>>>>>> 453382f777f891d27e2b575ed35a9c35777a84b5
 
 
 function App() {
   return (
     <CartProvider>
       <Router>
+       
         <Routes>
 
           {/* Main pages */}
@@ -73,10 +80,15 @@ function App() {
          <Route path="/peripheriques/Mouse Pad" element={<PeripheMousePad/>} />
 <<<<<<< Updated upstream
         <Route path="/cables" element={<PeripheCable />} /> 
+<<<<<<< HEAD
 =======
           
          
 >>>>>>> Stashed changes
+=======
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+>>>>>>> 453382f777f891d27e2b575ed35a9c35777a84b5
 
 
          <Route path="/computer-cases" element={<ComputerCasesPage />} />
