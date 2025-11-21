@@ -27,6 +27,7 @@ import ComputerCasesPage from './pages/ComputerCasesPage';
 import GamingZonePage from './pages/GamingZonePage';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Payment from "./pages/Payment";
 
 
 
@@ -63,6 +64,7 @@ function App() {
           <Route path="/peripheriques/Headset" element={<PeripheHeadset />} />
           <Route path="/peripheriques/Microphone" element={<PeripheMicrophone />} />
           <Route path="/peripheriques/Mouse Pad" element={<PeripheMousePad />} />
+          <Route path="/Payment" element={<Payment />} />
 
           {/* Redirect unknown routes */}
 =======

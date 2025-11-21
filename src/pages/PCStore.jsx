@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import ModalLogin from "./ModalLogin";
 import Cart from "./cart";
-import { useCart } from "../context/CartContext"; // تأكد من المسار الصحيح
+import { useCart } from "../context/CartContext";
+import { useNavigate } from "react-router-dom"; 
 
 const PCStore = () => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -9,9 +10,10 @@ const PCStore = () => {
   const [user, setUser] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [cartAnimation, setCartAnimation] = useState(false);
+  const [showConfirmLogout, setShowConfirmLogout] = useState(false); // جديد: حالة رسالة التأكيد
 
-  // ✅ استخدام السلة العالمية من Context بدلاً من useState محلي
-  const { panier, addToPanier, updateQuantity, removeFromPanier, total } = useCart();
+  const navigate = useNavigate();
+  const { panier, addToPanier } = useCart();
 
   // بيانات المنتجات
   const products = [
@@ -22,12 +24,7 @@ const PCStore = () => {
       price: 376500,
       image: "https://webstar-electro.com/documents/document_service_21038_698_5_1473342992.jpg",
       features: ["M3 Pro Chip", "18GB RAM", "512GB SSD", "Liquid Retina XDR"],
-      specs: {
-        display: "16.2-inch Liquid Retina XDR",
-        processor: "Apple M3 Pro 12-core",
-        memory: "18GB Unified Memory",
-        storage: "512GB SSD"
-      }
+      specs: "16.2-inch Liquid Retina XDR / Apple M3 Pro / 18GB RAM / 512GB SSD" 
     },
     {
       id: 2,
@@ -36,12 +33,7 @@ const PCStore = () => {
       price: 268900,
       image: "https://www.acomputerservice.com.pe/5148/notebook-dell-latitude-14-3420-14-hd-i5-1135g7-24ghz-8gb-ddr4-3200mhz-512gb-ssd-kw11n.jpg",
       features: ["Intel i9", "32GB RAM", "1TB SSD", "OLED Display"],
-      specs: {
-        display: "15.6-inch 4K OLED Touch",
-        processor: "Intel Core i9-13900H",
-        memory: "32GB DDR5 RAM",
-        storage: "1TB SSD"
-      }
+      specs: "15.6-inch 4K OLED Touch / Intel i9 / 32GB RAM / 1TB SSD" 
     },
     {
       id: 3,
@@ -50,66 +42,50 @@ const PCStore = () => {
       price: 201600,
       image: "https://www.elasslihitech.com/wp-content/uploads/2023/11/LD0005638889_2.jpg",
       features: ["Intel i7", "16GB RAM", "512GB SSD", "Touchscreen"],
-      specs: {
-        display: "13.5-inch OLED Touch",
-        processor: "Intel Core i7-1355U",
-        memory: "16GB LPDDR5 RAM",
-        storage: "512GB SSD"
-      }
+      specs: "13.5-inch OLED Touch / Intel Core i7-1355U / 16GB LPDDR5 RAM / 512GB SSD"
     },
+   {
+    id: 4,
+    name: "Lenovo ThinkPad X1", // غير هذا الاسم
+    type: "Business",
+    price: 228500,
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJnYpGL794F6wpnWEm1-eWaR2NqqfkUytjESFzxgFaU8jxVcc4Pe8F3MdtrViqt9Qq7lg&usqp=CAU",
+    features: ["Intel i7", "16GB RAM", "1TB SSD", "Military Grade"],
+    specs: "14-inch 2.8K OLED / Intel Core i7-1365U / 16GB LPDDR5 / 1TB SSD"
+  },
     {
-      id: 4,
-      name: "Lenovo ThinkPad X1",
-      type: "Business",
-      price: 228500,
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJnYpGL794F6wpnWEm1-eWaR2NqqfkUytjESFzxgFaU8jxVcc4Pe8F3MdtrViqt9Qq7lg&usqp=CAU",
-      features: ["Intel i7", "16GB RAM", "1TB SSD", "Military Grade"],
-      specs: {
-        display: "14-inch 2.8K OLED",
-        processor: "Intel Core i7-1365U",
-        memory: "16GB LPDDR5",
-        storage: "1TB SSD"
-      }
-    },
-    {
-      id: 5,
-      name: "ASUS ROG Zephyrus",
-      price:  295700,
-      image: "https://dlcdnwebimgs.asus.com/gain/DBB47F70-325D-4510-9E3E-0548FEF67FB1",
-      type: "Gaming",
-      features: ["RTX 4070", "32GB RAM", "1TB SSD", "165Hz Display"],
-      specs: {
-        display: "15.6-inch QHD 165Hz",
-        processor: "AMD Ryzen 9 7940HS",
-        memory: "32GB DDR5 RAM",
-        storage: "1TB NVMe SSD",
-        battery: "Up to 8 hours"
-      }
-    },
+    id: 5,
+    name: "ASUS ROG Zephyrus",
+    price: 295700,
+    image: "https://dlcdnwebimgs.asus.com/gain/DBB47F70-325D-4510-9E3E-0548FEF67FB1",
+    type: "Gaming",
+    features: ["RTX 4070", "32GB RAM", "1TB SSD", "165Hz Display"],
+    specs: "15.6-inch QHD 165Hz / AMD Ryzen 9 7940HS / 32GB DDR5 RAM / 1TB NVMe SSD" 
+  },
+  
     {
       id: 6,
       name: "Microsoft Surface Laptop 5",
-      price:  174700,
+      price: 174700,
       image: "https://myshop.pk/pub/media/catalog/product/cache/26f8091d81cea4b38d820a1d1a4f62be/p/l/platinum2-myshop-pk-16_1.jpg",
       type: "Windows",
       features: ["Intel i5", "8GB RAM", "512GB SSD", "Touchscreen"],
-      specs: {
-        display: "13.5-inch PixelSense Touch",
-        processor: "Intel Core i5-1235U",
-        memory: "8GB LPDDR5x RAM",
-        storage: "512GB SSD",
-        battery: "Up to 18 hours"
-      }
+      specs: "13.5-inch PixelSense Touch / Intel Core i5-1235U / 8GB LPDDR5x RAM / 512GB SSD"
     }
   ];
 
-  // محاكاة حالة المستخدم
-  useEffect(() => {
-    const mockUser = localStorage.getItem('user');
-    if (mockUser) {
-      setUser(JSON.parse(mockUser));
-    }
-  }, []);
+  // تقسيم المنتجات إلى مجموعتين (4 فوق و2 تحت) مثل MonitorPage
+  const topProducts = products.slice(0, 4);
+  const bottomProducts = products.slice(4, 6);
+
+  // تحميل بيانات المستخدم من localStorage
+    useEffect(() => {
+           // غير 'user' إلى 'userData'
+           const savedUser = localStorage.getItem('userData');
+           if (savedUser) {
+             setUser(JSON.parse(savedUser));
+           }
+         }, []);
 
   const getTypeColor = (type) => {
     const colors = {
@@ -123,427 +99,325 @@ const PCStore = () => {
     return colors[type] || "#7f8c8d";
   };
 
-  const handleBuyNow = (product) => {
-    if (!user) {
-      setSelectedProduct(product);
-      setIsLoginModalOpen(true);
-    } else {
-      addToCart(product);
-    }
-  };
+ const handleBuyNow = (product) => {
+  if (!user) {
+    setSelectedProduct(product); // ✅ صحح من selectedMonitor إلى selectedProduct
+    setIsLoginModalOpen(true);
+  } else {
+    navigate("/payment", { state: { product } });
+  }
+};
 
-  // ✅ استخدام الدالة من Context بدلاً من الدالة المحلية
+
   const addToCart = (product) => {
-    addToPanier(product); // ✅ هذه من Context
-    setCartAnimation(true);
-    setTimeout(() => setCartAnimation(false), 300);
+          addToPanier(product);
+          setCartAnimation(true);
+          setTimeout(() => setCartAnimation(false), 300);
+        };
+
+ const handleLoginSuccess = () => {
+  setIsLoginModalOpen(false);
+  // لا حاجة لـ mockUser - البيانات تأتي من Firebase مباشرة
+  const userData = JSON.parse(localStorage.getItem('userData'));
+  setUser(userData);
+  
+  if (selectedProduct) {
+    navigate("/payment", { state: { product: selectedProduct } });
+    setSelectedProduct(null);
+  }
+};
+
+  // جديد: دالة عرض رسالة تأكيد التسجيل الخروج
+  const confirmLogout = () => {
+    setShowConfirmLogout(true);
   };
 
-  // ❌ احذف هذه الدوال المحلية - أصبحت غير ضرورية
-  /*
-  const updateQuantity = (id, change) => {
-    // ...
+ 
+  const cancelLogout = () => {
+    setShowConfirmLogout(false)
   };
 
-  const removeFromPanier = (id) => {
-    // ...
-  };
-
-  const calculateTotal = () => {
-    // ...
-  };
-  */
-
-  const handleLoginSuccess = () => {
-    setIsLoginModalOpen(false);
-    const mockUser = { displayName: "User", email: "user@example.com" };
-    setUser(mockUser);
-    localStorage.setItem('user', JSON.stringify(mockUser));
-    
-    if (selectedProduct) {
-      addToCart(selectedProduct);
-      setSelectedProduct(null);
-    }
-  };
-
+ 
   const handleLogout = () => {
     setUser(null);
-    localStorage.removeItem('user');
-    // ❌ لا تضف setPanier([]) هنا - دع Context يتولى ذلك
+    localStorage.removeItem('user')
   };
 
-  // ✅ استخدام panier من Context
+
+
   const cartCount = panier.reduce((total, item) => total + item.quantity, 0);
 
   return (
-    <div style={{
-      minHeight: "100vh",
-      backgroundColor: "#f8f9fa",
-      padding: "0",
-      position: "relative"
-    }}>
-      {/* Header */}
-      <header style={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        padding: "20px 40px",
-        backgroundColor: "white",
-        boxShadow: "0 2px 20px rgba(0,0,0,0.08)",
-        marginBottom: "30px",
-        position: "relative",
-        zIndex: 10
-      }}>
-        <h1 style={{
-          fontSize: "1.8rem",
-          color: "#2c3e50",
-          fontWeight: "700",
-          margin: 0
-        }}>
-          PCStore
+    <div className="bg-[#f8f5f9] min-h-screen flex flex-col relative">
+      {/* Header - بنفس تنسيق PeripheGPU */}
+      <header className="flex justify-between items-center px-6 py-4 bg-[#e9e0eb] shadow-sm">
+        <h1 className="text-2xl font-semibold text-gray-800 text-center w-full">
+          💻 PCStore - Laptops
         </h1>
         
-        <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
-          {/* User Info */}
-          {user && (
-            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-              <span style={{ color: "#2c3e50", fontWeight: "500" }}>
-                Welcome, {user.displayName || user.email}!
-              </span>
-              <button 
-                onClick={handleLogout}
-                style={{
-                  padding: "8px 16px",
-                  backgroundColor: "#e74c3c",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "6px",
-                  cursor: "pointer",
-                  fontSize: "0.9rem"
-                }}
-              >
-                Logout
-              </button>
-            </div>
-          )}
+        <div className="flex items-center gap-4">
+         
 
-          {/* Login Button */}
+          {/* Login Button - بنفس تنسيق PeripheGPU */}
           {!user && (
             <button 
               onClick={() => setIsLoginModalOpen(true)}
-              style={{
-                padding: "8px 16px",
-                backgroundColor: "#3498db",
-                color: "white",
-                border: "none",
-                borderRadius: "6px",
-                cursor: "pointer",
-                fontSize: "0.9rem"
-              }}
+              style={{ backgroundColor: "#3498db" }}
+              className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600 transition font-semibold"
             >
               Login
             </button>
           )}
 
-          {/* Cart Icon */}
-          <div 
-            style={{
-              position: "relative",
-              cursor: "pointer",
-              padding: "10px",
-              zIndex: 1002
-            }}
+          {/* Cart Icon - بنفس تنسيق PeripheGPU */}
+          <button
             onClick={() => setShowPanier(true)}
+            className="relative bg-[#e9e0eb] px-4 py-2 rounded-xl font-semibold flex items-center gap-2"
           >
-            <span style={{ fontSize: "1.5rem" }}>🛒</span>
-            {cartCount > 0 && (
-              <span style={{
-                position: "absolute",
-                top: "0",
-                right: "0",
-                backgroundColor: "#e74c3c",
-                color: "white",
-                borderRadius: "50%",
-                width: "22px",
-                height: "22px",
-                fontSize: "12px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                transform: cartAnimation ? "scale(1.3)" : "scale(1)",
-                transition: "transform 0.3s ease",
-                fontWeight: "bold"
-              }}>
-                {cartCount}
-              </span>
-            )}
-          </div>
+            🛒
+            <span className="absolute -top-1 -right-2 bg-red-500 text-white rounded-full text-xs px-2">
+              {cartCount}
+            </span>
+          </button>
         </div>
       </header>
 
-      {/* ✅ السلة - تمرير الدوال من Context */}
-      <Cart 
-  showPanier={showPanier} 
-  setShowPanier={setShowPanier} 
-/>
-
-      
-
-      {/* باقي كود PCStore بدون تغيير */}
-      <div style={{
-        maxWidth: "1400px",
-        margin: "0 auto",
-        padding: "0 20px",
-        position: "relative",
-        zIndex: 1
-      }}>
-        <h2 style={{
-          textAlign: "center",
-          fontSize: "2.2rem",
-          color: "#2c3e50",
-          marginBottom: "10px",
-          fontWeight: "300"
-        }}>
-          Discover Our Premium Laptops
-        </h2>
-        <p style={{
-          textAlign: "center",
-          color: "#7f8c8d",
-          fontSize: "1.1rem",
-          marginBottom: "40px"
-        }}>
-          {products.length} high-performance models available
-          {!user && " - Login to make purchases"}
-        </p>
-
-        {/* عرض المنتجات */}
-        <div style={{
-          display: "flex",
-          gap: "25px",
-          justifyContent: "center",
-          flexWrap: "wrap"
-        }}>
-          {products.map((laptop) => (
-            <div 
-              key={laptop.id}
-              style={{
-                backgroundColor: "white",
-                borderRadius: "20px",
-                padding: "25px",
-                boxShadow: "0 8px 30px rgba(0,0,0,0.08)",
-                transition: "all 0.3s ease",
-                cursor: "pointer",
-                width: "280px",
-                minHeight: "520px",
-                display: "flex",
-                flexDirection: "column",
-                position: "relative",
-                overflow: "hidden"
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "translateY(-8px)";
-                e.currentTarget.style.boxShadow = "0 15px 40px rgba(0,0,0,0.12)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.boxShadow = "0 8px 30px rgba(0,0,0,0.08)";
-              }}
-            >
-              {/* Type Badge */}
-              <div style={{
-                position: "absolute",
-                top: "20px",
-                right: "20px",
-                backgroundColor: getTypeColor(laptop.type),
-                color: "white",
-                padding: "6px 12px",
-                borderRadius: "20px",
-                fontSize: "0.8rem",
-                fontWeight: "600"
-              }}>
-                {laptop.type}
+      {/* رسالة تأكيد التسجيل الخروج */}
+      {showConfirmLogout && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-2xl p-6 max-w-sm mx-4">
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center">
+                <span className="text-2xl text-red-600">⚠️</span>
               </div>
+              
+              <h2 className="text-2xl font-bold mb-4 text-gray-800">
+                Confirm Sign Out
+              </h2>
+              
+              <p className="text-gray-600 mb-6 text-lg">
+                Are you sure you want to sign out of your account?
+              </p>
 
-              {/* Laptop Image */}
-              <div style={{
-                textAlign: "center",
-                marginBottom: "20px",
-                flex: "0 0 auto"
-              }}>
-                <img 
-                  src={laptop.image} 
-                  alt={laptop.name}
-                  style={{
-                    width: "100%",
-                    height: "160px",
-                    objectFit: "contain",
-                    borderRadius: "12px"
-                  }}
-                  onError={(e) => {
-                    e.target.src = `https://via.placeholder.com/250x160/f8f9fa/666666?text=${encodeURIComponent(laptop.name)}`;
-                  }}
-                />
-              </div>
-
-              {/* Laptop Info */}
-              <div style={{
-                flex: "1",
-                display: "flex",
-                flexDirection: "column",
-                gap: "12px"
-              }}>
-                <h3 style={{
-                  fontSize: "1.2rem",
-                  color: "#2c3e50",
-                  margin: "0",
-                  fontWeight: "600",
-                  lineHeight: "1.3"
-                }}>
-                  {laptop.name}
-                </h3>
-
-                <div style={{
-  fontSize: "1.4rem",
-  color: "#e74c3c",
-  fontWeight: "700"
-}}>
-  {laptop.price} DA
-</div>
-
-                {/* Features */}
-                <div style={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  gap: "6px",
-                  marginBottom: "12px"
-                }}>
-                  {laptop.features.map((feature, idx) => (
-                    <span 
-                      key={idx}
-                      style={{
-                        backgroundColor: "#ecf0f1",
-                        color: "#2c3e50",
-                        padding: "3px 8px",
-                        borderRadius: "10px",
-                        fontSize: "0.7rem",
-                        fontWeight: "500"
-                      }}
-                    >
-                      {feature}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Specifications */}
-                <div style={{
-                  flex: "1",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "6px"
-                }}>
-                  {Object.entries(laptop.specs).slice(0, 3).map(([key, value]) => (
-                    <div 
-                      key={key}
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        padding: "4px 0",
-                        borderBottom: "1px solid #f1f2f6"
-                      }}
-                    >
-                      <span style={{
-                        fontSize: "0.75rem",
-                        color: "#7f8c8d",
-                        fontWeight: "500",
-                        textTransform: "capitalize"
-                      }}>
-                        {key}:
-                      </span>
-                      <span style={{
-                        fontSize: "0.75rem",
-                        color: "#2c3e50",
-                        fontWeight: "600",
-                        textAlign: "right"
-                      }}>
-                        {value}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Action Buttons */}
-                <div style={{
-                  display: "flex",
-                  gap: "10px",
-                  marginTop: "auto"
-                }}>
-                  <button 
-                    onClick={() => addToCart(laptop)}
-                    style={{
-                      flex: 1,
-                      padding: "10px",
-                      backgroundColor: "#3498db",
-                      color: "white",
-                      border: "none",
-                      borderRadius: "8px",
-                      fontSize: "0.9rem",
-                      fontWeight: "600",
-                      cursor: "pointer",
-                      transition: "all 0.3s ease"
-                    }}
-                  >
-                    Add to Cart
-                  </button>
-                  <button 
-                    onClick={() => handleBuyNow(laptop)}
-                    style={{
-                      flex: 1,
-                      padding: "10px",
-                      backgroundColor: user ? "#27ae60" : "#95a5a6",
-                      color: "white",
-                      border: "none",
-                      borderRadius: "8px",
-                      fontSize: "0.9rem",
-                      fontWeight: "600",
-                      cursor: user ? "pointer" : "not-allowed",
-                      transition: "all 0.3s ease"
-                    }}
-                  >
-                    {user ? "Buy Now" : "Buy Now"}
-                  </button>
-                </div>
+              <div className="space-y-3">
+                <button
+                  onClick={handleLogout}
+                  className="w-full bg-red-600 text-white py-3 rounded-xl font-bold hover:bg-red-700 transition-all"
+                >
+                  Yes, Sign Out
+                </button>
+                
+                <button
+                  onClick={cancelLogout}
+                  className="w-full bg-gray-200 text-gray-800 py-3 rounded-xl font-bold hover:bg-gray-300 transition-all"
+                >
+                  Cancel
+                </button>
               </div>
             </div>
-          ))}
+          </div>
         </div>
-      </div>
+      )}
 
-      {/* مودال تسجيل الدخول */}
-      <ModalLogin 
-        isOpen={isLoginModalOpen} 
-        onRequestClose={() => {
-          setIsLoginModalOpen(false);
-          setSelectedProduct(null);
-        }}
-        onLoginSuccess={handleLoginSuccess}
+      {/* السلة */}
+      <Cart 
+        showPanier={showPanier} 
+        setShowPanier={setShowPanier} 
       />
 
+     {/* محتوى المتجر */}
+<div className="w-full px-4 sm:px-6 lg:px-8">
+  <p className="text-center text-gray-600 mb-8 text-lg">
+    {products.length} high-performance models available
+    {!user && " - Login to make purchases"}
+  </p>
+
+  {/* Products Grid - بنفس طريقة صفحة RAM */}
+  <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6 items-stretch">
+    {products.map((laptop) => (
+      <div
+        key={laptop.id}
+        className="bg-white rounded-2xl shadow-md flex flex-col items-center p-4 hover:shadow-xl transition h-full"
+      >
+        <img
+          src={laptop.image}
+          alt={laptop.name}
+          className="max-h-40 object-contain mb-3"
+          onError={(e) => {
+            e.target.src = "https://images.unsplash.com/photo-1591488320449-011701bb6704?w=400&h=300&fit=crop";
+          }}
+        />
+        
+        {/* Type Badge */}
+        <div 
+          className="rounded-lg px-3 py-1 mb-2 text-white text-xs font-medium"
+          style={{ backgroundColor: getTypeColor(laptop.type) }}
+        >
+          {laptop.type}
+        </div>
+        
+        <h3 className="font-semibold text-gray-800 text-lg text-center leading-tight">
+          {laptop.name}
+        </h3>
+        
+        {/* السعر */}
+        <p className="text-gray-900 font-bold text-xl mt-2">{laptop.price.toLocaleString()} DA</p>
+        
+        {/* المواصفات الرئيسية */}
+        <div className="bg-gray-100 rounded-lg px-3 py-2 mt-2 w-full">
+          <p className="text-gray-700 text-xs font-medium text-center">
+            {laptop.specs}
+          </p>
+        </div>
+        
+        {/* Features */}
+        <div className="flex flex-wrap gap-1 mt-2 justify-center">
+          {laptop.features.map((feature, idx) => (
+            <span 
+              key={idx}
+              className="bg-gray-200 text-gray-700 px-2 py-1 rounded text-xs"
+            >
+              {feature}
+            </span>
+          ))}
+        </div>
+        
+        {/* الأزرار */}
+        <div className="flex gap-2 mt-4 w-full">
+          <button
+            onClick={() => addToCart(laptop)}
+            style={{
+              flex: 1,
+              padding: "10px",
+              backgroundColor: "#3498db",
+              color: "white",
+              border: "none",
+              borderRadius: "8px",
+              fontSize: "0.9rem",
+              fontWeight: "600",
+              cursor: "pointer",
+              transition: "all 0.3s ease"
+            }}
+          >
+            Add to Cart
+          </button>
+         <button 
+            onClick={() => handleBuyNow(laptop)}
+            style={{
+              flex: 1,
+              padding: "10px",
+              backgroundColor: user ? "#27ae60" : "#95a5a6",
+              color: "white",
+              border: "none",
+              borderRadius: "8px",
+              fontSize: "0.9rem",
+              fontWeight: "600",
+              cursor: user ? "pointer" : "not-allowed",
+              transition: "all 0.3s ease"
+            }}
+          >
+            {user ? "Buy Now" : "Buy Now"}
+          </button>
+        </div>
+      </div>
+    ))}
+  </section>
+</div>
+
+      {/* مودال تسجيل الدخول */}
+    <ModalLogin 
+  isOpen={isLoginModalOpen} 
+  onRequestClose={() => {
+    setIsLoginModalOpen(false);
+    setSelectedProduct(null); // ✅ صحح من selectedMonitor إلى selectedProduct
+  }}
+  onLoginSuccess={handleLoginSuccess}
+/>
+
       {/* Footer */}
-      <footer style={{
-        textAlign: "center",
-        padding: "40px 20px",
-        marginTop: "50px",
-        backgroundColor: "#2c3e50",
-        color: "white"
-      }}>
-        <p style={{ margin: 0, fontSize: "1rem" }}>
-          © 2024 PCStore — All Rights Reserved
-        </p>
-        <p style={{ margin: "10px 0 0 0", fontSize: "0.9rem", color: "#bdc3c7" }}>
+      <footer className="text-center text-gray-500 text-sm py-6 mt-10">
+        <p>© 2025 CompDZ — All Rights Reserved</p>
+        <p className="mt-2 text-gray-400">
           {user ? `Logged in as: ${user.email}` : "Please login to make purchases"}
         </p>
       </footer>
+    </div>
+  );
+};
+
+// مكون منفصل لبطاقة اللاب توب
+const LaptopCard = ({ laptop, user, getTypeColor, addToCart, handleBuyNow }) => {
+  return (
+    <div className="bg-white rounded-2xl shadow-md flex flex-col items-center p-4 hover:shadow-xl transition h-full w-80">
+      <img
+        src={laptop.image}
+        alt={laptop.name}
+        className="max-h-40 object-contain mb-3"
+        onError={(e) => {
+          e.target.src = "https://images.unsplash.com/photo-1591488320449-011701bb6704?w=400&h=300&fit=crop";
+        }}
+      />
+      
+      {/* Type Badge */}
+      <div 
+        className="rounded-lg px-3 py-1 mb-2 text-white text-xs font-medium"
+        style={{ backgroundColor: getTypeColor(laptop.type) }}
+      >
+        {laptop.type}
+      </div>
+      
+      <h3 className="font-semibold text-gray-800 text-lg text-center leading-tight">
+        {laptop.name}
+      </h3>
+      
+      {/* السعر */}
+      <p className="text-gray-900 font-bold text-xl mt-2">{laptop.price.toLocaleString()} DA</p>
+      
+      {/* المواصفات الرئيسية */}
+      <div className="bg-gray-100 rounded-lg px-3 py-2 mt-2 w-full">
+        <p className="text-gray-700 text-xs font-medium text-center">
+          {laptop.specs}
+        </p>
+      </div>
+      
+      {/* Features */}
+      <div className="flex flex-wrap gap-1 mt-2 justify-center">
+        {laptop.features.map((feature, idx) => (
+          <span 
+            key={idx}
+            className="bg-gray-200 text-gray-700 px-2 py-1 rounded text-xs"
+          >
+            {feature}
+          </span>
+        ))}
+      </div>
+      
+      {/* الأزرار */}
+      <div className="flex gap-2 mt-4 w-full">
+        <button
+          onClick={() => addToCart(laptop)}
+          style={{
+            flex: 1,
+            padding: "10px",
+            backgroundColor: "#3498db",
+            color: "white",
+            border: "none",
+            borderRadius: "8px",
+            fontSize: "0.9rem",
+            fontWeight: "600",
+            cursor: "pointer",
+            transition: "all 0.3s ease"
+          }}
+        >
+          Add to Cart
+        </button>
+        <button
+          onClick={() => handleBuyNow(laptop)}
+          className="flex-1 bg-green-500 text-black py-2 rounded-md hover:bg-green-600 transition text-sm font-semibold"
+        >
+          Buy Now
+        </button>
+      </div>
     </div>
   );
 };

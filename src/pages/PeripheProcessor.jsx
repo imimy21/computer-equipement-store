@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useCart } from "../context/CartContext";
 import Cart from "./cart";
 import ModalLogin from "./ModalLogin";
+import { useNavigate } from "react-router-dom"; 
 
 const processorProducts = [
   { 
@@ -71,15 +72,17 @@ function PeripheProcessor() {
   const [cartAnimation, setCartAnimation] = useState(false);
 
   const { panier, addToPanier } = useCart();
+   const navigate = useNavigate(); 
 
   useEffect(() => {
-    const savedUser = localStorage.getItem('user');
-    if (savedUser) {
-      setUser(JSON.parse(savedUser));
-    }
-  }, []);
+  // غير 'user' إلى 'userData'
+  const savedUser = localStorage.getItem('userData');
+  if (savedUser) {
+    setUser(JSON.parse(savedUser));
+  }
+}, []);
 
-  const addToCart = (product) => {
+   const addToCart = (product) => {
     addToPanier(product);
     setCartAnimation(true);
     setTimeout(() => setCartAnimation(false), 300);
@@ -90,24 +93,23 @@ function PeripheProcessor() {
       setSelectedProduct(product);
       setIsLoginModalOpen(true);
     } else {
-      addToCart(product);
-      console.log("عملية شراء مباشرة:", product);
+      // الانتقال المباشر لصفحة الدفع
+      navigate("/payment", { state: { product } });
     }
   };
 
   const handleLoginSuccess = () => {
-    setIsLoginModalOpen(false);
-    const mockUser = { displayName: "User", email: "user@example.com" };
-    setUser(mockUser);
-    localStorage.setItem('user', JSON.stringify(mockUser));
-    
-    if (selectedProduct) {
-      addToCart(selectedProduct);
-      setSelectedProduct(null);
-    }
-  };
-
-  const handleLogout = () => {
+  setIsLoginModalOpen(false);
+  // لا حاجة لـ mockUser - البيانات تأتي من Firebase مباشرة
+  const userData = JSON.parse(localStorage.getItem('userData'));
+  setUser(userData);
+  
+  if (selectedProduct) {
+    navigate("/payment", { state: { product: selectedProduct } });
+    setSelectedProduct(null);
+  }
+};
+   const handleLogout = () => {
     setUser(null);
     localStorage.removeItem('user');
   };
@@ -125,15 +127,8 @@ function PeripheProcessor() {
         <div className="flex items-center gap-4">
           {user && (
             <div className="flex items-center gap-2">
-              <span className="text-gray-700 text-sm">
-                Welcome, {user.displayName || user.email}!
-              </span>
-              <button 
-                onClick={handleLogout}
-                className="bg-red-500 text-white px-3 py-1 rounded-md text-sm hover:bg-red-600 transition"
-              >
-                Logout
-              </button>
+             
+            
             </div>
           )}
 
@@ -215,12 +210,23 @@ function PeripheProcessor() {
               >
                 Add to Cart
               </button>
-              <button
-                onClick={() => handleBuyNow(product)}
-                className="flex-1 bg-green-500 text-black py-2 rounded-md hover:bg-green-600 transition text-sm font-semibold"
-              >
-                Buy Now
-              </button>
+             <button 
+            onClick={() => handleBuyNow(product)}
+            style={{
+              flex: 1,
+              padding: "10px",
+              backgroundColor: user ? "#27ae60" : "#95a5a6",
+              color: "white",
+              border: "none",
+              borderRadius: "8px",
+              fontSize: "0.9rem",
+              fontWeight: "600",
+              cursor: user ? "pointer" : "not-allowed",
+              transition: "all 0.3s ease"
+            }}
+          >
+            {user ? "Buy Now" : "Buy Now"}
+          </button>
             </div>
           </div>
         ))}
@@ -243,7 +249,6 @@ function PeripheProcessor() {
           onLoginSuccess={handleLoginSuccess}
         />
       )}
-
       <footer className="text-center text-gray-500 text-sm py-6 mt-10">
         © 2025 CompDZ — All Rights Reserved
       </footer>
