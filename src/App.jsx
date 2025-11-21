@@ -25,12 +25,16 @@ import PeripheHardDrive from "./pages/PeripheHardDrive";
 import PeripheCable from './pages/PeripheCable';
 import ComputerCasesPage from './pages/ComputerCasesPage'; 
 import GamingZonePage from './pages/GamingZonePage';
+import About from './pages/About';
+import Contact from './pages/Contact';
+
 
 
 function App() {
   return (
     <CartProvider>
       <Router>
+       
         <Routes>
 
           {/* Main pages */}
@@ -68,6 +72,8 @@ function App() {
          <Route path="/peripheriques/Microphone" element={<PeripheMicrophone/>} />
          <Route path="/peripheriques/Mouse Pad" element={<PeripheMousePad/>} />
         <Route path="/cables" element={<PeripheCable />} /> 
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
 
 
          <Route path="/computer-cases" element={<ComputerCasesPage />} />
