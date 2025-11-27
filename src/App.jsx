@@ -1,4 +1,4 @@
-import React from 'react';
+//import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import Peripheriques from "./pages/Peripheriques";
@@ -17,7 +17,7 @@ import PeripheWebcam from './pages/PeripheWebcam';
 import PeripheHeadset from './pages/PeripheHeadset';
 import PeripheMicrophone from './pages/PeripheMicrophone';
 import PeripheMousePad from './pages/PeripheMousePad';
-<<<<<<< Updated upstream
+
 import PeripheMotherboard from './pages/PeripheMotherboard';
 import PeripheRAM from "./pages/PeripheRAM";
 import PeripheGPU from "./pages/PeripheGPU";
@@ -26,18 +26,21 @@ import PeripheHardDrive from "./pages/PeripheHardDrive";
 import PeripheCable from './pages/PeripheCable';
 import ComputerCasesPage from './pages/ComputerCasesPage'; 
 import GamingZonePage from './pages/GamingZonePage';
-<<<<<<< HEAD
-=======
+
+import AdminDashboard from "./admin/AdminDashboard";
 import SidebarMenu from './pages/SidebarMenu';
->>>>>>> Stashed changes
-=======
+
+
 import About from './pages/About';
 import Contact from './pages/Contact';
+import React, { useState } from 'react';
 
->>>>>>> 453382f777f891d27e2b575ed35a9c35777a84b5
+
+
 
 
 function App() {
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("userData")) || null);
   return (
     <CartProvider>
       <Router>
@@ -72,27 +75,36 @@ function App() {
           <Route path="/peripheriques/Mouse Pad" element={<PeripheMousePad />} />
 
           {/* Redirect unknown routes */}
-=======
+
           <Route path="/peripheriques/USB Drive" element={<PeripheUSB />} />
          <Route path="/peripheriques/Webcam" element={<PeripheWebcam/>} />
          <Route path="/peripheriques/Headset" element={<PeripheHeadset/>} />
          <Route path="/peripheriques/Microphone" element={<PeripheMicrophone/>} />
          <Route path="/peripheriques/Mouse Pad" element={<PeripheMousePad/>} />
-<<<<<<< Updated upstream
+
         <Route path="/cables" element={<PeripheCable />} /> 
-<<<<<<< HEAD
-=======
+
+
           
          
->>>>>>> Stashed changes
-=======
+
+
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
->>>>>>> 453382f777f891d27e2b575ed35a9c35777a84b5
+
 
 
          <Route path="/computer-cases" element={<ComputerCasesPage />} />
          <Route path="/gaming-zone" element={<GamingZonePage />} />
+
+
+       
+       <Route path="/ModalLogin" element={<ModalLogin user={user} setUser={setUser} />} />
+      <Route path="/AdminDashboard" element={<AdminDashboard user={user} />} />
+
+
+
+
           {/* إعادة التوجيه لأي صفحة غير موجودة */}
 
           <Route path="*" element={<Navigate to="/" />} />

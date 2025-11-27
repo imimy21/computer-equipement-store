@@ -20,7 +20,7 @@ const PCStore = () => {
       name: "MacBook Pro 16-inch",
       type: "Apple",
       price: 376500,
-      image: "https://webstar-electro.com/documents/document_service_21038_698_5_1473342992.jpg",
+      image: "HP.png",
       features: ["M3 Pro Chip", "18GB RAM", "512GB SSD", "Liquid Retina XDR"],
       specs: {
         display: "16.2-inch Liquid Retina XDR",
@@ -31,10 +31,15 @@ const PCStore = () => {
     },
     {
       id: 2,
+
       name: "Dell XPS 15",
       type: "Windows",
       price: 268900,
-      image: "https://www.acomputerservice.com.pe/5148/notebook-dell-latitude-14-3420-14-hd-i5-1135g7-24ghz-8gb-ddr4-3200mhz-512gb-ssd-kw11n.jpg",
+      
+    image: "/images/Dell XPS 15.png",
+      //image: "Dell XPS 15.png",
+
+
       features: ["Intel i9", "32GB RAM", "1TB SSD", "OLED Display"],
       specs: {
         display: "15.6-inch 4K OLED Touch",
@@ -48,7 +53,7 @@ const PCStore = () => {
       name: "HP Spectre x360",
       type: "2-in-1",
       price: 201600,
-      image: "https://www.elasslihitech.com/wp-content/uploads/2023/11/LD0005638889_2.jpg",
+      image: "HP Spectre x360.png",
       features: ["Intel i7", "16GB RAM", "512GB SSD", "Touchscreen"],
       specs: {
         display: "13.5-inch OLED Touch",
@@ -62,7 +67,7 @@ const PCStore = () => {
       name: "Lenovo ThinkPad X1",
       type: "Business",
       price: 228500,
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJnYpGL794F6wpnWEm1-eWaR2NqqfkUytjESFzxgFaU8jxVcc4Pe8F3MdtrViqt9Qq7lg&usqp=CAU",
+      image: "Lenovo ThinkPad X1.png",
       features: ["Intel i7", "16GB RAM", "1TB SSD", "Military Grade"],
       specs: {
         display: "14-inch 2.8K OLED",
@@ -75,7 +80,7 @@ const PCStore = () => {
       id: 5,
       name: "ASUS ROG Zephyrus",
       price:  295700,
-      image: "https://media.ldlc.com/r1600/ld/products/00/06/17/23/LD0006172322.jpg",
+      image: "ASUS ROG Zephyrus.png",
       type: "Gaming",
       features: ["RTX 4070", "32GB RAM", "1TB SSD", "165Hz Display"],
       specs: {
@@ -90,7 +95,7 @@ const PCStore = () => {
       id: 6,
       name: "Microsoft Surface Laptop 5",
       price:  174700,
-      image: "https://myshop.pk/pub/media/catalog/product/cache/26f8091d81cea4b38d820a1d1a4f62be/p/l/platinum2-myshop-pk-16_1.jpg",
+      image: "Microsoft Surface Laptop 5.png",
       type: "Windows",
       features: ["Intel i5", "8GB RAM", "512GB SSD", "Touchscreen"],
       specs: {

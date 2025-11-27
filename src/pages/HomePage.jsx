@@ -2,15 +2,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, User } from "lucide-react";
 import ModalLogin from "./ModalLogin";
-<<<<<<< HEAD
-import SidebarMenu from "./SidebarMenu";
-=======
 import Navbar from "./Navbar";
->>>>>>> 453382f777f891d27e2b575ed35a9c35777a84b5
 
 function HomePage() {
-
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showAuth, setShowAuth] = useState(false);
   const [user, setUser] = useState(
     JSON.parse(localStorage.getItem("userData")) || null
@@ -21,18 +15,10 @@ function HomePage() {
     <div className="bg-[#f8f5f9] min-h-screen font-sans">
       {/* Header */}
       <header className="flex justify-between items-center px-6 py-4 bg-[#e9e0eb] rounded-b-3xl shadow-sm">
-<<<<<<< HEAD
-        <button className="text-gray-700">
-           <button 
-          className="text-gray-700"
-          onClick={() => setSidebarOpen(!sidebarOpen)}
-        ></button>
-=======
          <button 
           className="text-gray-700" 
           onClick={() => setIsMenuOpen(true)}
         >
->>>>>>> 453382f777f891d27e2b575ed35a9c35777a84b5
           <Menu size={28} />
         </button>
 
@@ -46,13 +32,18 @@ function HomePage() {
       </header>
        {/* Navbar */}
       {/* Navbar */}
-<Navbar 
-  isOpen={isMenuOpen} 
-  onClose={() => setIsMenuOpen(false)} 
+<Navbar isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} user={user} />
+
+
+
+
+  <ModalLogin 
+  isOpen={showAuth} 
+  onRequestClose={() => setShowAuth(false)} 
+  setUser={setUser} 
 />
 
 
-      <ModalLogin isOpen={showAuth} onRequestClose={() => setShowAuth(false)} />
 
       {/* Hero video section */}
       <section className="mt-4">
@@ -120,8 +111,7 @@ function HomePage() {
             </div>
           </Link>
 
-
-{/* Printer */}
+          {/* Printer */}
           <Link to="/printers">
             <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center justify-center transition transform hover:scale-105 cursor-pointer">
               <img
