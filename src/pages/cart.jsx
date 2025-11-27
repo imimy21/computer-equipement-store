@@ -1,21 +1,35 @@
 import React from "react";
 import { useCart } from "../context/CartContext";
+import { useNavigate } from "react-router-dom"; // ✅ إضافة
 
 const Cart = ({ showPanier, setShowPanier }) => {
   const { panier, updateQuantity, removeFromPanier, total } = useCart();
+  const navigate = useNavigate(); // ✅ إضافة
 
   if (!showPanier) return null;
-console.log("Cart rendered");
+
+  // ✅ دالة جديدة للانتقال لصفحة الدفع
+  const handleCheckout = () => {
+    if (panier.length > 0) {
+      navigate("/payment", { 
+        state: { 
+          products: panier, // ✅ إرسال جميع المنتجات في السلة
+          fromCart: true // ✅ للإشارة أن الدفع من السلة
+        } 
+      });
+      setShowPanier(false); // ✅ إغلاق السلة
+    }
+  };
 
   return (
     <>
-  <div
-  className="fixed inset-0 z-40"
-  style={{
-    background: "rgba(0, 0, 0, 0.15)", // خفيف جدًا
-  }}
-  onClick={() => setShowPanier(false)}
-/>
+      <div
+        className="fixed inset-0 z-40"
+        style={{
+          background: "rgba(0, 0, 0, 0.15)",
+        }}
+        onClick={() => setShowPanier(false)}
+      />
 
       {/* السلة */}
       <div
@@ -97,11 +111,14 @@ console.log("Cart rendered");
                 <span>${total.toFixed(2)}</span>
               </div>
 
-              <button
-                className="w-full bg-green-600 text-white py-3 rounded-lg text-lg font-semibold hover:bg-green-700"
-              >
-                Checkout
-              </button>
+              {/* ✅ تغيير زر Checkout */}
+             <button
+  onClick={handleCheckout}
+  className="w-full bg-green-600 text-white py-3 rounded-lg text-lg font-semibold hover:bg-green-700 transition"
+  style={{ backgroundColor: "#27ae60" }} // ✅ إضافة اللون الأخضر
+>
+  Checkout ({panier.length} items)
+</button>
             </div>
           )}
         </div>
@@ -110,4 +127,4 @@ console.log("Cart rendered");
   );
 };
 
-export default Cart;
+export default Cart ;

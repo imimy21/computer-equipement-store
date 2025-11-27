@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import ModalLogin from "./ModalLogin";
 import Cart from "./cart";
 import { useCart } from "../context/CartContext";
-//import "./MonitorPage.css";
+import { useNavigate } from "react-router-dom"; 
+
 
 const MonitorPage = () => {
   const [monitors] = useState([
@@ -15,11 +16,8 @@ const MonitorPage = () => {
       panelType: 'IPS',
       image: 'https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/peripherals/monitors/u-series/u2724d/media-gallery/monitor-ultrasharp-u2724d-qhd-gy-gallery-1.psd?fmt=png-alpha&pscan=auto&scl=1&hei=804&wid=914&qlt=100,1&resMode=sharp2&size=914,804&chrss=full',
       features: ['QHD Resolution', '60Hz Refresh Rate', 'IPS Panel'],
-      specs: {
-        display: '27" QHD IPS',
-        resolution: '2560x1440',
-        refreshRate: '60Hz'
-      }
+      specs:" '27 QHD IPS' / 2560x1440 / 60Hz "
+      
     },
     {
       id: 2,
@@ -30,11 +28,8 @@ const MonitorPage = () => {
       panelType: 'VA',
       image: 'https://images.samsung.com/is/image/samsung/fr-odyssey-g5-g95t-lc32g55tqwuxen-frontblack-thumb-310786532',
       features: ['4K Resolution', '144Hz Refresh Rate', 'VA Panel'],
-      specs: {
-        display: '32" 4K VA',
-        resolution: '3840x2160',
-        refreshRate: '144Hz'
-      }
+      specs: "'32 4K VA' / 3840x2160 / 144Hz "
+     
     },
     {
       id: 3,
@@ -45,11 +40,8 @@ const MonitorPage = () => {
       panelType: 'Nano IPS',
       image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyZEUeqSp1TGG6nNnVXLoYNru4qtrbPqcVgA&s',
       features: ['QHD Resolution', '165Hz Refresh Rate', 'Nano IPS'],
-      specs: {
-        display: '27" QHD Nano IPS',
-        resolution: '2560x1440',
-        refreshRate: '165Hz'
-      }
+      specs:" '27 QHD Nano IPS'/ 2560x1440  / 165Hz "
+       
     },
     {
       id: 4,
@@ -60,11 +52,8 @@ const MonitorPage = () => {
       panelType: 'IPS',
       image: 'https://click-dz.com/wp-content/uploads/2024/01/asus24.jpg',
       features: ['FHD Resolution', '144Hz Refresh Rate', 'Gaming IPS'],
-      specs: {
-        display: '24" FHD IPS',
-        resolution: '1920x1080',
-        refreshRate: '144Hz'
-      }
+      specs: " '24 FHD IPS' / 1920x1080  / 144Hz "
+     
     },
     {
       id: 5,
@@ -75,27 +64,10 @@ const MonitorPage = () => {
       panelType: 'IPS',
       image: 'https://i.ebayimg.com/images/g/Q2cAAOSwzw5jjWL2/s-l400.jpg',
       features: ['UltraWide QHD', '180Hz Refresh Rate', 'Curved IPS'],
-      specs: {
-        display: '34" UWQHD Curved',
-        resolution: '3440x1440',
-        refreshRate: '180Hz'
-      }
+      specs:" '34 UWQHD Curved' / 3440x1440/180Hz  " 
+     
     },
-    {
-      id: 6,
-      name: 'HP Pavilion 27"',
-      price:  30900,
-      resolution: '1920x1080 FHD',
-      refreshRate: '75Hz',
-      panelType: 'IPS',
-      image: 'https://media.ldlc.com/r1600/ld/products/00/05/36/40/LD0005364080_2.jpg',
-      features: ['FHD Resolution', '75Hz Refresh Rate', 'IPS Display'],
-      specs: {
-        display: '27" FHD IPS',
-        resolution: '1920x1080',
-        refreshRate: '75Hz'
-      }
-    }
+   
   ]);
 
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -105,18 +77,21 @@ const MonitorPage = () => {
   const [cartAnimation, setCartAnimation] = useState(false);
 
   const { panier, addToPanier } = useCart();
+   const navigate = useNavigate(); 
+        
+          useEffect(() => {
+          // غير 'user' إلى 'userData'
+          const savedUser = localStorage.getItem('userData');
+          if (savedUser) {
+            setUser(JSON.parse(savedUser));
+          }
+        }, []);
 
   // تقسيم المونيتورات إلى مجموعتين (3 فوق و3 تحت)
   const topMonitors = monitors.slice(0, 4);
   const bottomMonitors = monitors.slice(4, 6);
 
-  // محاكاة حالة المستخدم (بدلاً من Firebase)
-  useEffect(() => {
-    const mockUser = localStorage.getItem('user');
-    if (mockUser) {
-      setUser(JSON.parse(mockUser));
-    }
-  }, []);
+ 
 
   const getTypeColor = (panelType) => {
     const colors = {
@@ -128,34 +103,34 @@ const MonitorPage = () => {
     return colors[panelType] || "#7f8c8d";
   };
 
-  const handleBuyNow = (monitor) => {
-    if (!user) {
-      setSelectedMonitor(monitor);
-      setIsLoginModalOpen(true);
-    } else {
-      addToCart(monitor);
-    }
-  };
+   const handleBuyNow = (product) => {
+  if (!user) {
+    setSelectedMonitor(product); // ✅ Correct variable name
+    setIsLoginModalOpen(true);
+  } else {
+    navigate("/payment", { state: { product } });
+  }
+};
 
-  const addToCart = (monitor) => {
-    addToPanier(monitor);
-    setCartAnimation(true);
-    setTimeout(() => setCartAnimation(false), 300);
-  };
+     const addToCart = (product) => {
+          addToPanier(product);
+          setCartAnimation(true);
+          setTimeout(() => setCartAnimation(false), 300);
+        };
 
-  const handleLoginSuccess = () => {
-    setIsLoginModalOpen(false);
-    const mockUser = { displayName: "User", email: "user@example.com" };
-    setUser(mockUser);
-    localStorage.setItem('user', JSON.stringify(mockUser));
-    
-    if (selectedMonitor) {
-      addToCart(selectedMonitor);
-      setSelectedMonitor(null);
-    }
-  };
+ const handleLoginSuccess = () => {
+  setIsLoginModalOpen(false);
+  // لا حاجة لـ mockUser - البيانات تأتي من Firebase مباشرة
+  const userData = JSON.parse(localStorage.getItem('userData'));
+  setUser(userData);
+  
+  if (selectedProduct) {
+    navigate("/payment", { state: { product: selectedProduct } });
+    setSelectedProduct(null);
+  }
+};
 
-  const handleLogout = () => {
+   const handleLogout = () => {
     setUser(null);
     localStorage.removeItem('user');
   };
@@ -194,23 +169,8 @@ const MonitorPage = () => {
           {/* User Info */}
           {user && (
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-              <span style={{ color: "#2c3e50", fontWeight: "500" }}>
-                Welcome, {user.displayName}!
-              </span>
-              <button 
-                onClick={handleLogout}
-                style={{
-                  padding: "8px 16px",
-                  backgroundColor: "#e74c3c",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "6px",
-                  cursor: "pointer",
-                  fontSize: "0.9rem"
-                }}
-              >
-                Logout
-              </button>
+             
+             
             </div>
           )}
 
@@ -364,9 +324,9 @@ const MonitorPage = () => {
       <ModalLogin 
         isOpen={isLoginModalOpen} 
         onRequestClose={() => {
-          setIsLoginModalOpen(false);
-         setSelectedMonitor(null);
-        }}
+  setIsLoginModalOpen(false);
+  setSelectedMonitor(null); // ✅ Correct variable name
+}}
         onLoginSuccess={handleLoginSuccess}
       />
 
@@ -471,7 +431,7 @@ const MonitorCard = ({ monitor, user, getTypeColor, addToCart, handleBuyNow }) =
   color: "#e74c3c",
   fontWeight: "700"
 }}>
-  {monitor.price} DA
+  {monitor.price.toLocaleString()} DA
 </div>
 
         {/* Features */}
@@ -498,43 +458,36 @@ const MonitorCard = ({ monitor, user, getTypeColor, addToCart, handleBuyNow }) =
           ))}
         </div>
 
-        {/* Specifications */}
-        <div style={{
-          flex: "1",
-          display: "flex",
-          flexDirection: "column",
-          gap: "6px"
-        }}>
-          {Object.entries(monitor.specs).slice(0, 3).map(([key, value]) => (
-            <div 
-              key={key}
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                padding: "4px 0",
-                borderBottom: "1px solid #f1f2f6"
-              }}
-            >
-              <span style={{
-                fontSize: "0.75rem",
-                color: "#7f8c8d",
-                fontWeight: "500",
-                textTransform: "capitalize"
-              }}>
-                {key}:
-              </span>
-              <span style={{
-                fontSize: "0.75rem",
-                color: "#2c3e50",
-                fontWeight: "600",
-                textAlign: "right"
-              }}>
-                {value}
-              </span>
-            </div>
-          ))}
-        </div>
+       {/* Specifications */}
+<div style={{
+  flex: "1",
+  display: "flex",
+  flexDirection: "column",
+  gap: "6px"
+}}>
+  {monitor.specs.split('/').map((spec, idx) => (
+    <div 
+      key={idx}
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        padding: "4px 0",
+        borderBottom: "1px solid #f1f2f6"
+      }}
+    >
+      <span style={{
+        fontSize: "0.75rem",
+        color: "#2c3e50",
+        fontWeight: "600",
+        textAlign: "left",
+        width: "100%"
+      }}>
+        {spec.trim()}
+      </span>
+    </div>
+  ))}
+</div>
 
         {/* Action Buttons */}
         <div style={{

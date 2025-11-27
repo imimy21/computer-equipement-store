@@ -33,9 +33,13 @@ import SidebarMenu from './pages/SidebarMenu';
 
 import About from './pages/About';
 import Contact from './pages/Contact';
+<<<<<<< HEAD
 import React, { useState } from 'react';
 
 
+=======
+import Payment from "./pages/Payment";
+>>>>>>> 5ddf80da12f44c84c4a7d2ba634c7a98def14625
 
 
 
@@ -73,6 +77,7 @@ function App() {
           <Route path="/peripheriques/Headset" element={<PeripheHeadset />} />
           <Route path="/peripheriques/Microphone" element={<PeripheMicrophone />} />
           <Route path="/peripheriques/Mouse Pad" element={<PeripheMousePad />} />
+          <Route path="/Payment" element={<Payment />} />
 
           {/* Redirect unknown routes */}
 
