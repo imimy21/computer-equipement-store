@@ -22,33 +22,12 @@ const ModalLogin = ({ isOpen, onRequestClose, user, setUser }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [showConfirmLogout, setShowConfirmLogout] = useState(false);
 
   // استرجاع بيانات المستخدم من localStorage عند إعادة تحميل الصفحة
   useEffect(() => {
-<<<<<<< HEAD
     const savedUser = JSON.parse(localStorage.getItem("userData"));
     if (savedUser) setUser(savedUser);
   }, [setUser]);
-=======
-    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
-      setUser(currentUser);
-      if (currentUser) {
-        // حفظ بيانات المستخدم في localStorage
-        const userData = {
-          uid: currentUser.uid,
-          displayName: currentUser.displayName,
-          email: currentUser.email,
-          photoURL: currentUser.photoURL
-        };
-        localStorage.setItem("userData", JSON.stringify(userData));
-      } else {
-        localStorage.removeItem("userData");
-      }
-    });
-    return () => unsubscribe();
-  }, []);
->>>>>>> 5ddf80da12f44c84c4a7d2ba634c7a98def14625
 
   // تسجيل الدخول أو إنشاء حساب جديد عبر Google
   const handleGoogleLogin = async () => {
@@ -147,38 +126,15 @@ const sessionData = { ...userData, isAdmin };
   const handleSignOut = async () => {
     await signOut(auth);
     setUser(null);
-<<<<<<< HEAD
     localStorage.removeItem("userData");
-=======
-    setShowConfirmLogout(false);
-    onRequestClose();
   };
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    console.log(
-      isSignUp
-        ? "Sign Up" + name + email + password + confirmPassword
-        : "Sign In" + email + password
-    );
-    onRequestClose();
->>>>>>> 5ddf80da12f44c84c4a7d2ba634c7a98def14625
-  };
 
-  const confirmSignOut = () => {
-    setShowConfirmLogout(true);
-  };
-
-  const cancelSignOut = () => {
-    setShowConfirmLogout(false);
-  };
-
-  return (
+return (
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       style={{
-<<<<<<< HEAD
         overlay: { backgroundColor: "rgba(0,0,0,0.6)", zIndex: 1000 },
        content: { maxWidth: "450px",
          maxHeight: "90vh",
@@ -191,26 +147,6 @@ const sessionData = { ...userData, isAdmin };
            position: "relative",
             overflowY: "auto", 
           },
-=======
-        overlay: { 
-          backgroundColor: "rgba(0,0,0,0.6)",
-          zIndex: 1000
-        },
-        content: {
-          maxWidth: "450px",
-          maxHeight: "90vh",
-          margin: "auto",
-          borderRadius: "16px",
-          padding: "40px 30px",
-          border: "none",
-          boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
-          background: "white",
-          position: "relative",
-          overflowY: "auto",
-        },
-      }}
-    >
->>>>>>> 5ddf80da12f44c84c4a7d2ba634c7a98def14625
 
       }}
     >
@@ -221,15 +157,9 @@ const sessionData = { ...userData, isAdmin };
         ×
       </button>
 
-      {showConfirmLogout ? (
-        // نافذة تأكيد تسجيل الخروج
+      {user ? (
         <div className="text-center">
-          <div className="w-16 h-16 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center">
-            <span className="text-2xl text-red-600">⚠️</span>
-          </div>
-          
           <h2 className="text-2xl font-bold mb-4 text-gray-800">
-<<<<<<< HEAD
             Welcome, {user.name || user.email}
           </h2>
 
@@ -249,97 +179,8 @@ const sessionData = { ...userData, isAdmin };
           >
             Sign Out
           </button>
-=======
-            Confirm Sign Out
-          </h2>
-          
-          <p className="text-gray-600 mb-6 text-lg">
-            Are you sure you want to sign out of your account?
-          </p>
-
-          <div className="space-y-3">
-            <button
-              onClick={handleSignOut}
-              className="w-full bg-red-600 text-white py-3 rounded-xl font-bold hover:bg-red-700 transition-all"
-        style={{backgroundColor : "#3498db"}}     >
-              Yes, Sign Out
-            </button>
-            
-            <button
-              onClick={cancelSignOut}
-              className="w-full bg-gray-200 text-gray-800 py-3 rounded-xl font-bold hover:bg-gray-300 transition-all"
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      ) : user ? (
-        // الجزء الجديد - عندما يكون المستخدم مسجلاً بالفعل
-        <div className="text-center">
-          {/* صورة المستخدم */}
-          {user.photoURL && (
-            <img 
-              src={user.photoURL} 
-              alt="Profile" 
-              className="w-20 h-20 rounded-full mx-auto mb-4 border-4 border-blue-500"
-            />
-          )}
-          
-          <h2 className="text-2xl font-bold mb-2 text-gray-800">
-            Welcome back, {user.displayName || user.email}! 👋
-          </h2>
-          
-          <p className="text-green-600 font-semibold mb-4">
-            ✅ You are already logged in
-          </p>
-
-          {/* معلومات الحساب */}
-          <div className="bg-gray-50 rounded-xl p-4 mb-6 text-left">
-            <div className="flex justify-between mb-2">
-              <span className="text-gray-600">Email:</span>
-              <span className="font-semibold">{user.email}</span>
-            </div>
-            {user.displayName && (
-              <div className="flex justify-between mb-2">
-                <span className="text-gray-600">Name:</span>
-                <span className="font-semibold">{user.displayName}</span>
-              </div>
-            )}
-            <div className="flex justify-between">
-              <span className="text-gray-600">Status:</span>
-              <span className="font-semibold text-green-600">Active</span>
-            </div>
-          </div>
-
-         
-          <p className="text-gray-600 mb-6">
-            Ready to continue shopping? 🛒
-          </p>
-
-          {/* أزرار الإجراءات */}
-          <div className="space-y-3">
-            <button
-              onClick={() => {
-                onRequestClose();
-                // يمكنك إضافة انتقال لصفحة الحساب هنا
-              }}
-              className="w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-700 transition-all"
-              style={{backgroundColor : "#3498db"}}
-            >
-              🏠 Continue Shopping
-            </button>
-            
-            <button
-              onClick={confirmSignOut}
-              className="w-full bg-gray-200 text-gray-800 py-3 rounded-xl font-bold hover:bg-gray-300 transition-all"
-            >
-              🔓 Sign Out
-            </button>
-          </div>
->>>>>>> 5ddf80da12f44c84c4a7d2ba634c7a98def14625
         </div>
       ) : (
-        // الجزء الأصلي - عندما لا يكون المستخدم مسجلاً
         <div>
           <h2 className="text-3xl font-bold text-center mb-8 text-gray-900">
             {isSignUp ? "Create Account" : "Login"}
@@ -384,7 +225,8 @@ const sessionData = { ...userData, isAdmin };
               />
             </div>
 
-            {isSignUp && (
+
+{isSignUp && (
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Confirm Password</label>
                 <input
@@ -397,12 +239,7 @@ const sessionData = { ...userData, isAdmin };
                 />
               </div>
             )}
-<<<<<<< HEAD
 
-=======
-            
-            {/* الزر الرئيسي */}
->>>>>>> 5ddf80da12f44c84c4a7d2ba634c7a98def14625
             <button
               type="submit"
               className={`w-full py-4 rounded-xl font-bold text-white text-lg transition-all duration-300 shadow-2xl hover:shadow-3xl hover:scale-[1.02] active:scale-[0.98] ${
@@ -415,10 +252,6 @@ const sessionData = { ...userData, isAdmin };
             </button>
           </form>
 
-<<<<<<< HEAD
-=======
-          {/* زر Google */}
->>>>>>> 5ddf80da12f44c84c4a7d2ba634c7a98def14625
           <button
             onClick={handleGoogleLogin}
             className="flex items-center justify-center gap-3 mt-6 w-full border-2 border-gray-300 rounded-xl py-3 hover:bg-gray-50 hover:border-gray-400 transition-all font-semibold text-gray-700 text-lg"
