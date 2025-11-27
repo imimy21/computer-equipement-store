@@ -33,13 +33,13 @@ import SidebarMenu from './pages/SidebarMenu';
 
 import About from './pages/About';
 import Contact from './pages/Contact';
-<<<<<<< HEAD
+
 import React, { useState } from 'react';
 
 
-=======
+
 import Payment from "./pages/Payment";
->>>>>>> 5ddf80da12f44c84c4a7d2ba634c7a98def14625
+
 
 
 
