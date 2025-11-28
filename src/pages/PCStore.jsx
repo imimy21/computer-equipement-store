@@ -49,17 +49,9 @@ const PCStore = () => {
       features: ["Intel i7", "16GB RAM", "512GB SSD", "Touchscreen"],
       specs: "13.5-inch OLED Touch / Intel Core i7-1355U / 16GB LPDDR5 RAM / 512GB SSD"
     },
-   {
-    id: 4,
-    name: "Lenovo ThinkPad X1", // غير هذا الاسم
-    type: "Business",
-    price: 228500,
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJnYpGL794F6wpnWEm1-eWaR2NqqfkUytjESFzxgFaU8jxVcc4Pe8F3MdtrViqt9Qq7lg&usqp=CAU",
-    features: ["Intel i7", "16GB RAM", "1TB SSD", "Military Grade"],
-    specs: "14-inch 2.8K OLED / Intel Core i7-1365U / 16GB LPDDR5 / 1TB SSD"
-  },
+   
     {
-<<<<<<< HEAD
+
       id: 4,
       name: "Lenovo ThinkPad X1",
       type: "Business",
@@ -88,27 +80,13 @@ const PCStore = () => {
         battery: "Up to 8 hours"
       }
     },
-    {
-      id: 6,
-      name: "Microsoft Surface Laptop 5",
-      price:  174700,
-      image: "Microsoft Surface Laptop 5.png",
-=======
-    id: 5,
-    name: "ASUS ROG Zephyrus",
-    price: 295700,
-    image: "https://dlcdnwebimgs.asus.com/gain/DBB47F70-325D-4510-9E3E-0548FEF67FB1",
-    type: "Gaming",
-    features: ["RTX 4070", "32GB RAM", "1TB SSD", "165Hz Display"],
-    specs: "15.6-inch QHD 165Hz / AMD Ryzen 9 7940HS / 32GB DDR5 RAM / 1TB NVMe SSD" 
-  },
+   
   
     {
       id: 6,
       name: "Microsoft Surface Laptop 5",
       price: 174700,
       image: "https://myshop.pk/pub/media/catalog/product/cache/26f8091d81cea4b38d820a1d1a4f62be/p/l/platinum2-myshop-pk-16_1.jpg",
->>>>>>> 5ddf80da12f44c84c4a7d2ba634c7a98def14625
       type: "Windows",
       features: ["Intel i5", "8GB RAM", "512GB SSD", "Touchscreen"],
       specs: "13.5-inch PixelSense Touch / Intel Core i5-1235U / 8GB LPDDR5x RAM / 512GB SSD"
@@ -386,9 +364,8 @@ const PCStore = () => {
   );
 };
 
-<<<<<<< HEAD
-export default PCStore;
-=======
+
+
 // مكون منفصل لبطاقة اللاب توب
 const LaptopCard = ({ laptop, user, getTypeColor, addToCart, handleBuyNow }) => {
   return (
@@ -467,4 +444,4 @@ const LaptopCard = ({ laptop, user, getTypeColor, addToCart, handleBuyNow }) => 
 };
 
 export default PCStore;
->>>>>>> 5ddf80da12f44c84c4a7d2ba634c7a98def14625
+
