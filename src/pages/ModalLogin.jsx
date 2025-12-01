@@ -208,25 +208,28 @@ const ModalLogin = ({ isOpen, onRequestClose, user, setUser, userRole, setUserRo
       ) : user ? (
         <div className="text-center">
           {/* أيقونة أول حرف من الإيميل */}
-          <div className="w-20 h-20 mx-auto mb-4 bg-blue-500 rounded-full flex items-center justify-center text-white text-3xl font-bold">
-            {user?.email[0].toUpperCase()}
-          </div>
+         // داخل JSX، استبدلي الكود السابق بالآتي:
 
-         <h2 className="text-3xl font-extrabold mb-2 text-gray-900">
-  Welcome back, {user?.email}! 👋
+{/* أيقونة أول حرف من الإيميل */}
+<div className="w-20 h-20 mx-auto mb-4 bg-blue-500 rounded-full flex items-center justify-center text-white text-3xl font-bold">
+  {user?.email?.[0]?.toUpperCase() || "?"}
+</div>
+
+<h2 className="text-3xl font-extrabold mb-2 text-gray-900">
+  Welcome back, {user?.email || "Guest"}! 👋
 </h2>
+
 <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-bold ${
   displayRole === "admin" ? "bg-purple-100 text-purple-800" : "bg-green-100 text-green-800"
 }`}>
   {displayRole === "admin" ? '👑 Administrator' : '👤 User'}
 </span>
 
-
-         {/* معلومات الحساب */}
+{/* معلومات الحساب */}
 <div className="bg-gray-50 rounded-xl p-4 mb-6 text-left">
   <div className="flex justify-between mb-2">
     <span className="text-gray-600 font-semibold">Email:</span>
-    <span className="font-semibold">{user?.email}</span>
+    <span className="font-semibold">{user?.email || "N/A"}</span>
   </div>
   <div className="flex justify-between">
     <span className="text-gray-600 font-semibold">Role:</span>
