@@ -325,13 +325,17 @@ const PCStore = () => {
 </div>
 
       {/* مودال تسجيل الدخول */}
-    <ModalLogin 
-  isOpen={isLoginModalOpen} 
+<ModalLogin 
+  isOpen={isLoginModalOpen}
   onRequestClose={() => {
     setIsLoginModalOpen(false);
-    setSelectedProduct(null); // ✅ صحح من selectedMonitor إلى selectedProduct
+    setSelectedProduct(null);
   }}
   onLoginSuccess={handleLoginSuccess}
+  user={user}
+  setUser={setUser}
+  userRole={user?.role || null}  // إذا أردت تمرير الدور الحالي
+  setUserRole={(role) => setUser(prev => ({ ...prev, role }))} // تحديث الدور في الـ state
 />
 
       {/* Footer */}

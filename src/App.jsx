@@ -1,5 +1,7 @@
-import React from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { auth, getUserRole } from "./firebase"; // ← أضفت auth و getUserRole
 import HomePage from "./pages/HomePage";
 import Peripheriques from "./pages/Peripheriques";
 import Composants from "./pages/Composants";
@@ -11,7 +13,6 @@ import ModalLogin from "./pages/ModalLogin";
 import { CartProvider } from './context/CartContext';
 import MonitorPage from "./pages/Monitor";
 import PeripheProcessor from "./pages/PeripheProcessor";
-
 import PeripheUSB from "./pages/PeripheUSB";
 import PeripheWebcam from './pages/PeripheWebcam';
 import PeripheHeadset from './pages/PeripheHeadset';
@@ -28,16 +29,61 @@ import GamingZonePage from './pages/GamingZonePage';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Payment from "./pages/Payment";
-
-
+import { createAdminUser } from "./firebase.js"; // صحح المسار هنا
 
 function App() {
+   const [user, setUser] = useState(null);
+   const [userRole, setUserRole] = useState(null);
+   const [isModalOpen, setModalOpen] = useState(false);
+
+useEffect(() => {
+  const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
+    if (currentUser) {
+      setUser(currentUser);
+      const role = await getUserRole(currentUser.uid);
+      setUserRole(role);
+
+      localStorage.setItem("userData", JSON.stringify({
+        uid: currentUser.uid,
+        displayName: currentUser.displayName,
+        email: currentUser.email,
+        photoURL: currentUser.photoURL,
+        role
+      }));
+    } else {
+      setUser(null);
+      setUserRole(null);
+      localStorage.removeItem("userData");
+    }
+  });
+
+  return () => unsubscribe();
+}, []);
+
+  useEffect(() => {
+  const initializeAdmin = async () => {
+    const adminCreated = localStorage.getItem('adminCreated');
+    if (!adminCreated) {
+      await createAdminUser();
+      localStorage.setItem('adminCreated', 'true');
+    }
+  };
+  initializeAdmin();
+}, []);
+
+
   return (
     <CartProvider>
       <Router>
-       
+        <ModalLogin
+  isOpen={isModalOpen}
+  onRequestClose={() => setModalOpen(false)}
+  user={user}
+  setUser={setUser}
+  userRole={userRole}
+  setUserRole={setUserRole}
+/>
         <Routes>
-
           {/* Main pages */}
           <Route path="/" element={<HomePage />} />
           <Route path="/peripheriques" element={<Peripheriques />} />
@@ -46,17 +92,17 @@ function App() {
           <Route path="/composants" element={<Composants />} />
           <Route path="/printers" element={<PrintersPage />} />
           <Route path="/PCStore" element={<PCStore />} />
-          <Route path="/ModalLogin" element={<ModalLogin />} />
+            <Route path="/ModalLogin" element={<ModalLogin />} />
+        
           <Route path="/Monitor" element={<MonitorPage />} />
-
 
           {/* Your added pages */}
           <Route path="/PeripheProcessor" element={<PeripheProcessor />} />
-           <Route path="/PeripheMotherboard" element={<PeripheMotherboard />} />
-           <Route path="/PeripheRAM" element={<PeripheRAM />} />
-           <Route path="/PeripheGPU" element={<PeripheGPU />} />
-           <Route path="/PeripheSSD" element={<PeripheSSD />} />
-           <Route path="/PeripheHardDrive" element={<PeripheHardDrive />} />
+          <Route path="/PeripheMotherboard" element={<PeripheMotherboard />} />
+          <Route path="/PeripheRAM" element={<PeripheRAM />} />
+          <Route path="/PeripheGPU" element={<PeripheGPU />} />
+          <Route path="/PeripheSSD" element={<PeripheSSD />} />
+          <Route path="/PeripheHardDrive" element={<PeripheHardDrive />} />
 
           {/* Other peripherals */}
           <Route path="/peripheriques/USB Drive" element={<PeripheUSB />} />
@@ -66,20 +112,13 @@ function App() {
           <Route path="/peripheriques/Mouse Pad" element={<PeripheMousePad />} />
           <Route path="/Payment" element={<Payment />} />
 
-          {/* Redirect unknown routes */}
-=======
-          <Route path="/peripheriques/USB Drive" element={<PeripheUSB />} />
-         <Route path="/peripheriques/Webcam" element={<PeripheWebcam/>} />
-         <Route path="/peripheriques/Headset" element={<PeripheHeadset/>} />
-         <Route path="/peripheriques/Microphone" element={<PeripheMicrophone/>} />
-         <Route path="/peripheriques/Mouse Pad" element={<PeripheMousePad/>} />
-        <Route path="/cables" element={<PeripheCable />} /> 
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
+          {/* Other routes */}
+          <Route path="/cables" element={<PeripheCable />} /> 
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/computer-cases" element={<ComputerCasesPage />} />
+          <Route path="/gaming-zone" element={<GamingZonePage />} />
 
-
-         <Route path="/computer-cases" element={<ComputerCasesPage />} />
-         <Route path="/gaming-zone" element={<GamingZonePage />} />
           {/* إعادة التوجيه لأي صفحة غير موجودة */}
 
           <Route path="*" element={<Navigate to="/" />} />

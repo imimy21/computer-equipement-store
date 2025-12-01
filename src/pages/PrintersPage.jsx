@@ -24,7 +24,7 @@ const PrintersPage = () => {
       name: "HP LaserJet Pro M15w",
       type: "Laser",
       price: 25000,
-      image: "data:image/jpeg;base64,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",
+      image: "https://webstar-electro.com/documents/document_service_9829511_702_5_1523247057.jpg",
       description: "Compact monochrome laser printer, Wi-Fi, ideal for office use",
       features: ["Monochrome laser", "Wi-Fi", "15 ppm", "A4 Format"],
       specs:"Monochrome laser / Wi-Fi / 15 ppm / A4 ",
@@ -590,14 +590,18 @@ const PrintersPage = () => {
       </div>
 
       {/* Login Modal */}
-      <ModalLogin 
-        isOpen={isLoginModalOpen} 
-        onRequestClose={() => {
-          setIsLoginModalOpen(false);
-          setSelectedProduct(null);
-        }}
-        onLoginSuccess={handleLoginSuccess}
-      />
+     <ModalLogin 
+  isOpen={isLoginModalOpen}
+  onRequestClose={() => {
+    setIsLoginModalOpen(false);
+    setSelectedProduct(null);
+  }}
+  onLoginSuccess={handleLoginSuccess}
+  user={user}
+  setUser={setUser}
+  userRole={user?.role || null}  // إذا أردت تمرير الدور الحالي
+  setUserRole={(role) => setUser(prev => ({ ...prev, role }))} // تحديث الدور في الـ state
+/>
 
       {/* Footer */}
       <footer style={{

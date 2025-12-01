@@ -321,14 +321,18 @@ const MonitorPage = () => {
       </div>
 
       {/* مودال تسجيل الدخول */}
-      <ModalLogin 
-        isOpen={isLoginModalOpen} 
-        onRequestClose={() => {
-  setIsLoginModalOpen(false);
-  setSelectedMonitor(null); // ✅ Correct variable name
-}}
-        onLoginSuccess={handleLoginSuccess}
-      />
+     <ModalLogin 
+  isOpen={isLoginModalOpen}
+  onRequestClose={() => {
+    setIsLoginModalOpen(false);
+    setSelectedProduct(null);
+  }}
+  onLoginSuccess={handleLoginSuccess}
+  user={user}
+  setUser={setUser}
+  userRole={user?.role || null}  // إذا أردت تمرير الدور الحالي
+  setUserRole={(role) => setUser(prev => ({ ...prev, role }))} // تحديث الدور في الـ state
+/>
 
       {/* Footer */}
       <footer style={{

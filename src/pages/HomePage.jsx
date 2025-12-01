@@ -1,21 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Menu, User } from "lucide-react";
 import ModalLogin from "./ModalLogin";
 import Navbar from "./Navbar";
 
-function HomePage() {
+
+ function HomePage() {
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [showAuth, setShowAuth] = useState(false);
-  const [user, setUser] = useState(
-    JSON.parse(localStorage.getItem("userData")) || null
-  );
-   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("userData")) || null);
+  const [userRole, setUserRole] = useState(user?.role || null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false); 
+ const handleLoginSuccess = () => {
+  setIsLoginModalOpen(false);
+  const userData = JSON.parse(localStorage.getItem("userData"));
+  setUser(userData);
+  setUserRole(userData?.role || null);
+};
+useEffect(() => {
+    setUserRole(user?.role || null);
+  }, [user]);
+
 
   return (
     <div className="bg-[#f8f5f9] min-h-screen font-sans">
       {/* Header */}
       <header className="flex justify-between items-center px-6 py-4 bg-[#e9e0eb] rounded-b-3xl shadow-sm">
-         <button 
+        <button 
           className="text-gray-700" 
           onClick={() => setIsMenuOpen(true)}
         >
@@ -23,12 +34,13 @@ function HomePage() {
         </button>
 
 
+
         <h1 className="text-xl md:text-2xl font-semibold text-gray-800">
           CompDZ
         </h1>
-        <button onClick={() => setShowAuth(true)} className="text-gray-700">
-          <User size={28} />
-        </button>
+       <button onClick={() => setIsLoginModalOpen(true)} className="text-gray-700">
+  <User size={28} />
+</button>
       </header>
        {/* Navbar */}
       {/* Navbar */}
@@ -38,7 +50,20 @@ function HomePage() {
 />
 
 
-      <ModalLogin isOpen={showAuth} onRequestClose={() => setShowAuth(false)} />
+   <ModalLogin 
+  isOpen={isLoginModalOpen}
+  onRequestClose={() => {
+    setIsLoginModalOpen(false);
+   // setSelectedProduct(null);
+  }}
+  onLoginSuccess={handleLoginSuccess}
+  user={user}
+  setUser={setUser}
+  userRole={user?.role || null} 
+  setUserRole={setUserRole}
+  
+/>
+
 
       {/* Hero video section */}
       <section className="mt-4">
