@@ -208,7 +208,7 @@ const ModalLogin = ({ isOpen, onRequestClose, user, setUser, userRole, setUserRo
       ) : user ? (
         <div className="text-center">
           {/* أيقونة أول حرف من الإيميل */}
-         // داخل JSX، استبدلي الكود السابق بالآتي:
+         
 
 {/* أيقونة أول حرف من الإيميل */}
 <div className="w-20 h-20 mx-auto mb-4 bg-blue-500 rounded-full flex items-center justify-center text-white text-3xl font-bold">
