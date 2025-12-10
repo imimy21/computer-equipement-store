@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import { auth, getUserRole } from "./firebase";
- // ← أضفت auth و getUserRole
+import { auth, getUserRole } from "./firebase"; // ← أضفت auth و getUserRole
+
 import HomePage from "./pages/HomePage";
 import Peripheriques from "./pages/Peripheriques";
 import Composants from "./pages/Composants";
@@ -29,6 +29,7 @@ import GamingZonePage from './pages/GamingZonePage';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Payment from "./pages/Payment";
+
 import { createAdminUser } from "./firebase.js";
 import AdminDashboard from "./admin/AdminDashboard";
 import Navbar from './pages/Navbar'; // عدل المسار حسب مكان الملف
@@ -37,16 +38,16 @@ import Navbar from './pages/Navbar'; // عدل المسار حسب مكان ال
 
 
 
- // صحح المسار هنا
-
 function App() {
    const [user, setUser] = useState(null);
    const [userRole, setUserRole] = useState(null);
    const [isModalOpen, setModalOpen] = useState(false);
+
     const [isOpen, setIsOpen] = useState(false); // حالة فتح القائمة
 
   const openMenu = () => setIsOpen(true);
   const closeMenu = () => setIsOpen(false);
+ 
 
 useEffect(() => {
   const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
@@ -72,6 +73,7 @@ useEffect(() => {
   return () => unsubscribe();
 }, []);
 
+
    useEffect(() => {
     const initializeAdmin = async () => {
       const adminCreated = localStorage.getItem('adminCreated');
@@ -83,11 +85,15 @@ useEffect(() => {
     initializeAdmin();
   }, []);
 
+  
 
   return (
     <CartProvider>
       <Router>
+
        <ModalLogin
+
+
   isOpen={isModalOpen}
   onRequestClose={() => setModalOpen(false)}
   user={user}
@@ -95,8 +101,11 @@ useEffect(() => {
   userRole={userRole}
   setUserRole={setUserRole}
 
+
 />
 <Navbar isOpen={isOpen} onClose={closeMenu} user={{ ...user, role: userRole }} />
+
+
 
         <Routes>
           {/* Main pages */}
@@ -107,9 +116,13 @@ useEffect(() => {
           <Route path="/composants" element={<Composants />} />
           <Route path="/printers" element={<PrintersPage />} />
           <Route path="/PCStore" element={<PCStore />} />
-          
+          <Route path="/monitor" element={<MonitorPage />} />
+
+
+            <Route path="/ModalLogin" element={<ModalLogin />} />
+
         
-          <Route path="/Monitor" element={<MonitorPage />} />
+      
 
           {/* Your added pages */}
           <Route path="/PeripheProcessor" element={<PeripheProcessor />} />

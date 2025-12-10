@@ -1,28 +1,13 @@
-
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import { auth, provider, db, logout, signInAsAdmin, getUserRole, ADMIN_CREDENTIALS, createAdminUser } from "../firebase";
 import { signInWithEmailAndPassword, signInWithPopup, createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { FcGoogle } from "react-icons/fc";
-import { useNavigate } from "react-router-dom";
 
 Modal.setAppElement("#root");
 
-const ModalLogin = ({
-  isOpen,
-  onRequestClose,
-  user,
-  setUser = () => {},
-  userRole,
-  setUserRole = () => {}
-}) => {
-   const navigate = useNavigate();   // ← إضافة هذه
-
-  const goToAdminPanel = () => {
-    onRequestClose();
-    navigate("/AdminDashboard");    // ← التوجيه الصحيح
-  };
+const ModalLogin = ({ isOpen, onRequestClose, user, setUser, userRole, setUserRole }) => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -50,8 +35,7 @@ const ModalLogin = ({
     const storedUser = localStorage.getItem("userData");
     if (storedUser) {
       const parsed = JSON.parse(storedUser);
-      setUser(parsed);
-      //setUser({ uid: parsed.uid, email: parsed.email, displayName: parsed.displayName });
+      setUser({ uid: parsed.uid, email: parsed.email, displayName: parsed.displayName });
       setUserRole(parsed.role);
     }
 
@@ -67,9 +51,7 @@ const ModalLogin = ({
             uid: currentUser.uid,
             email: currentUser.email,
             displayName: currentUser.displayName || (role === "admin" ? "Administrator" : ""),
-            role,
-            
-            isAdmin: role === "admin"
+            role
           })
         );
       } else {
@@ -110,86 +92,81 @@ const ModalLogin = ({
   };
 
   const handleFormSubmit = async (e) => {
-  e.preventDefault();
-  setLoading(true);
-  setError("");
+    e.preventDefault();
+    setLoading(true);
+    setError("");
 
-  try {
-    let userCredential;
+    try {
+      let userCredential;
 
-    if (!isSignUp) {
-      // تسجيل الدخول
-      if (email === ADMIN_CREDENTIALS.email) {
-        userCredential = await signInAsAdmin(email, password);
+      if (!isSignUp) {
+        // تسجيل الدخول
+        if (email === ADMIN_CREDENTIALS.email) {
+          userCredential = await signInAsAdmin(email, password);
+        } else {
+          userCredential = await signInWithEmailAndPassword(auth, email, password);
+        }
+
+        const currentUser = userCredential.user;
+        const role = currentUser.email === ADMIN_CREDENTIALS.email ? "admin" : await getUserRole(currentUser.uid).catch(() => "user");
+
+        const userData = {
+          uid: currentUser.uid,
+          displayName: currentUser.displayName || (role === "admin" ? "Administrator" : ""),
+          email: currentUser.email,
+          role
+        };
+
+        setUser(currentUser);
+        setUserRole(role);
+        localStorage.setItem("userData", JSON.stringify(userData));
+        onRequestClose();
       } else {
-        userCredential = await signInWithEmailAndPassword(auth, email, password);
+        // إنشاء حساب جديد
+        if (password !== confirmPassword) {
+          setError("Passwords do not match");
+          setLoading(false);
+          return;
+        }
+
+        userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const newUser = userCredential.user;
+
+        const role = "user"; // أي مستخدم جديد لا يمكن أن يكون admin
+        await setDoc(doc(db, "users", newUser.uid), {
+          displayName: name,
+          email: newUser.email,
+          role,
+          createdAt: new Date()
+        });
+
+        const userData = {
+          uid: newUser.uid,
+          displayName: name,
+          email: newUser.email,
+          role
+        };
+
+        setUser(newUser);
+        setUserRole(role);
+        localStorage.setItem("userData", JSON.stringify(userData));
+        onRequestClose();
       }
-
-      const currentUser = userCredential.user;
-      const role = currentUser.email === ADMIN_CREDENTIALS.email
-        ? "admin"
-        : await getUserRole(currentUser.uid).catch(() => "user");
-
-      const userData = {
-        uid: currentUser.uid,
-        displayName: currentUser.displayName || (role === "admin" ? "Administrator" : ""),
-        email: currentUser.email,
-        role,
-        isAdmin: role === "admin"
-      };
-
-      // Utiliser userData et non currentUser
-      setUser(userData);
-      setUserRole(role);
-      localStorage.setItem("userData", JSON.stringify(userData));
-      onRequestClose();
-    } else {
-      // إنشاء حساب جديد
-      if (password !== confirmPassword) {
-        setError("Passwords do not match");
-        setLoading(false);
-        return;
-      }
-
-      userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const newUser = userCredential.user;
-
-      const role = "user"; // أي مستخدم جديد لا يمكن أن يكون admin
-      await setDoc(doc(db, "users", newUser.uid), {
-        displayName: name,
-        email: newUser.email,
-        role,
-        createdAt: new Date()
-      });
-
-      const userData = {
-        uid: newUser.uid,
-        displayName: name,
-        email: newUser.email,
-        role,
-        isAdmin: role === "admin"
-      };
-
-      // Utiliser userData et non newUser
-      setUser(userData);
-      setUserRole(role);
-      localStorage.setItem("userData", JSON.stringify(userData));
-      onRequestClose();
+    } catch (err) {
+      console.error(err);
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
-  } catch (err) {
-    console.error(err);
-    setError(err.message);
-  } finally {
-    setLoading(false);
-  }
-};
-
+  };
 
   const confirmSignOut = () => setShowConfirmLogout(true);
   const cancelSignOut = () => setShowConfirmLogout(false);
 
-  
-  
+  const goToAdminPanel = () => {
+    onRequestClose();
+    console.log("Redirect to admin panel");
+  };
 
   // الدور الذي سيظهر في العرض (ثابت للإدمن)
   const displayRole = user?.email === ADMIN_CREDENTIALS.email ? "admin" : userRole;

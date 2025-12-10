@@ -231,14 +231,18 @@ function PeripheGPU() {
 
       {/* Login Modal */}
       {isLoginModalOpen && (
-        <ModalLogin 
-          isOpen={isLoginModalOpen}
-          onRequestClose={() => {
-            setIsLoginModalOpen(false);
-            setSelectedProduct(null);
-          }}
-          onLoginSuccess={handleLoginSuccess}
-        />
+       <ModalLogin 
+  isOpen={isLoginModalOpen}
+  onRequestClose={() => {
+    setIsLoginModalOpen(false);
+    setSelectedProduct(null);
+  }}
+  onLoginSuccess={handleLoginSuccess}
+  user={user}
+  setUser={setUser}
+  userRole={user?.role || null}  // إذا أردت تمرير الدور الحالي
+  setUserRole={(role) => setUser(prev => ({ ...prev, role }))} // تحديث الدور في الـ state
+/>
       )}
 
       <footer className="text-center text-gray-500 text-sm py-6 mt-10">

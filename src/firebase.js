@@ -103,4 +103,6 @@ export const getUserRole = async (uid, email) => {
 // 🔥 تسجيل خروج
 export const logout = async () => {
   await auth.signOut();
+
 };
+

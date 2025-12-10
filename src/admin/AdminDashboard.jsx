@@ -10,6 +10,7 @@ function AdminDashboard({ user }) {
 
   useEffect(() => {
     if (!currentUser) return;
+    if (!currentUser.role) return;
 
     if (currentUser.role !== "admin") {
       navigate("/");
@@ -18,15 +19,13 @@ function AdminDashboard({ user }) {
     }
   }, [currentUser, navigate]);
 
-  if (loading) {
+  if (loading || !currentUser || !currentUser.role) {
     return (
       <div className="w-screen h-screen flex items-center justify-center text-black">
         Loading...
       </div>
     );
   }
-
-  if (currentUser.role !== "admin") return null;
 
   const handleClick = (section) => {
     alert(`${section} page is coming soon!`);
@@ -59,10 +58,10 @@ function AdminDashboard({ user }) {
           Manage Orders
         </div>
       </div>
-
     </div>
   );
 }
 
 export default AdminDashboard;
+
 
