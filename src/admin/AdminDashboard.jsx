@@ -1,61 +1,68 @@
-import React, { useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function AdminDashboard({ user }) {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+
   const storedUser = JSON.parse(localStorage.getItem("userData"));
   const currentUser = user || storedUser;
 
-  // Redirect if not admin
   useEffect(() => {
-    if (!currentUser?.isAdmin) {
+    if (!currentUser) return;
+
+    if (currentUser.role !== "admin") {
       navigate("/");
+    } else {
+      setLoading(false);
     }
   }, [currentUser, navigate]);
 
-  if (!currentUser?.isAdmin) return null;
+  if (loading) {
+    return (
+      <div className="w-screen h-screen flex items-center justify-center text-black">
+        Loading...
+      </div>
+    );
+  }
+
+  if (currentUser.role !== "admin") return null;
+
+  const handleClick = (section) => {
+    alert(`${section} page is coming soon!`);
+  };
 
   return (
     <div className="w-screen h-screen bg-white p-6 text-black">
-      <header className="bg-gray-100 shadow rounded-lg p-4 mb-6">
-        <h1 className="text-3xl font-bold text-black">Admin Dashboard</h1>
-        <p className="text-gray-700 mt-1">Welcome, {currentUser.name || currentUser.email}!</p>
+      <header className="bg-gray-100 shadow rounded-lg p-6 mb-6 text-center">
+        <div className="text-3xl font-bold text-black mb-2">Admin Dashboard</div>
+        <div className="text-xl text-gray-700">Welcome Admin</div>
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Link
-          to="/AdminDashboard/users"
-          className="bg-gray-200 text-black p-6 rounded-lg shadow hover:bg-gray-300 transition"
+        <div
+          className="bg-gray-200 text-black p-6 rounded-lg shadow cursor-pointer text-center hover:bg-gray-300"
+          onClick={() => handleClick("Manage Users")}
         >
           Manage Users
-        </Link>
-        <Link
-          to="/AdminDashboard/products"
-          className="bg-gray-200 text-black p-6 rounded-lg shadow hover:bg-gray-300 transition"
+        </div>
+        <div
+          className="bg-gray-200 text-black p-6 rounded-lg shadow cursor-pointer text-center hover:bg-gray-300"
+          onClick={() => handleClick("Manage Products")}
         >
           Manage Products
-        </Link>
-        <Link
-          to="/AdminDashboard/orders"
-          className="bg-gray-200 text-black p-6 rounded-lg shadow hover:bg-gray-300 transition"
+        </div>
+        <div
+          className="bg-gray-200 text-black p-6 rounded-lg shadow cursor-pointer text-center hover:bg-gray-300"
+          onClick={() => handleClick("Manage Orders")}
         >
           Manage Orders
-        </Link>
+        </div>
       </div>
 
-      <div className="mt-8 bg-gray-100 p-6 rounded-lg shadow">
-        <h2 className="text-xl font-semibold text-black mb-4">Statistics</h2>
-        <p className="text-gray-700">You can add dashboard stats here.</p>
-      </div>
     </div>
   );
 }
 
 export default AdminDashboard;
-
-
-
-
-
-
 

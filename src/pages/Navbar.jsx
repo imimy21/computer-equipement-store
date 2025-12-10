@@ -84,7 +84,8 @@ const Navbar = ({ isOpen, onClose, user }) => { // <-- أضفنا user هنا
           </Link>
 
           {/* زر الأدمين يظهر فقط للأدمين */}
-          {user?.isAdmin && (
+{/* زر الأدمين يظهر فقط للأدمين */}
+{user?.role === "admin" && (
   <Link
     to="/AdminDashboard"
     className="flex items-center gap-3 p-3 text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition ml-4"
@@ -94,6 +95,7 @@ const Navbar = ({ isOpen, onClose, user }) => { // <-- أضفنا user هنا
     <span>Admin Panel</span>
   </Link>
 )}
+
 
 
           <Link to="/about" className="flex items-center gap-3 p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition" onClick={onClose}>

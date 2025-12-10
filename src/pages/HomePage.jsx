@@ -33,10 +33,6 @@ function HomePage() {
        {/* Navbar */}
       {/* Navbar */}
 <Navbar isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} user={user} />
-
-
-
-
   <ModalLogin 
   isOpen={showAuth} 
   onRequestClose={() => setShowAuth(false)} 
