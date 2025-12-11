@@ -202,28 +202,7 @@ const Navbar = ({ isOpen, onClose }) => {
           </Link>
 
           {/* معلومات المستخدم */}
-          {user && (
-            <div className="mt-6 p-3 bg-blue-50 rounded-lg border border-blue-200">
-              <div className="flex items-center gap-2 mb-1">
-                <span className="text-blue-600">👤</span>
-                <span className="text-sm font-semibold text-blue-700">
-                  {user.displayName || user.email}
-                </span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-xs text-blue-600">
-                  {userRole === "admin" ? "Administrator" : "User"}
-                </span>
-                <span className="text-xs text-green-600 font-semibold">● Online</span>
-              </div>
-              <button
-                onClick={handleSignOut}
-                className="mt-2 w-full bg-red-500 text-white py-1 rounded-lg text-sm hover:bg-red-600 transition-all"
-              >
-                Sign Out
-              </button>
-            </div>
-          )}
+         
         </nav>
       </div>
     </div>

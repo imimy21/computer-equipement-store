@@ -30,6 +30,7 @@ import GamingZonePage from './pages/GamingZonePage';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Payment from "./pages/Payment";
+import ManageProducts from "./admin/ManageProducts.jsx";
 
 import { createAdminUser } from "./firebase.js";
 import AdminDashboard from "./admin/AdminDashboard";
@@ -118,7 +119,7 @@ useEffect(() => {
           <Route path="/printers" element={<PrintersPage />} />
           <Route path="/PCStore" element={<PCStore />} />
           <Route path="/monitor" element={<MonitorPage />} />
-
+         <Route path="/ManageProducts" element={<ManageProducts />} />
 
             <Route path="/ModalLogin" element={<ModalLogin />} />
 

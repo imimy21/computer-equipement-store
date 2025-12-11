@@ -45,12 +45,12 @@ function AdminDashboard({ user }) {
         >
           Manage Users
         </div>
-        <div
-          className="bg-gray-200 text-black p-6 rounded-lg shadow cursor-pointer text-center hover:bg-gray-300"
-          onClick={() => handleClick("Manage Products")}
-        >
-          Manage Products
-        </div>
+       <div
+  className="bg-gray-200 text-black p-6 rounded-lg shadow cursor-pointer text-center hover:bg-gray-300"
+  onClick={() => navigate("/ManageProducts")}
+>
+  Manage Products
+</div>
         <div
           className="bg-gray-200 text-black p-6 rounded-lg shadow cursor-pointer text-center hover:bg-gray-300"
           onClick={() => handleClick("Manage Orders")}
