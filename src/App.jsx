@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { auth, getUserRole } from "./firebase"; // ← أضفت auth و getUserRole
 
+
 import HomePage from "./pages/HomePage";
 import Peripheriques from "./pages/Peripheriques";
 import Composants from "./pages/Composants";
