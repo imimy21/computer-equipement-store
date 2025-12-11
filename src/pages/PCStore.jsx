@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const pcProducts = [
   { id: 1, name: "MacBook Pro 16-inch", image: "https://webstar-electro.com/documents/document_service_21038_698_5_1473342992.jpg", price: 376500, description: "M3 Pro Chip / 18GB RAM / 512GB SSD / Liquid Retina XDR" },
   { id: 2, name: "Dell XPS 15", image: "https://www.acomputerservice.com.pe/5148/notebook-dell-latitude-14-3420-14-hd-i5-1135g7-24ghz-8gb-ddr4-3200mhz-512gb-ssd-kw11n.jpg", price: 268900, description: "Intel i9 / 32GB RAM / 1TB SSD / OLED Display" },
-  { id: 3, name: "HP Spectre x360", image: "https://www.elasslihitech.com/wp-content/uploads/2023/11/LD0005638889_2.jpg", price: 201600, description: "Intel i7 / 16GB RAM / 512GB SSD / Touchscreen" },
+  { id: 3, name: "HP Spectre x360", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQqxQUxNU733rXV2k2z5HrCB-xADPxcqQbUg&s", price: 201600, description: "Intel i7 / 16GB RAM / 512GB SSD / Touchscreen" },
   { id: 4, name: "Lenovo ThinkPad X1", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJnYpGL794F6wpnWEm1-eWaR2NqqfkUytjESFzxgFaU8jxVcc4Pe8F3MdtrViqt9Qq7lg&usqp=CAU", price: 228500, description: "Intel i7 / 16GB RAM / 1TB SSD / Business Laptop" },
   { id: 5, name: "ASUS ROG Zephyrus", image: "https://dlcdnwebimgs.asus.com/gain/DBB47F70-325D-4510-9E3E-0548FEF67FB1", price: 295700, description: "RTX 4070 / 32GB RAM / 1TB SSD / Gaming Laptop" },
   { id: 6, name: "Microsoft Surface Laptop 5", image: "https://myshop.pk/pub/media/catalog/product/cache/26f8091d81cea4b38d820a1d1a4f62be/p/l/platinum2-myshop-pk-16_1.jpg", price: 174700, description: "Intel i5 / 8GB RAM / 512GB SSD / Touchscreen" }
