@@ -71,21 +71,18 @@ function PCStore() {
           💻 PCStore
         </h1>
         <div className="flex items-center gap-4">
-          {user ? (
-            <button 
-              onClick={handleLogout}
-              className="bg-red-500 text-white px-4 py-2 rounded-md text-sm hover:bg-red-600 transition font-semibold"
-            >
-              Logout
-            </button>
-          ) : (
-            <button 
-              onClick={() => setIsLoginModalOpen(true)}
-              className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600 transition font-semibold"
-            >
-              Login
-            </button>
-          )}
+         {!user && (
+  <button 
+    onClick={() => setIsLoginModalOpen(true)}
+    style={{
+      backgroundColor: "#3498db",
+    }}
+    className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600 transition font-semibold"
+  >
+    Login
+  </button>
+)}
+
 
           <button
             onClick={() => setShowPanier(true)}
@@ -125,16 +122,39 @@ function PCStore() {
             <div className="flex gap-2 mt-3 w-full">
               <button
                 onClick={() => addToCart(product)}
-                className={`flex-1 py-2 rounded-md text-sm font-semibold transition ${user ? "bg-blue-600 text-white hover:bg-blue-700" : "bg-gray-400 text-white cursor-not-allowed"}`}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  backgroundColor: "#3498db",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "8px",
+                  fontSize: "0.9rem",
+                  fontWeight: "600",
+                  cursor: "pointer",
+                  transition: "all 0.3s ease"
+                }}
+                className="flex-1 bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition text-sm font-semibold"
               >
                 Add to Cart
               </button>
-              <button 
-                onClick={() => handleBuyNow(product)}
-                className={`flex-1 py-2 rounded-md text-sm font-semibold transition ${user ? "bg-green-600 text-white hover:bg-green-700" : "bg-gray-400 text-white cursor-not-allowed"}`}
-              >
-                Buy Now
-              </button>
+               <button 
+            onClick={() => handleBuyNow(product)}
+            style={{
+              flex: 1,
+              padding: "10px",
+              backgroundColor: user ? "#27ae60" : "#95a5a6",
+              color: "white",
+              border: "none",
+              borderRadius: "8px",
+              fontSize: "0.9rem",
+              fontWeight: "600",
+              cursor: user ? "pointer" : "not-allowed",
+              transition: "all 0.3s ease"
+            }}
+          >
+            {user ? "Buy Now" : "Buy Now"}
+          </button>
             </div>
           </div>
         ))}
