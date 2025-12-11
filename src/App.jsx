@@ -35,6 +35,8 @@ import ManageProducts from "./admin/ManageProducts.jsx";
 import { createAdminUser } from "./firebase.js";
 import AdminDashboard from "./admin/AdminDashboard";
 import Navbar from './pages/Navbar'; // عدل المسار حسب مكان الملف
+import AdminUsersShort from "./admin/AdminUsersShort";
+
 
 
 
@@ -152,6 +154,7 @@ useEffect(() => {
           {/* إعادة التوجيه لأي صفحة غير موجودة */}
 
            <Route path="/AdminDashboard" element={<AdminDashboard user={{ ...user, role: userRole }} />} />
+          <Route path="/admin/users" element={<AdminUsersShort />} />
           <Route path="*" element={<Navigate to="/" />} />
         
 
