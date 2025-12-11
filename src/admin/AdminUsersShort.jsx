@@ -56,10 +56,10 @@ const AdminUsersShort = () => {
   if (loading) return <div className="p-6 text-center">⏳ Loading...</div>;
 
   return (
-    <div className="w-screen h-screen p-6 bg-white flex flex-col relative">
+    <div className="w-screen h-screen p-6 bg-gray-50 flex flex-col relative text-black">
       {/* Success message */}
       {message && (
-        <div className="fixed top-4 right-4 bg-green-100 text-green-800 px-4 py-2 rounded shadow">
+        <div className="fixed top-4 right-4 bg-green-100 text-green-800 px-4 py-2 rounded shadow-lg border border-green-300">
           {message}
         </div>
       )}
@@ -77,14 +77,14 @@ const AdminUsersShort = () => {
           <input
             type="text"
             placeholder="Search for a user..."
-            className="w-full p-3 pr-10 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 pr-10 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
         <button
           onClick={fetchUsers}
-          className="p-3 bg-blue-100 hover:bg-blue-200 rounded-lg"
+          className="p-3 bg-blue-100 hover:bg-blue-200 rounded-lg transition"
           title="Refresh"
         >
           <RefreshCw size={20} className="text-blue-700" />
@@ -93,7 +93,7 @@ const AdminUsersShort = () => {
 
       {/* Users table */}
       <div className="flex-1 overflow-auto w-full">
-        <table className="w-full min-w-[600px] border-collapse text-sm">
+        <table className="w-full min-w-[600px] border-collapse text-sm bg-white rounded-xl shadow-sm">
           <thead className="bg-gray-100 text-gray-700 sticky top-0">
             <tr>
               <th className="p-3 text-left">User</th>
@@ -104,22 +104,31 @@ const AdminUsersShort = () => {
           <tbody>
             {filteredUsers.length > 0 ? (
               filteredUsers.map((user) => (
-                <tr key={user.id} className="border-b hover:bg-gray-50">
+                <tr
+                  key={user.id}
+                  className="border-b hover:bg-gray-50 transition"
+                >
                   {/* User info */}
                   <td className="p-3">
-                    <div className="font-medium text-black">{user.displayName || "supreme"}</div>
+                    <div className="font-medium text-black">
+                      {user.displayName || "Unknown"}
+                    </div>
                     <div className="text-xs text-gray-500 flex items-center gap-1">
                       <Mail size={14} /> {user.email}
                     </div>
                   </td>
 
-                  {/* Role */}
-                  <td
-                    className={`p-3 capitalize ${
-                      user.role === "user" ? "text-green-600" : "text-black"
-                    }`}
-                  >
-                    {user.role || "user"}
+                  {/* Role with badge */}
+                  <td className="p-3">
+                    <span
+                      className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                        user.role === "user"
+                          ? "bg-green-100 text-green-700 border border-green-300"
+                          : "bg-gray-200 text-gray-700 border border-gray-300"
+                      }`}
+                    >
+                      {user.role || "user"}
+                    </span>
                   </td>
 
                   {/* Actions */}
@@ -148,27 +157,33 @@ const AdminUsersShort = () => {
       </div>
 
       {/* Footer */}
-      <div className="mt-6 text-sm text-gray-500">
-        Showing {filteredUsers.length} of {users.length} users
+      <div className="mt-6 text-sm text-gray-600 text-center">
+        Showing <b>{filteredUsers.length}</b> of <b>{users.length}</b> users
       </div>
 
       {/* Confirmation modal */}
       {confirmDelete.show && (
-        <div className="fixed flex items-center justify-center inset-0 z-50">
-          <div className="bg-white p-6 rounded shadow-lg w-80 text-center border border-gray-300">
-            <p className="mb-4">
-              Are you sure you want to delete {confirmDelete.email}?
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/10 backdrop-blur-sm">
+          <div className="bg-white p-6 rounded-2xl shadow-2xl w-80 text-center border border-gray-200">
+            <p className="mb-4 text-gray-700">
+              Are you sure you want to delete <b>{confirmDelete.email}</b>?
             </p>
             <div className="flex justify-around">
-              <button
-                onClick={deleteUserConfirmed}
-                className="px-4 py-2 bg-red-300 text-black rounded hover:bg-red-400"
-              >
-                Delete
-              </button>
+              {/* زر الحذف مع أيقونة بيضاء */}
+     {/* زر الحذف مع أيقونة حمراء بدون خلفية */}
+{/* زر الحذف بنفس تصميم زر الإلغاء */}
+<button
+  onClick={deleteUserConfirmed}
+  className="px-5 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition flex items-center gap-2"
+>
+  <Trash2 size={18} />
+  Delete
+</button>
+
+              {/* زر الإلغاء */}
               <button
                 onClick={() => setConfirmDelete({ show: false, id: null, email: "" })}
-                className="px-4 py-2 bg-gray-300 text-black rounded hover:bg-gray-400"
+                className="px-5 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition"
               >
                 Cancel
               </button>

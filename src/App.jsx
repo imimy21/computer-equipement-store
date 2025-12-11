@@ -155,6 +155,7 @@ useEffect(() => {
 
            <Route path="/AdminDashboard" element={<AdminDashboard user={{ ...user, role: userRole }} />} />
           <Route path="/admin/users" element={<AdminUsersShort />} />
+          <Route path="/admin/products" element={<ManageProducts />} />
           <Route path="*" element={<Navigate to="/" />} />
         
 
