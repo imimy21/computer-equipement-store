@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { auth, getUserRole } from "./firebase"; // ← أضفت auth و getUserRole
 
+
 import HomePage from "./pages/HomePage";
 import Peripheriques from "./pages/Peripheriques";
 import Composants from "./pages/Composants";
@@ -29,12 +30,21 @@ import GamingZonePage from './pages/GamingZonePage';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Payment from "./pages/Payment";
+
 import OrderReviewPage from "./pages/OrderReviewPage";
+
+import ManageProducts from "./admin/ManageProducts.jsx";
+
 
 import { createAdminUser } from "./firebase.js";
 import AdminDashboard from "./admin/AdminDashboard";
 import Navbar from './pages/Navbar'; // عدل المسار حسب مكان الملف
+
 import ManageOrder from "./admin/ManageOrder";
+
+import AdminUsersShort from "./admin/AdminUsersShort";
+
+
 
 
 
@@ -119,7 +129,7 @@ useEffect(() => {
           <Route path="/printers" element={<PrintersPage />} />
           <Route path="/PCStore" element={<PCStore />} />
           <Route path="/monitor" element={<MonitorPage />} />
-
+         <Route path="/ManageProducts" element={<ManageProducts />} />
 
             <Route path="/ModalLogin" element={<ModalLogin />} />
 
@@ -142,7 +152,7 @@ useEffect(() => {
           <Route path="/peripheriques/Mouse Pad" element={<PeripheMousePad />} />
           <Route path="/Payment" element={<Payment />} />
            <Route path="/order-review" element={<OrderReviewPage />} />
-          <Route path="/admin/ManageOrder" element={<ManageOrder/>} />
+         <Route path="/admin/orders" element={<ManageOrder/>} />
 
 
 
@@ -156,6 +166,8 @@ useEffect(() => {
           {/* إعادة التوجيه لأي صفحة غير موجودة */}
 
            <Route path="/AdminDashboard" element={<AdminDashboard user={{ ...user, role: userRole }} />} />
+          <Route path="/admin/users" element={<AdminUsersShort />} />
+          <Route path="/admin/products" element={<ManageProducts />} />
           <Route path="*" element={<Navigate to="/" />} />
         
 

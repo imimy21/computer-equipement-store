@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
-import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
+import { collection, query, orderBy, onSnapshot, doc, deleteDoc } from "firebase/firestore";
 
 const ManageOrder = () => {
   const [orders, setOrders] = useState([]);
@@ -42,6 +42,20 @@ const ManageOrder = () => {
     setExpandedOrder(expandedOrder === orderId ? null : orderId);
   };
 
+  // ✅ دالة حذف الطلب
+  const handleDeleteOrder = async (orderId) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this order?");
+    if (!confirmDelete) return;
+
+    try {
+      await deleteDoc(doc(db, "orders", orderId));
+      alert("Order deleted successfully.");
+    } catch (error) {
+      console.error("Error deleting order:", error);
+      alert("Failed to delete order. Please try again.");
+    }
+  };
+
   if (loading) {
     return (
       <div className="fixed inset-0 w-full h-full flex justify-center items-center bg-gradient-to-br from-gray-50 to-gray-100">
@@ -72,46 +86,19 @@ const ManageOrder = () => {
   return (
     <div className="fixed inset-0 w-full h-full overflow-y-auto bg-gradient-to-br from-gray-50 to-gray-100 p-4 md:p-8">
       <div className="max-w-7xl mx-auto min-h-full">
-        {/* Header */}
         <div className="mb-8 text-center pt-4">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">Order Management</h1>
           <p className="text-gray-600">Total Orders: {orders.length}</p>
         </div>
 
-        {/* Statistics Bar */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          <div className="bg-white rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition-shadow duration-300">
-            <p className="text-3xl font-bold text-blue-600">{orders.length}</p>
-            <p className="text-gray-600 mt-2">All Orders</p>
-          </div>
-          <div className="bg-white rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition-shadow duration-300">
-            <p className="text-3xl font-bold text-green-600">
-              {orders.filter(o => o.paymentStatus === 'paid' || o.paymentStatus === 'completed').length}
-            </p>
-            <p className="text-gray-600 mt-2">Paid</p>
-          </div>
-          <div className="bg-white rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition-shadow duration-300">
-            <p className="text-3xl font-bold text-yellow-600">
-              {orders.filter(o => o.paymentStatus === 'pending').length}
-            </p>
-            <p className="text-gray-600 mt-2">Pending</p>
-          </div>
-          <div className="bg-white rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition-shadow duration-300">
-            <p className="text-3xl font-bold text-red-600">
-              {orders.filter(o => o.paymentStatus === 'failed' || o.paymentStatus === 'cancelled').length}
-            </p>
-            <p className="text-gray-600 mt-2">Cancelled</p>
-          </div>
-        </div>
+       
 
-        {/* Orders Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 pb-8">
           {orders.map((order) => (
             <div 
               key={order.id} 
               className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
             >
-              {/* Order Header with Status */}
               <div className={`p-5 ${getStatusColor(order.paymentStatus)}`}>
                 <div className="flex justify-between items-start">
                   <div>
@@ -124,7 +111,6 @@ const ManageOrder = () => {
                 </div>
               </div>
 
-              {/* Order Content */}
               <div className="p-5">
                 {/* Student Info */}
                 <div className="mb-5 pb-4 border-b border-gray-100">
@@ -143,10 +129,8 @@ const ManageOrder = () => {
                       <span className="text-gray-600">Email:</span>
                       <span className="font-medium text-gray-800 truncate max-w-[200px]">{order.studentEmail || "Not specified"}</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">User ID:</span>
-                      <span className="font-medium text-gray-800 text-sm">{order.userId || "Not specified"}</span>
-                    </div>
+                    
+                    
                   </div>
                 </div>
 
@@ -160,7 +144,6 @@ const ManageOrder = () => {
                   </h3>
                   
                   {expandedOrder === order.id ? (
-                    // Expanded View
                     <div className="space-y-3 max-h-60 overflow-y-auto pr-2">
                       {order.products?.map((p, idx) => (
                         <div key={idx} className="bg-gray-50 rounded-lg p-3">
@@ -178,7 +161,6 @@ const ManageOrder = () => {
                       ))}
                     </div>
                   ) : (
-                    // Collapsed View
                     <div className="space-y-2">
                       {order.products?.slice(0, 2).map((p, idx) => (
                         <div key={idx} className="flex justify-between items-center">
@@ -222,11 +204,21 @@ const ManageOrder = () => {
                       </svg>
                       Update
                     </button>
+
+                    {/* زر الحذف */}
+                    <button
+                      onClick={() => handleDeleteOrder(order.id)}
+                      className="px-4 bg-red-50 text-red-600 hover:bg-red-100 py-3 rounded-lg font-medium transition-all duration-200 flex items-center justify-center hover:shadow-md"
+                    >
+                      <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/>
+                      </svg>
+                      Delete
+                    </button>
                   </div>
                 </div>
               </div>
 
-              {/* Order Footer */}
               <div className="bg-gray-50 px-5 py-3 border-t border-gray-100">
                 <div className="flex justify-between items-center text-sm text-gray-600">
                   <div className="flex items-center">
@@ -244,7 +236,6 @@ const ManageOrder = () => {
           ))}
         </div>
 
-        {/* Footer Info */}
         <div className="mt-8 pt-6 pb-8 border-t border-gray-200 text-center text-gray-500 text-sm">
           <p>Last Updated: {new Date().toLocaleString()}</p>
           <p className="mt-1">Total Orders Displayed: {orders.length}</p>
@@ -254,14 +245,14 @@ const ManageOrder = () => {
   );
 };
 
-// Helper functions for status colors
+// ✅ تعديل اللون البرتقالي إلى أزرق داكن
 const getStatusColor = (status) => {
   switch (status?.toLowerCase()) {
     case 'paid':
     case 'completed':
       return 'bg-gradient-to-r from-green-500 to-emerald-600';
     case 'pending':
-      return 'bg-gradient-to-r from-yellow-500 to-amber-600';
+      return 'bg-gradient-to-r from-blue-700 to-blue-900';
     case 'failed':
     case 'cancelled':
       return 'bg-gradient-to-r from-red-500 to-rose-600';
@@ -276,7 +267,7 @@ const getStatusBadgeColor = (status) => {
     case 'completed':
       return 'bg-green-100 text-green-800';
     case 'pending':
-      return 'bg-yellow-100 text-yellow-800';
+      return 'bg-blue-100 text-blue-800';
     case 'failed':
     case 'cancelled':
       return 'bg-red-100 text-red-800';
@@ -297,6 +288,7 @@ const getStatusText = (status) => {
 };
 
 export default ManageOrder;
+
 
 
 

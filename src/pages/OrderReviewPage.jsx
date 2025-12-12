@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { db } from "../firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
+
+
 const OrderReviewPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -36,9 +38,10 @@ const OrderReviewPage = () => {
 
   // Calculate total amount
   const totalAmount = products.reduce(
-    (sum, item) => sum + (fromCart ? item.price * item.quantity : item.price),
-    0
-  );
+  (sum, item) => sum + item.price * (item.quantity || 1),
+  0
+);
+
 
   // Calculate tax (example: 10%)
   const taxAmount = totalAmount * 0.1;
@@ -48,12 +51,13 @@ const OrderReviewPage = () => {
     try {
       setLoading(true);
 
-      const simplifiedProducts = products.map((item) => ({
-        productName: item.name,
-        productPrice: item.price,
-        quantity: fromCart ? item.quantity : 1,
-        totalItemPrice: fromCart ? item.price * item.quantity : item.price
-      }));
+     const simplifiedProducts = products.map((item) => ({
+  productName: item.name,
+  productPrice: item.price,
+  quantity: item.quantity || 1,
+  totalItemPrice: item.price * (item.quantity || 1)
+}));
+
 
       await addDoc(collection(db, "orders"), {
         studentName: `${userData.firstName} ${userData.lastName}`,
@@ -152,15 +156,7 @@ const OrderReviewPage = () => {
                 </div>
               </div>
 
-              <div className="flex items-center p-3 bg-blue-50 rounded-lg">
-                <svg className="w-5 h-5 mr-3 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2" />
-                </svg>
-                <div>
-                  <p className="text-sm text-gray-500">User ID</p>
-                  <p className="font-semibold text-gray-900 text-sm break-all">{userData.uid || "Not available"}</p>
-                </div>
-              </div>
+             
 
               <div className="flex items-center p-3 bg-blue-50 rounded-lg">
                 <svg className="w-5 h-5 mr-3 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -216,7 +212,8 @@ const OrderReviewPage = () => {
                       </td>
                       <td className="text-center py-4 px-2">
                         <span className="font-bold text-gray-900">
-                          {(fromCart ? item.price * item.quantity : item.price).toLocaleString()} DA
+                         {(item.price * (item.quantity || 1)).toLocaleString()} DA
+
                         </span>
                       </td>
                     </tr>

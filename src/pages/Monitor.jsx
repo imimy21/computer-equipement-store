@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import ModalLogin from "./ModalLogin";
 import Cart from "./cart";
@@ -77,7 +78,9 @@ const MonitorPage = () => {
   <button 
     onClick={() => setIsLoginModalOpen(true)}
     style={{
-      backgroundColor: "#3498db",
+      backgroundColor:
+
+"#3498db",
     }}
     className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600 transition font-semibold"
   >
@@ -108,7 +111,7 @@ const MonitorPage = () => {
             <p className="text-gray-900 font-bold mt-2">{monitor.price.toLocaleString()} DA</p>
             <div className="flex gap-2 mt-3 w-full">
               <button
-                onClick={() => addToCart(product)}
+                onClick={() => addToCart(monitor)}
                 style={{
                   flex: 1,
                   padding: "10px",
@@ -126,7 +129,7 @@ const MonitorPage = () => {
                 Add to Cart
               </button>
   <button 
-            onClick={() => handleBuyNow(product)}
+            onClick={() => handleBuyNow(monitor)}
             style={{
               flex: 1,
               padding: "10px",
