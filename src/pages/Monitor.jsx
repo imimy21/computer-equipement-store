@@ -73,11 +73,18 @@ const MonitorPage = () => {
       <header className="flex justify-between items-center px-6 py-4 bg-[#e9e0eb] shadow-sm">
         <h1 className="text-2xl font-semibold text-gray-800 text-center w-full">🖥️ MonitorStore</h1>
         <div className="flex items-center gap-4">
-          {user ? (
-            <button onClick={handleLogout} className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 font-semibold text-sm">Logout</button>
-          ) : (
-            <button onClick={() => setIsLoginModalOpen(true)} className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 font-semibold text-sm">Login</button>
-          )}
+          {!user && (
+  <button 
+    onClick={() => setIsLoginModalOpen(true)}
+    style={{
+      backgroundColor: "#3498db",
+    }}
+    className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600 transition font-semibold"
+  >
+    Login
+  </button>
+)}
+
           <button onClick={() => setShowPanier(true)} className="relative bg-[#e9e0eb] px-4 py-2 rounded-xl font-semibold flex items-center gap-2">
             🛒
             {cartCount > 0 && (
@@ -94,14 +101,47 @@ const MonitorPage = () => {
       <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6 items-stretch">
         {monitors.map((monitor) => (
           <div key={monitor.id} className="bg-white rounded-2xl shadow-md flex flex-col p-4 hover:shadow-xl transition h-full">
-            <div className={`absolute top-4 right-4 px-3 py-1 rounded-full text-white font-semibold`} style={{backgroundColor: getTypeColor(monitor.panelType)}}>{monitor.panelType}</div>
+        
             <img src={monitor.image} alt={monitor.name} className="max-h-40 object-contain mb-3" />
             <h3 className="font-semibold text-gray-800 text-lg text-center">{monitor.name}</h3>
             <p className="text-gray-600 text-sm text-center flex-1">{monitor.specs}</p>
             <p className="text-gray-900 font-bold mt-2">{monitor.price.toLocaleString()} DA</p>
             <div className="flex gap-2 mt-3 w-full">
-              <button onClick={() => addToCartHandler(monitor)} className={`flex-1 py-2 rounded-md text-sm font-semibold transition ${user ? "bg-blue-600 text-white hover:bg-blue-700" : "bg-gray-400 text-white cursor-not-allowed"}`}>Add to Cart</button>
-              <button onClick={() => handleBuyNow(monitor)} className={`flex-1 py-2 rounded-md text-sm font-semibold transition ${user ? "bg-green-600 text-white hover:bg-green-700" : "bg-gray-400 text-white cursor-not-allowed"}`}>Buy Now</button>
+              <button
+                onClick={() => addToCart(product)}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  backgroundColor: "#3498db",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "8px",
+                  fontSize: "0.9rem",
+                  fontWeight: "600",
+                  cursor: "pointer",
+                  transition: "all 0.3s ease"
+                }}
+                className="flex-1 bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition text-sm font-semibold"
+              >
+                Add to Cart
+              </button>
+  <button 
+            onClick={() => handleBuyNow(product)}
+            style={{
+              flex: 1,
+              padding: "10px",
+              backgroundColor: user ? "#27ae60" : "#95a5a6",
+              color: "white",
+              border: "none",
+              borderRadius: "8px",
+              fontSize: "0.9rem",
+              fontWeight: "600",
+              cursor: user ? "pointer" : "not-allowed",
+              transition: "all 0.3s ease"
+            }}
+          >
+            {user ? "Buy Now" : "Buy Now"}
+          </button>
             </div>
           </div>
         ))}

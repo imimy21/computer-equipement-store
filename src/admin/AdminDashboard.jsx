@@ -28,7 +28,11 @@ function AdminDashboard({ user }) {
   }
 
   const handleClick = (section) => {
-    alert(`${section} page is coming soon!`);
+    if (section === "Manage Orders") {
+      navigate("/admin/ManageOrder");  // هنا نوجه لصفحة طلبات الأدمن
+    } else {
+      alert(`${section} page is coming soon!`);
+    }
   };
 
   return (
@@ -63,5 +67,6 @@ function AdminDashboard({ user }) {
 }
 
 export default AdminDashboard;
+
 
 

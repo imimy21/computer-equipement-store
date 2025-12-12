@@ -29,10 +29,12 @@ import GamingZonePage from './pages/GamingZonePage';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Payment from "./pages/Payment";
+import OrderReviewPage from "./pages/OrderReviewPage";
 
 import { createAdminUser } from "./firebase.js";
 import AdminDashboard from "./admin/AdminDashboard";
 import Navbar from './pages/Navbar'; // عدل المسار حسب مكان الملف
+import ManageOrder from "./admin/ManageOrder";
 
 
 
@@ -139,6 +141,10 @@ useEffect(() => {
           <Route path="/peripheriques/Microphone" element={<PeripheMicrophone />} />
           <Route path="/peripheriques/Mouse Pad" element={<PeripheMousePad />} />
           <Route path="/Payment" element={<Payment />} />
+           <Route path="/order-review" element={<OrderReviewPage />} />
+          <Route path="/admin/ManageOrder" element={<ManageOrder/>} />
+
+
 
           {/* Other routes */}
           <Route path="/cables" element={<PeripheCable />} /> 

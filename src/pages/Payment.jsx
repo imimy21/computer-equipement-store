@@ -38,18 +38,25 @@ const Payment = () => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    if (itemsToPay.length === 0) {
-      alert("❌ No products to order!");
-      return;
+const handleSubmit = (e) => {
+  e.preventDefault();
+
+  if (itemsToPay.length === 0) {
+    alert("❌ No products to order!");
+    return;
+  }
+
+  // إرسال البيانات إلى صفحة مراجعة الطلب
+  navigate("/order-review", {
+    state: {
+      products: itemsToPay,   // جميع المنتجات + الكمية
+      userData: formData,     // معلومات العميل
+      fromCart: fromCart      // هل الطلب من السلة؟
     }
-    
-    const itemCount = fromCart ? products.length : 1;
-    alert(`✅ Order confirmed! ${itemCount} product(s) will be delivered soon.`);
-    navigate("/");
-  };
+  });
+};
+
+
 
   return (
     <div className="min-h-screen bg-gray-50 py-6 w-screen max-w-none mx-0">
